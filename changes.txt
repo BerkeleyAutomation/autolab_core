@@ -1,0 +1,4 @@
+RigidTransform
+    - rotation_from_axes moved to a static method,
+    RigidTransform.rotation_from_axes.
+        - Requires changes in camera_chessboard_registration.py
