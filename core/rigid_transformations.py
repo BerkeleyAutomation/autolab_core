@@ -17,6 +17,7 @@ except:
     logging.warning('Failed to import geometry msgs in rigid_transformations.py.')
 
 TF_EXTENSION = '.tf'
+STF_EXTENSION = '.stf'
 
 class RigidTransform(object):
     """A Rigid Transformation from one frame to another.
@@ -698,3 +699,266 @@ class RigidTransform(object):
                               from_frame=from_frame,
                               to_frame=to_frame)
 
+class SimilarityTransform(RigidTransform):
+    """ A Similarity Transformation from one frame to another (rigid transformation + scaling)
+    """
+    def __init__(self, rotation=np.eye(3), translation=np.zeros(3), scale=1.0,
+                 from_frame='unassigned', to_frame='world'):
+        """Initialize a SimilarityTransform.
+
+        Parameters
+        ----------
+        rotation : :obj:`numpy.ndarray` of float
+            A 3x3 rotation matrix (should be unitary).
+
+        translation : :obj:`numpy.ndarray` of float
+            A 3-entry translation vector.
+
+        scale : float
+            Rescaling factor to the output reference frame
+
+        from_frame : :obj:`str`
+            A name for the frame of reference on which this transform
+            operates. This and to_frame are used for checking compositions
+            of RigidTransforms, which is useful for debugging and catching
+            errors.
+
+        to_frame : :obj:`str`
+            A name for the frame of reference to which this transform
+            moves objects.
+
+        Raises
+        ------
+        ValueError
+            If any of the arguments are invalid. The frames must be strings or
+            unicode, the translations and rotations must be ndarrays, have the
+            correct shape, and the determinant of the rotation matrix should be
+            1.0.
+        """
+        self.scale = scale
+        RigidTransform.__init__(self, rotation, translation, from_frame, to_frame)
+
+    @property
+    def scale(self):
+        """ float : scaling factor """
+        return self._scale
+
+    @scale.setter
+    def scale(self, scale):
+        self._scale = scale
+
+    def apply(self, points):
+        """Applies the similarity transformation to a set of 3D objects.
+
+        Parameters
+        ----------
+        points : :obj:`BagOfPoints`
+            A set of objects to transform. Could be any subclass of BagOfPoints.
+
+        Returns
+        -------
+        :obj:`BagOfPoints`
+            A transformed set of objects of the same type as the input.
+
+        Raises
+        ------
+        ValueError
+            If the input is not a Bag of 3D points or if the points are not in
+            this transform's from_frame.
+        """
+        if not isinstance(points, BagOfPoints):
+            raise ValueError('Rigid transformations can only be applied to bags of points')
+        if points.dim != 3:
+            raise ValueError('Rigid transformations can only be applied to 3-dimensional points')            
+        if points.frame != self._from_frame:
+            raise ValueError('Cannot transform points in frame %s with rigid transformation from frame %s to frame %s' %(points.frame, self._from_frame, self._to_frame))            
+        
+        if isinstance(points, BagOfVectors):
+            # rotation only
+            x = points.data
+            x_tf = self.rotation.dot(x)
+        else:
+            # extract numpy data, homogenize, and transform
+            x = points.data
+            if len(x.shape) == 1:
+                x = x[:,np.newaxis]
+            x_homog = np.r_[x, np.ones([1, points.num_points])]
+            x_homog_tf = self.scale * self.matrix.dot(x_homog)
+            x_tf = x_homog_tf[0:3,:]
+
+        # output in BagOfPoints format
+        if isinstance(points, PointCloud):
+            return PointCloud(x_tf, frame=self._to_frame)
+        elif isinstance(points, Point):
+            return Point(x_tf, frame=self._to_frame)
+        elif isinstance(points, Direction):
+            return Direction(x_tf, frame=self._to_frame)
+        elif isinstance(points, NormalCloud):
+            return NormalCloud(x_tf, frame=self._to_frame)
+        raise ValueError('Type %s not yet supported' %(type(points)))
+
+    def dot(self, other_tf):
+        """Compose this simliarity transform with another.
+
+        This transform is on the left-hand side of the composition.
+
+        Parameters
+        ----------
+        other_tf : :obj:`SimilarityTransform`
+            The other SimilarityTransform to compose with this one.
+
+        Returns
+        -------
+        :obj:`SimilarityTransform`
+            A SimilarityTransform that represents the composition.
+
+        Raises
+        ------
+        ValueError
+            If the to_frame of other_tf is not identical to this transform's
+            from_frame.
+        """
+        if other_tf.to_frame != self.from_frame:
+            raise ValueError('To frame of right hand side ({0}) must match from frame of left hand side ({1})'.format(other_tf.to_frame, self.from_frame))
+        if not isinstance(other_tf, RigidTransform):
+            raise ValueError('Can only compose with other RigidTransform classes')
+
+        other_scale = 1.0
+        if isinstance(other_tf, SimilarityTransform):
+            other_scale = other_tf.scale
+
+        rotation = self.rotation.dot(other_tf.rotation)
+        translation = self.rotation.dot(other_tf.translation) + (1.0 / other_scale) * self.translation
+        scale = self.scale * other_scale
+        return SimilarityTransform(rotation, translation, scale,
+                                   from_frame=other_tf.from_frame,
+                                   to_frame=self.to_frame)
+
+    def inverse(self):
+        """Take the inverse of the similarity transform.
+
+        Returns
+        -------
+        :obj:`SimilarityTransform`
+            The inverse of this SimilarityTransform.
+        """
+        inv_pose = np.linalg.inv(self.matrix)
+        rotation, translation = rotation_and_translation_from_matrix(inv_pose)
+        scale = 1.0 / self.scale
+        translation = self.scale * translation
+        return SimilarityTransform(rotation, translation, scale,
+                                   from_frame=self._to_frame,
+                                   to_frame=self._from_frame)
+
+    def save(self, filename):
+        """Save the SimliarityTransform to a file.
+
+        The file format is:
+        from_frame
+        to_frame
+        scale
+        translation (space separated)
+        rotation_row_0 (space separated)
+        rotation_row_1 (space separated)
+        rotation_row_2 (space separated)
+
+        Parameters
+        ----------
+        filename : :obj:`str`
+            The file to save the transform to.
+
+        Raises
+        ------
+        ValueError
+            If filename's extension isn't .stf.
+        """
+        file_root, file_ext = os.path.splitext(filename)
+        if file_ext.lower() != STF_EXTENSION:
+            raise ValueError('Extension %s not supported for SimilarityTransform. Must be stored with extension %s' %(file_ext, STF_EXTENSION))
+
+        f = open(filename, 'w')
+        f.write('%s\n' %(self._from_frame))
+        f.write('%s\n' %(self._to_frame))
+        f.write('%f\n' %(self._scale))
+        f.write('%f %f %f\n' %(self._translation[0], self._translation[1], self._translation[2]))
+        f.write('%f %f %f\n' %(self._rotation[0, 0], self._rotation[0, 1], self._rotation[0, 2]))
+        f.write('%f %f %f\n' %(self._rotation[1, 0], self._rotation[1, 1], self._rotation[1, 2]))
+        f.write('%f %f %f\n' %(self._rotation[2, 0], self._rotation[2, 1], self._rotation[2, 2]))
+        f.close()
+
+    def as_frames(self, from_frame, to_frame='world'):
+        return SimliarityTransform(self.rotation, self.translation, self.scale, from_frame, to_frame)
+
+    @staticmethod
+    def load(filename):
+        """Load a SimilarityTransform from a file.
+
+        The file format is:
+        from_frame
+        to_frame
+        scale
+        translation (space separated)
+        rotation_row_0 (space separated)
+        rotation_row_1 (space separated)
+        rotation_row_2 (space separated)
+
+        Parameters
+        ----------
+        filename : :obj:`str`
+            The file to load the transform from.
+
+        Returns
+        -------
+        :obj:`SimilarityTransform`
+            The SimilarityTransform read from the file.
+
+        Raises
+        ------
+        ValueError
+            If filename's extension isn't .stf.
+        """
+        file_root, file_ext = os.path.splitext(filename)
+        if file_ext.lower() != STF_EXTENSION:
+            raise ValueError('Extension %s not supported for SimilarityTransform. Can only load extension %s' %(file_ext, STF_EXTENSION))        
+
+        f = open(filename, 'r')
+        lines = list(f)
+        from_frame = lines[0][:-1]
+        to_frame = lines[1][:-1]
+        s = float(lines[2][:-1])
+
+        t = np.zeros(3)
+        t_tokens = lines[3][:-1].split()
+        t[0] = float(t_tokens[0])
+        t[1] = float(t_tokens[1])
+        t[2] = float(t_tokens[2])
+
+        R = np.zeros([3,3])
+        r_tokens = lines[4][:-1].split()
+        R[0, 0] = float(r_tokens[0])
+        R[0, 1] = float(r_tokens[1])
+        R[0, 2] = float(r_tokens[2])
+
+        r_tokens = lines[5][:-1].split()
+        R[1, 0] = float(r_tokens[0])
+        R[1, 1] = float(r_tokens[1])
+        R[1, 2] = float(r_tokens[2])
+
+        r_tokens = lines[6][:-1].split()
+        R[2, 0] = float(r_tokens[0])
+        R[2, 1] = float(r_tokens[1])
+        R[2, 2] = float(r_tokens[2])
+        f.close()
+        return SimilarityTransform(rotation=R, translation=t,
+                                   scale=s,
+                                   from_frame=from_frame,
+                                   to_frame=to_frame)
+
+    def __str__(self):
+        out = 'Tra: {0}\n Rot: {1}\n Qtn: {2}\n Scale:{3}\n from {4} to {5}'.format(self.translation, self.rotation, self.scale,
+            self.quaternion, self.from_frame, self.to_frame)
+        return out
+
+    def __repr__(self):
+        out = 'SimilarityTransform(rotation={0}, translation={1}, scale={2}, from_frame={3}, to_frame={4})'.format(self.rotation, self.translation, self.scale, self.from_frame, self.to_frame)
+        return out

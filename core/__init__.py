@@ -6,7 +6,7 @@ from points import BagOfPoints, BagOfVectors, Point, Direction, Plane3D
 from points import PointCloud, NormalCloud, ImageCoords, RgbCloud, RgbPointCloud, PointNormalCloud
 from primitives import Box
 from random_variables import RandomVariable, BernoulliRV, GaussianRV, ArtificialRV, ArtificialSingleRV
-from rigid_transformations import RigidTransform
+from rigid_transformations import RigidTransform, SimilarityTransform
 from utils import gen_experiment_id, histogram, skew, deskew
 from yaml_config import YamlConfig
 
@@ -18,6 +18,6 @@ __all__ = ['CSVModel',
            'PointCloud', 'NormalCloud', 'ImageCoords', 'RgbCloud', 'RgbPointCloud', 'PointNormalCloud',
            'Box',
            'RandomVariable', 'BernoulliRV', 'GaussianRV', 'ArtificialRV', 'ArtificialSingleRV',
-           'RigidTransform',
+           'RigidTransform', 'SimilarityTransform',
            'gen_experiment_id', 'histogram', 'skew', 'deskew',
            'YamlConfig']

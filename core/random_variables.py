@@ -145,7 +145,7 @@ class GaussianRV(RandomVariable):
         return samples
 
 class ArtificialRV(RandomVariable):
-    """A fake RV that always returns the given object.
+    """A fake RV that deterministically returns the given object.
     """
 
     def __init__(self, obj, num_prealloc_samples=0):
