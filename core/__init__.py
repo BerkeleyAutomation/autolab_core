@@ -9,6 +9,8 @@ from random_variables import RandomVariable, BernoulliRV, GaussianRV, Artificial
 from rigid_transformations import RigidTransform, SimilarityTransform
 from utils import gen_experiment_id, histogram, skew, deskew
 from yaml_config import YamlConfig
+from data_stream_syncer import DataStreamSyncer
+from data_stream_recorder import DataStreamReocrder
 
 __all__ = ['CSVModel',
            'DualQuaternion',
@@ -20,4 +22,6 @@ __all__ = ['CSVModel',
            'RandomVariable', 'BernoulliRV', 'GaussianRV', 'ArtificialRV', 'ArtificialSingleRV',
            'RigidTransform', 'SimilarityTransform',
            'gen_experiment_id', 'histogram', 'skew', 'deskew',
-           'YamlConfig']
+           'YamlConfig',
+           'DataStreamSyncer',
+           'DataStreamReocrder']
