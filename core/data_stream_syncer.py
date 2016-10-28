@@ -5,6 +5,7 @@ Author: Jacky Liang
 from multiprocess import Process, Queue
 from time import time
 import logging
+import sys
 import IPython
 
 class _DataStreamSyncer(Process):

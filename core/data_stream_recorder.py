@@ -2,9 +2,8 @@
 Class to record streams of data from a given object in separate process.
 Author: Jacky Liang
 """
-import os
+import os, sys, logging
 from multiprocess import Process, Queue
-import logging
 from uuid import uuid4
 import IPython
 
@@ -94,7 +93,7 @@ class DataStreamRecorder:
         if self._recording:
             raise Exception("Cannot flush data queue while recording!")
         data = []
-        while not self._data_q.empty():
+        while self._data_q.qsize() > 0:
             data.append(self._data_q.get())
         return data
 
