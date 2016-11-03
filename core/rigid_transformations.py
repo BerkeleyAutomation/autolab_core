@@ -497,6 +497,7 @@ class RigidTransform(object):
             A quaternion in wxyz order.
 
         Returns
+        -------
         :obj:`numpy.ndarray` of float
             A 3x3 rotation matrix made from the quaternion.
         """
@@ -574,6 +575,7 @@ class RigidTransform(object):
         """Generates a random translation vector.
 
         Returns
+        -------
         :obj:`numpy.ndarray` of float
             A 3-entry random translation vector.
         """

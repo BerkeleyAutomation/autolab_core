@@ -92,6 +92,7 @@ def deskew(S):
         A 3x3 skew-symmetric matrix.
 
     Returns
+    -------
     :obj:`numpy.ndarray` of float
         A 3-entry vector that corresponds to the given cross product matrix.
     """
