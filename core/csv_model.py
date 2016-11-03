@@ -90,7 +90,6 @@ class CSVModel:
         """
         return len(self._table) - 1
 
-
     def get_cur_uid(self):
         """Get the current UID associated with this object.
 
