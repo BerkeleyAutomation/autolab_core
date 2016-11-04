@@ -24,4 +24,4 @@ __all__ = ['CSVModel',
            'gen_experiment_id', 'histogram', 'skew', 'deskew',
            'YamlConfig',
            'DataStreamSyncer',
-           'DataStreamReocrder']
+           'DataStreamRecorder']

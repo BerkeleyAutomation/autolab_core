@@ -90,7 +90,6 @@ class CSVModel:
         """
         return len(self._table) - 1
 
-
     def get_cur_uid(self):
         """Get the current UID associated with this object.
 
@@ -141,7 +140,7 @@ class CSVModel:
                 logging.warn("Cannot manually set columns _uid or _default of a row! Given data: {0}".format(data))
                 continue
             if not isinstance(val, CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]):
-                raise Exception('Data type mismatch for column {0}. Expected: {1}, got: {2}'.format(key, 
+                raise Exception('Data type mismatch for column {0}. Expected: {1}, got: {2}'.format(key,
                                                         CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]], type(val)))
             row[key] = val
 
@@ -209,7 +208,7 @@ class CSVModel:
         return self._table[row + 1].copy()
 
     def get_by_col(self, col, val):
-        """Return the row that contains the given value in the specified column,
+        """Return the first row that contains the given value in the specified column,
         or None if no row contains the given value.
 
         Parameters
@@ -229,6 +228,31 @@ class CSVModel:
         """
         for i in range(self.num_rows):
             row = self._table[i + 1]
+            if row[col] == val:
+                return row.copy()
+        return None
+
+    def get_by_col_last(self, col, val):
+        """Return the last row that contains the given value in the specified column,
+        or None if no row contains the given value.
+
+        Parameters
+        ----------
+        col : :obj:`str`
+            The header string for a column.
+
+        val : value type
+            The value to match in the column.
+
+        Returns
+        -------
+        :obj:`dict`
+            A dictionary mapping keys (header strings) to values, which
+            represents a row of the table. This row contains the given value in
+            the specified column.
+        """
+        for i in range(self.num_rows, 0, -1):
+            row = self._table[i]
             if row[col] == val:
                 return row.copy()
         return None
