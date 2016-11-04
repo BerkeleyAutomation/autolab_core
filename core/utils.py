@@ -4,6 +4,7 @@ Author: Jeff Mahler
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import IPython
 
 def gen_experiment_id(n=10):
     """Generate a random string with n characters.
@@ -101,3 +102,19 @@ def deskew(S):
     x[2] = S[1,0]
     return x
 
+def reverse_dictionary(d):
+    """ Reverses the key value pairs for a given dictionary.
+
+    Parameters
+    ----------
+    d : :obj:`dict`
+        dictionary to reverse
+
+    Returns
+    -------
+    :obj:`dict`
+        dictionary with keys and values swapped
+    """
+    rev_d = {}
+    [rev_d.update({v:k}) for k, v in d.iteritems()]
+    return rev_d
