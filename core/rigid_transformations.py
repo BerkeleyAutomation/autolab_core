@@ -228,8 +228,6 @@ class RigidTransform(object):
     @property
     def pose_msg(self):
         """:obj:`geometry_msgs.msg.Pose` The rigid transform as a geometry_msg pose.
-
-        TODO JEFF IS THIS NEEDED, DEPENDS ON TFX.
         """
         pose = geometry_msgs.msg.Pose()
         pose.orientation.w = float(self.quaternion[0])
