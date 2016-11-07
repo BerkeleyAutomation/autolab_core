@@ -9,8 +9,12 @@ from random_variables import RandomVariable, BernoulliRV, GaussianRV, Artificial
 from rigid_transformations import RigidTransform, SimilarityTransform
 from utils import gen_experiment_id, histogram, skew, deskew
 from yaml_config import YamlConfig
-from data_stream_syncer import DataStreamSyncer
-from data_stream_recorder import DataStreamRecorder
+try: 
+    from data_stream_syncer import DataStreamSyncer
+    from data_stream_recorder import DataStreamRecorder
+except Exception:
+    print "Unable to load DataStreamSyncer and Recorder!"
+
 
 __all__ = ['CSVModel',
            'DualQuaternion',
