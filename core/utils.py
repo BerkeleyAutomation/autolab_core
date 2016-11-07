@@ -4,7 +4,6 @@ Author: Jeff Mahler
 """
 import matplotlib.pyplot as plt
 import numpy as np
-import IPython
 
 def gen_experiment_id(n=10):
     """Generate a random string with n characters.
