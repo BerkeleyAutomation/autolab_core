@@ -7,7 +7,7 @@ from setuptools import setup
 requirements = [
     'numpy',
     'scipy',
-    'matplotlib==1.4.3',
+    'matplotlib',
     'pyyaml'
 ]
 
