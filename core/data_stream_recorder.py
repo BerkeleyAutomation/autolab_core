@@ -84,6 +84,10 @@ class DataStreamRecorder:
     def id(self):
         return self._id
 
+    @property
+    def name(self):
+        return self._name
+
     def set_qs(self, ok_q, tokens_q):
         self._ok_q = ok_q
         self._tokens_q = tokens_q
