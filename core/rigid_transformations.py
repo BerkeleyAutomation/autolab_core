@@ -843,7 +843,7 @@ class SimilarityTransform(RigidTransform):
             The inverse of this SimilarityTransform.
         """
         inv_pose = np.linalg.inv(self.matrix)
-        rotation, translation = rotation_and_translation_from_matrix(inv_pose)
+        rotation, translation = RigidTransform.rotation_and_translation_from_matrix(inv_pose)
         scale = 1.0 / self.scale
         translation = self.scale * translation
         return SimilarityTransform(rotation, translation, scale,
