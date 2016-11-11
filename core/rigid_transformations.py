@@ -887,7 +887,7 @@ class SimilarityTransform(RigidTransform):
         f.close()
 
     def as_frames(self, from_frame, to_frame='world'):
-        return SimliarityTransform(self.rotation, self.translation, self.scale, from_frame, to_frame)
+        return SimilarityTransform(self.rotation, self.translation, self.scale, from_frame, to_frame)
 
     @staticmethod
     def load(filename):
