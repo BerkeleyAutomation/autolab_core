@@ -20,6 +20,7 @@ class _DataStreamSyncer(Process):
 
         self._T = 1./frequency if frequency > 0 else 0
         self._ok_start_time = None
+        self._pause = False
 
         logging.getLogger().setLevel(logging_level)
 
@@ -29,11 +30,13 @@ class _DataStreamSyncer(Process):
             while True:
                 if not self._cmds_q.empty():
                     cmd = self._cmds_q.get()
-                    if cmd[0] == "start":
-                        for key in self._tokens:
-                            self._tokens[key] = True
-                    elif cmd[0] == "reset_time":
+                    if cmd[0] == "reset_time":
                         self._session_start_time = time()
+                    elif cmd[0] == 'pause':
+                        self._pause = True
+                        self._take_oks()
+                    elif cmd[0] == 'resume':
+                        self._pause = False
                     elif cmd[0] == "stop":
                         break
                 if not self._tokens_q.empty():
@@ -48,8 +51,10 @@ class _DataStreamSyncer(Process):
             sys.exit(0)
 
     def _send_oks(self):
+        print 'sent ok'
+        t = self._ok_start_time - self._session_start_time
         for ok_q in self._ok_qs.values():
-            ok_q.put(time() - self._session_start_time)
+            ok_q.put(t)
 
     def _take_oks(self):
         for ok_q in self._ok_qs.values():
@@ -57,12 +62,12 @@ class _DataStreamSyncer(Process):
                 ok_q.get_nowait()
 
     def _try_ok(self):
-        if False in self._tokens.values():
+        if self._pause or False in self._tokens.values():
             return
         if self._T <= 0 or self._ok_start_time is None or \
             time() - self._ok_start_time > self._T:
-            self._send_oks()
             self._ok_start_time = time()
+            self._send_oks()
 
 class DataStreamSyncer:
 
@@ -95,7 +100,6 @@ class DataStreamSyncer:
 
     def start(self):
         """ Starts syncer operations """
-        self._cmds_q.put(("start",))
         for recorder in self._data_stream_recorders:
             recorder.start()
 
@@ -110,10 +114,12 @@ class DataStreamSyncer:
             pass
 
     def pause(self):
+        self._cmds_q.put(("pause",))
         for recorder in self._data_stream_recorders:
             recorder.pause()
 
     def resume(self, reset_time=False):
+        self._cmds_q.put(("resume",))
         if reset_time:
             self.reset_time()
         for recorder in self._data_stream_recorders:
