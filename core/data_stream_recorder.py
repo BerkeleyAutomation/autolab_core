@@ -44,7 +44,6 @@ class _DataStreamRecorder(Process):
                         self._kwargs = cmd[2]
 
                 if self._recording and not self._ok_q.empty():
-                    print 'taking token with {0}'.format(self._name)
                     timestamp = self._ok_q.get()
                     self._tokens_q.put(("take", self._id))
                     data = self._data_sampler_method(*self._args, **self._kwargs)

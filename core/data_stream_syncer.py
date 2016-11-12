@@ -51,7 +51,6 @@ class _DataStreamSyncer(Process):
             sys.exit(0)
 
     def _send_oks(self):
-        print 'sent ok'
         t = self._ok_start_time - self._session_start_time
         for ok_q in self._ok_qs.values():
             ok_q.put(t)
