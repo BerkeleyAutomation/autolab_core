@@ -29,6 +29,7 @@ class _DataStreamRecorder(Process):
     def run(self):
         try:
             logging.info("Starting data recording on {0}".format(self._name))
+            self._tokens_q.put(("return", self._id))
             while True:
                 if not self._cmds_q.empty():
                     cmd = self._cmds_q.get()
@@ -83,6 +84,10 @@ class DataStreamRecorder:
     @property
     def id(self):
         return self._id
+
+    @property
+    def name(self):
+        return self._name
 
     def set_qs(self, ok_q, tokens_q):
         self._ok_q = ok_q

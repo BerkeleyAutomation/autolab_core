@@ -2,7 +2,7 @@ import os
 import shutil
 import logging
 import csv
-
+import IPython
 class CSVModel:
     """A generic model for CSV file reading and writing.
     """
@@ -226,7 +226,7 @@ class CSVModel:
             represents a row of the table. This row contains the given value in
             the specified column.
         """
-        for i in range(self.num_rows):
+        for i in range(self.num_rows-1):
             row = self._table[i + 1]
             if row[col] == val:
                 return row.copy()
@@ -251,8 +251,8 @@ class CSVModel:
             represents a row of the table. This row contains the given value in
             the specified column.
         """
-        for i in range(self.num_rows, 0, -1):
-            row = self._table[i]
+        for i in range(self.num_rows-2, 0, -1):
+            row = self._table[i + 1]
             if row[col] == val:
                 return row.copy()
         return None
