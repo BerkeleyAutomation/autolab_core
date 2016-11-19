@@ -7,17 +7,27 @@ from multiprocess import Process, Queue
 from uuid import uuid4
 import IPython
 from joblib import dump, load
+from time import sleep, time
 
-def _cache_to_file(cache_path, start, end, target_filename):
+_LOGGING_LEVEL = logging.DEBUG
+
+def _caches_to_file(cache_path, start, end, target_filename):
+    logging.getLogger().setLevel(_LOGGING_LEVEL)
     all_data = []
     for i in range(start, end):
         data = load(os.path.join(cache_path, "{0}.jb".format(i)))
         all_data.extend(data)
-    dump(data, target_filename, 3)
+    dump(all_data, target_filename, 3)
+    logging.debug("Finished saving data to {0}".format(target_filename))
+
+def _dump_cache(data, filename, name, i):
+    logging.getLogger().setLevel(_LOGGING_LEVEL)
+    dump(data, filename, 3)
+    logging.debug("Finished saving cache for {0} block {1} to {2}".format(name, i, filename))
 
 class DataStreamRecorder(Process):
 
-    def __init__(self, name, data_sampler_method, logging_level=logging.DEBUG, cache_path=None, save_every=50):
+    def __init__(self, name, data_sampler_method, logging_level=_LOGGING_LEVEL, cache_path=None, save_every=50):
         """ Initializes a DataStreamRecorder
         Parameters
         ----------
@@ -49,9 +59,9 @@ class DataStreamRecorder(Process):
         self._cache_path = cache_path
         self._saving_cache = cache_path is not None
         if self._saving_cache:
-            self._save_path = os.path.join(cache_path, self._id)
-            if os.path.exists(self._cache_path):
-                os.mkdirs(self._cache_path)
+            self._save_path = os.path.join(cache_path, self.id)
+            if not os.path.exists(self._save_path):
+                os.makedirs(self._save_path)
 
         self._start_data_segment = 0
         self._cur_data_segment = 0
@@ -61,7 +71,7 @@ class DataStreamRecorder(Process):
         logging.getLogger().setLevel(self._logging_level)
         try:
             logging.info("Starting data recording on {0}".format(self._name))
-            self._tokens_q.put(("return", self._id))
+            self._tokens_q.put(("return", self.id))
             while True:
                 if not self._cmds_q.empty():
                     cmd = self._cmds_q.get()
@@ -74,7 +84,6 @@ class DataStreamRecorder(Process):
                             self._save_cache(cur_data_q)
                             self._cur_data_segment += 1
                             self._data_qs.append(Queue())
-                        self._save_cache()
                     elif cmd[0] == 'resume':
                         self._recording = True
                     elif cmd[0] == 'save':
@@ -85,19 +94,19 @@ class DataStreamRecorder(Process):
 
                 if self._recording and not self._ok_q.empty():
                     timestamp = self._ok_q.get()
-                    self._tokens_q.put(("take", self._id))
+                    self._tokens_q.put(("take", self.id))
 
                     data = self._data_sampler_method(*self._args, **self._kwargs)
 
                     cur_data_q = self._data_qs[self._cur_data_segment]
-                    if self._saving_cache and self._cur_data_q.qsize() == self._save_every:
+                    if self._saving_cache and cur_data_q.qsize() == self._save_every:
                         self._save_cache(cur_data_q)
                         self._cur_data_segment += 1
                         cur_data_q = Queue()
                         self._data_qs.append(cur_data_q)
                     cur_data_q.put((timestamp, data))
 
-                    self._tokens_q.put(("return", self._id))
+                    self._tokens_q.put(("return", self.id))
 
         except KeyboardInterrupt:
             logging.info("Shutting down data streamer on {0}".format(self._name))
@@ -111,7 +120,9 @@ class DataStreamRecorder(Process):
 
     def _save_data(self, filename):
         if self._saving_cache:
-            p = Process(target=_cache_to_file, args=(self._save_path, self._start_data_segment, self._cur_data_segment, filename))
+            while True in [p.is_alive() for p in self._saving_ps]:
+                sleep(1e-3)
+            p = Process(target=_caches_to_file, args=(self._save_path, self._start_data_segment, self._cur_data_segment, filename))
             p.start()
             self._start_data_segment = self._cur_data_segment
         else:
@@ -122,8 +133,9 @@ class DataStreamRecorder(Process):
     def _save_cache(self, data_q):
         if not self._save_cache:
             raise Exception("Cannot save cache if no cache path was specified.")
+        logging.debug("Saving cache for {0} block {1}".format(self._name, self._cur_data_segment))
         data = self._extract_q(data_q)
-        p = Process(target=dump, args=(data, os.path.join(self._save_path, "{0}.jb".format(self._cur_data_segment)), 3))
+        p = Process(target=_dump_cache, args=(data, os.path.join(self._save_path, "{0}.jb".format(self._cur_data_segment)), self._name, self._cur_data_segment))
         p.start()
         self._saving_ps.append(p)
 
@@ -149,7 +161,7 @@ class DataStreamRecorder(Process):
 
     @property
     def id(self):
-        return self._id
+        return self._id.hex
 
     @property
     def name(self):
