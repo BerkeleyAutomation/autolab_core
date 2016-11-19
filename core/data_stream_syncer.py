@@ -92,7 +92,7 @@ class DataStreamSyncer:
         for data_stream_recorder in self._data_stream_recorders:
             ok_q = Queue()
             ok_qs[data_stream_recorder.id] = ok_q
-            data_stream_recorder.set_qs(ok_q, self._tokens_q)
+            data_stream_recorder._set_qs(ok_q, self._tokens_q)
 
         self._syncer = _DataStreamSyncer(frequency, ok_qs, self._cmds_q, self._tokens_q, logging_level)
         self._syncer.start()
@@ -100,13 +100,13 @@ class DataStreamSyncer:
     def start(self):
         """ Starts syncer operations """
         for recorder in self._data_stream_recorders:
-            recorder.start()
+            recorder._start()
 
     def stop(self):
         """ Stops syncer operations. Destroys syncer process. """
         self._cmds_q.put(("stop",))
         for recorder in self._data_stream_recorders:
-            recorder.stop()
+            recorder._stop()
         try:
             self._syncer.terminate()
         except Exception:
@@ -115,14 +115,14 @@ class DataStreamSyncer:
     def pause(self):
         self._cmds_q.put(("pause",))
         for recorder in self._data_stream_recorders:
-            recorder.pause()
+            recorder._pause()
 
     def resume(self, reset_time=False):
         self._cmds_q.put(("resume",))
         if reset_time:
             self.reset_time()
         for recorder in self._data_stream_recorders:
-            recorder.resume()
+            recorder._resume()
 
     def reset_time(self):
         self._cmds_q.put(("reset_time",))
@@ -130,5 +130,5 @@ class DataStreamSyncer:
     def flush(self):
         data = {}
         for recorder in self._data_stream_recorders:
-            data[recorder.name] = recorder.flush()
+            data[recorder.name] = recorder._flush()
         return data

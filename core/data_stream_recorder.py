@@ -6,27 +6,49 @@ import os, sys, logging
 from multiprocess import Process, Queue
 from uuid import uuid4
 import IPython
+from joblib import dump
 
-class _DataStreamRecorder(Process):
+class DataStreamRecorder(Process):
 
-    def __init__(self, name, id, data_sampler_method, tokens_q, cmds_q, data_q, ok_q, args, kwargs, logging_level):
+    def __init__(self, name, data_sampler_method, logging_level=logging.DEBUG, cache_path=None, save_every=50):
+        """ Initializes a DataStreamRecorder
+        Parameters
+        ----------
+            name : string
+                    User-friendly identifier for this data stream
+            data_sampler_method : function
+                    Method to call to retrieve data
+            logging_level : logging level, optional
+                    Logging level for internal recorder process
+                    Defaults to logging.DEBUG
+        """
         Process.__init__(self)
         self._data_sampler_method = data_sampler_method
-        self._tokens_q = tokens_q
-        self._cmds_q = cmds_q
-        self._data_q = data_q
-        self._ok_q = ok_q
-        self._args = args
-        self._kwargs = kwargs
+        self._logging_level = logging_level
 
-        self._recording = True
-        self._id = id
+        self._has_set_sampler_params = False
+        self._recording = False
 
         self._name = name
 
-        logging.getLogger().setLevel(logging_level)
+        self._cmds_q = Queue()
+        self._data_q = Queue()
+        self._ok_q = None
+        self._tokens_q = None
+
+        self._id = uuid4()
+
+        self._cur_data_segment = 0
+        self._save_every = save_every
+        self._cache_path = cache_path
+        self._save_to_hdd = cache_path is not None
+        if self._save_to_hdd:
+            self._save_path = os.path.join(cache_path, self)
+            if os.path.exists(self._cache_path):
+                os.mkdirs(self._cache_path)
 
     def run(self):
+        logging.getLogger().setLevel(self._logging_level)
         try:
             logging.info("Starting data recording on {0}".format(self._name))
             self._tokens_q.put(("return", self._id))
@@ -54,33 +76,6 @@ class _DataStreamRecorder(Process):
             logging.info("Shutting down data streamer on {0}".format(self._name))
             sys.exit(0)
 
-class DataStreamRecorder:
-
-    def __init__(self, name, data_sampler_method, logging_level=logging.DEBUG):
-        """ Initializes a DataStreamRecorder
-        Parameters
-        ----------
-            name : string
-                    User-friendly identifier for this data stream
-            data_sampler_method : function
-                    Method to call to retrieve data
-            logging_level : logging level, optional
-                    Logging level for internal recorder process
-                    Defaults to logging.DEBUG
-        """
-        self._data_sampler_method = data_sampler_method
-        self._logging_level = logging_level
-
-        self._has_set_sampler_params = False
-        self._recording = False
-
-        self._name = name
-
-        self._cmds_q = Queue()
-        self._data_q = Queue()
-
-        self._id = uuid4()
-
     @property
     def id(self):
         return self._id
@@ -89,20 +84,22 @@ class DataStreamRecorder:
     def name(self):
         return self._name
 
-    def set_qs(self, ok_q, tokens_q):
+    def _set_qs(self, ok_q, tokens_q):
         self._ok_q = ok_q
         self._tokens_q = tokens_q
 
-    def flush(self):
+    def _flush(self):
         """ Returns a list of all current data """
         if self._recording:
             raise Exception("Cannot flush data queue while recording!")
+        if self._save_to_hdd:
+            raise Exception("Cannot flush current data when saving to cache.")
         data = []
         while self._data_q.qsize() > 0:
             data.append(self._data_q.get())
         return data
 
-    def start(self, *args, **kwargs):
+    def _start_recording(self, *args, **kwargs):
         """ Starts recording
         Parameters
         ----------
@@ -115,12 +112,14 @@ class DataStreamRecorder:
             self._cmds_q.get_nowait()
         while not self._data_q.empty():
             self._data_q.get_nowait()
-        self._recorder = _DataStreamRecorder(self._name, self._id, self._data_sampler_method, self._tokens_q,
-                                            self._cmds_q, self._data_q, self._ok_q, args, kwargs, self._logging_level)
-        self._recorder.start()
-        self._recording = True
 
-    def stop(self):
+        self._args = args
+        self._kwargs = kwargs
+
+        self._recording = True
+        self.start()
+
+    def _stop(self):
         """ Stops recording. Returns all recorded data and their timestamps. Destroys recorder process."""
         self.pause()
         data = self.flush()
@@ -132,12 +131,12 @@ class DataStreamRecorder:
         self._recording = False
         return data
 
-    def pause(self):
+    def _pause(self):
         """ Pauses recording """
         self._cmds_q.put(("pause",))
         self._recording = False
 
-    def resume(self):
+    def _resume(self):
         """ Resumes recording """
         self._cmds_q.put(("resume",))
         self._recording = True
