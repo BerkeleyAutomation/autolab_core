@@ -100,7 +100,7 @@ class DataStreamSyncer:
     def start(self):
         """ Starts syncer operations """
         for recorder in self._data_stream_recorders:
-            recorder._start()
+            recorder._start_recording()
 
     def stop(self):
         """ Stops syncer operations. Destroys syncer process. """

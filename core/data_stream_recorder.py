@@ -6,7 +6,14 @@ import os, sys, logging
 from multiprocess import Process, Queue
 from uuid import uuid4
 import IPython
-from joblib import dump
+from joblib import dump, load
+
+def _cache_to_file(cache_path, start, end, target_filename):
+    all_data = []
+    for i in range(start, end):
+        data = load(os.path.join(cache_path, "{0}.jb".format(i)))
+        all_data.extend(data)
+    dump(data, target_filename, 3)
 
 class DataStreamRecorder(Process):
 
@@ -32,20 +39,23 @@ class DataStreamRecorder(Process):
         self._name = name
 
         self._cmds_q = Queue()
-        self._data_q = Queue()
+        self._data_qs = [Queue()]
         self._ok_q = None
         self._tokens_q = None
 
         self._id = uuid4()
 
-        self._cur_data_segment = 0
         self._save_every = save_every
         self._cache_path = cache_path
-        self._save_to_hdd = cache_path is not None
-        if self._save_to_hdd:
-            self._save_path = os.path.join(cache_path, self)
+        self._saving_cache = cache_path is not None
+        if self._saving_cache:
+            self._save_path = os.path.join(cache_path, self._id)
             if os.path.exists(self._cache_path):
                 os.mkdirs(self._cache_path)
+
+        self._start_data_segment = 0
+        self._cur_data_segment = 0
+        self._saving_ps = []
 
     def run(self):
         logging.getLogger().setLevel(self._logging_level)
@@ -59,8 +69,16 @@ class DataStreamRecorder(Process):
                         break
                     elif cmd[0] == 'pause':
                         self._recording = False
+                        if self._saving_cache:
+                            cur_data_q = self._data_qs[self._cur_data_segment]
+                            self._save_cache(cur_data_q)
+                            self._cur_data_segment += 1
+                            self._data_qs.append(Queue())
+                        self._save_cache()
                     elif cmd[0] == 'resume':
                         self._recording = True
+                    elif cmd[0] == 'save':
+                        self._save_data(cmd[1])
                     elif cmd[0] == 'params':
                         self._args = cmd[1]
                         self._kwargs = cmd[2]
@@ -68,13 +86,66 @@ class DataStreamRecorder(Process):
                 if self._recording and not self._ok_q.empty():
                     timestamp = self._ok_q.get()
                     self._tokens_q.put(("take", self._id))
+
                     data = self._data_sampler_method(*self._args, **self._kwargs)
-                    self._data_q.put((timestamp, data))
+
+                    cur_data_q = self._data_qs[self._cur_data_segment]
+                    if self._saving_cache and self._cur_data_q.qsize() == self._save_every:
+                        self._save_cache(cur_data_q)
+                        self._cur_data_segment += 1
+                        cur_data_q = Queue()
+                        self._data_qs.append(cur_data_q)
+                    cur_data_q.put((timestamp, data))
+
                     self._tokens_q.put(("return", self._id))
 
         except KeyboardInterrupt:
             logging.info("Shutting down data streamer on {0}".format(self._name))
             sys.exit(0)
+
+    def _extract_q(self, q):
+        vals = []
+        while q.qsize() > 0:
+            vals.append(q.get())
+        return vals
+
+    def _save_data(self, filename):
+        if self._saving_cache:
+            p = Process(target=_cache_to_file, args=(self._save_path, self._start_data_segment, self._cur_data_segment, filename))
+            p.start()
+            self._start_data_segment = self._cur_data_segment
+        else:
+            data = self._extract_q(self._data_qs[0])
+            p = Process(target=dump, args=(data, filename, 3))
+            p.start()
+
+    def _save_cache(self, data_q):
+        if not self._save_cache:
+            raise Exception("Cannot save cache if no cache path was specified.")
+        data = self._extract_q(data_q)
+        p = Process(target=dump, args=(data, os.path.join(self._save_path, "{0}.jb".format(self._cur_data_segment)), 3))
+        p.start()
+        self._saving_ps.append(p)
+
+    def _start_recording(self, *args, **kwargs):
+        """ Starts recording
+        Parameters
+        ----------
+            *args : any
+                    Ordinary args used for calling the specified data sampler method
+            **kwargs : any
+                    Keyword args used for calling the specified data sampler method
+        """
+        while not self._cmds_q.empty():
+            self._cmds_q.get_nowait()
+        while not self._data_qs[self._cur_data_segment].empty():
+            self._data_qs[self._cur_data_segment].get_nowait()
+
+        self._args = args
+        self._kwargs = kwargs
+
+        self._recording = True
+        self.start()
 
     @property
     def id(self):
@@ -92,32 +163,15 @@ class DataStreamRecorder(Process):
         """ Returns a list of all current data """
         if self._recording:
             raise Exception("Cannot flush data queue while recording!")
-        if self._save_to_hdd:
+        if self._saving_cache:
             raise Exception("Cannot flush current data when saving to cache.")
-        data = []
-        while self._data_q.qsize() > 0:
-            data.append(self._data_q.get())
+        data = self._extract_q(self._data_q[0])
         return data
 
-    def _start_recording(self, *args, **kwargs):
-        """ Starts recording
-        Parameters
-        ----------
-            *args : any
-                    Ordinary args used for calling the specified data sampler method
-            **kwargs : any
-                    Keyword args used for calling the specified data sampler method
-        """
-        while not self._cmds_q.empty():
-            self._cmds_q.get_nowait()
-        while not self._data_q.empty():
-            self._data_q.get_nowait()
-
-        self._args = args
-        self._kwargs = kwargs
-
-        self._recording = True
-        self.start()
+    def save_data(self, filename):
+        if self._recording:
+            raise Exception("Cannot flush data queue while recording!")
+        self._cmds_q.put(("save", filename))
 
     def _stop(self):
         """ Stops recording. Returns all recorded data and their timestamps. Destroys recorder process."""
