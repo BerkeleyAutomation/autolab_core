@@ -19,11 +19,13 @@ def _caches_to_file(cache_path, start, end, target_filename):
         all_data.extend(data)
     dump(all_data, target_filename, 3)
     logging.debug("Finished saving data to {0}".format(target_filename))
+    print "Finished saving data to {0}".format(target_filename)
 
 def _dump_cache(data, filename, name, i):
     logging.getLogger().setLevel(_LOGGING_LEVEL)
     dump(data, filename, 3)
     logging.debug("Finished saving cache for {0} block {1} to {2}".format(name, i, filename))
+    print "Finished saving cache for {0} block {1} to {2}".format(name, i, filename)
 
 class DataStreamRecorder(Process):
 
@@ -70,7 +72,8 @@ class DataStreamRecorder(Process):
     def run(self):
         logging.getLogger().setLevel(self._logging_level)
         try:
-            logging.info("Starting data recording on {0}".format(self._name))
+            logging.info("Starting data recording on {0}".format(self.name))
+            print "Starting data recording on {0}".format(self.name)
             self._tokens_q.put(("return", self.id))
             while True:
                 if not self._cmds_q.empty():
@@ -84,6 +87,8 @@ class DataStreamRecorder(Process):
                             self._save_cache(cur_data_q)
                             self._cur_data_segment += 1
                             self._data_qs.append(Queue())
+                    elif cmd[0] == 'reset_data_segment':
+                        self._start_data_segment = self._cur_data_segment
                     elif cmd[0] == 'resume':
                         self._recording = True
                     elif cmd[0] == 'save':
@@ -109,7 +114,8 @@ class DataStreamRecorder(Process):
                     self._tokens_q.put(("return", self.id))
 
         except KeyboardInterrupt:
-            logging.info("Shutting down data streamer on {0}".format(self._name))
+            logging.info("Shutting down data streamer on {0}".format(self.name))
+            print "Shutting down data streamer on {0}".format(self.name)
             sys.exit(0)
 
     def _extract_q(self, q):
@@ -118,24 +124,29 @@ class DataStreamRecorder(Process):
             vals.append(q.get())
         return vals
 
-    def _save_data(self, filename):
+    def _save_data(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+        target_filename = os.path.join(path, "{0}.jb".format(self.name))
         if self._saving_cache:
             while True in [p.is_alive() for p in self._saving_ps]:
                 sleep(1e-3)
-            p = Process(target=_caches_to_file, args=(self._save_path, self._start_data_segment, self._cur_data_segment, filename))
+            p = Process(target=_caches_to_file, args=(self._save_path, self._start_data_segment, self._cur_data_segment,
+                                                      target_filename))
             p.start()
             self._start_data_segment = self._cur_data_segment
         else:
             data = self._extract_q(self._data_qs[0])
-            p = Process(target=dump, args=(data, filename, 3))
+            p = Process(target=dump, args=(data, target_filename, 3))
             p.start()
 
     def _save_cache(self, data_q):
         if not self._save_cache:
             raise Exception("Cannot save cache if no cache path was specified.")
-        logging.debug("Saving cache for {0} block {1}".format(self._name, self._cur_data_segment))
+        logging.debug("Saving cache for {0} block {1}".format(self.name, self._cur_data_segment))
+        print "Saving cache for {0} block {1}".format(self.name, self._cur_data_segment)
         data = self._extract_q(data_q)
-        p = Process(target=_dump_cache, args=(data, os.path.join(self._save_path, "{0}.jb".format(self._cur_data_segment)), self._name, self._cur_data_segment))
+        p = Process(target=_dump_cache, args=(data, os.path.join(self._save_path, "{0}.jb".format(self._cur_data_segment)), self.name, self._cur_data_segment))
         p.start()
         self._saving_ps.append(p)
 
@@ -176,26 +187,26 @@ class DataStreamRecorder(Process):
         if self._recording:
             raise Exception("Cannot flush data queue while recording!")
         if self._saving_cache:
-            raise Exception("Cannot flush current data when saving to cache.")
-        data = self._extract_q(self._data_q[0])
-        return data
+            logging.warn("Flush when using cache means unsaved data will be lost and not returned!")
+            self._cmds_q.put(("reset_data_segment",))
+        else:
+            data = self._extract_q(self._data_qs[0])
+            return data
 
-    def save_data(self, filename):
+    def save_data(self, path):
         if self._recording:
-            raise Exception("Cannot flush data queue while recording!")
-        self._cmds_q.put(("save", filename))
+            raise Exception("Cannot save data while recording!")
+        self._cmds_q.put(("save", path))
 
     def _stop(self):
         """ Stops recording. Returns all recorded data and their timestamps. Destroys recorder process."""
-        self.pause()
-        data = self.flush()
+        self._pause()
         self._cmds_q.put(("stop",))
         try:
             self._recorder.terminate()
         except Exception:
             pass
         self._recording = False
-        return data
 
     def _pause(self):
         """ Pauses recording """

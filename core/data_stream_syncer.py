@@ -4,8 +4,8 @@ Author: Jacky Liang
 """
 from multiprocess import Process, Queue
 from time import time
-import logging
-import sys
+from Queue import Empty
+import logging, sys
 import IPython
 
 class _DataStreamSyncer(Process):
@@ -58,7 +58,10 @@ class _DataStreamSyncer(Process):
     def _take_oks(self):
         for ok_q in self._ok_qs.values():
             while ok_q.qsize() > 0:
-                ok_q.get_nowait()
+                try:
+                    ok_q.get_nowait()
+                except Empty:
+                    pass
 
     def _try_ok(self):
         if self._pause or False in self._tokens.values():
