@@ -204,6 +204,45 @@ class CSVModel:
         """
         return self._table[row + 1].copy()
 
+    def get_by_cols(self, cols, direction=1):
+        """Return the first or last row that satisfies the given col value constraints,
+        or None if no row contains the given value.
+
+        Parameters
+        ----------
+        cols: :obj:'dict'
+            Dictionary of col values for a specific row.
+        direction: int, optional
+            Either 1 or -1. 1 means find the first row, -1 means find the last row.
+
+        Returns
+        -------
+        :obj:`dict`
+            A dictionary mapping keys (header strings) to values, which
+            represents a row of the table. This row contains the given value in
+            the specified column.
+        """
+        if direction == 1:
+            iterator = range(self.num_rows)
+        elif direction == -1:
+            iterator = range(self.num_rows-1, 0, -1)
+        else:
+            raise ValueError("Direction can only be 1 (first) or -1 (last). Got: {0}".format(direction))
+
+        for i in iterator:
+            row = self._table[i+1]
+
+            all_sat = True
+            for key, val in cols.items():
+                if row[key] != val:
+                    all_sat = False
+                    break
+
+            if all_sat:
+                return row.copy()
+
+        return None
+
     def get_by_col(self, col, val):
         """Return the first row that contains the given value in the specified column,
         or None if no row contains the given value.
@@ -223,11 +262,7 @@ class CSVModel:
             represents a row of the table. This row contains the given value in
             the specified column.
         """
-        for i in range(self.num_rows):
-            row = self._table[i + 1]
-            if row[col] == val:
-                return row.copy()
-        return None
+        return self.get_by_cols({col:val}, direction=1)
 
     def get_by_col_last(self, col, val):
         """Return the last row that contains the given value in the specified column,
@@ -248,11 +283,7 @@ class CSVModel:
             represents a row of the table. This row contains the given value in
             the specified column.
         """
-        for i in range(self.num_rows-1, 0, -1):
-            row = self._table[i + 1]
-            if row[col] == val:
-                return row.copy()
-        return None
+        return self.get_by_cols({col:val}, direction=-1)
 
     @staticmethod
     def load(full_filename):
