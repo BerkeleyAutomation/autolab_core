@@ -228,8 +228,6 @@ class RigidTransform(object):
     @property
     def pose_msg(self):
         """:obj:`geometry_msgs.msg.Pose` The rigid transform as a geometry_msg pose.
-
-        TODO JEFF IS THIS NEEDED, DEPENDS ON TFX.
         """
         pose = geometry_msgs.msg.Pose()
         pose.orientation.w = float(self.quaternion[0])
@@ -497,6 +495,7 @@ class RigidTransform(object):
             A quaternion in wxyz order.
 
         Returns
+        -------
         :obj:`numpy.ndarray` of float
             A 3x3 rotation matrix made from the quaternion.
         """
@@ -574,6 +573,7 @@ class RigidTransform(object):
         """Generates a random translation vector.
 
         Returns
+        -------
         :obj:`numpy.ndarray` of float
             A 3-entry random translation vector.
         """
@@ -843,7 +843,7 @@ class SimilarityTransform(RigidTransform):
             The inverse of this SimilarityTransform.
         """
         inv_pose = np.linalg.inv(self.matrix)
-        rotation, translation = rotation_and_translation_from_matrix(inv_pose)
+        rotation, translation = RigidTransform.rotation_and_translation_from_matrix(inv_pose)
         scale = 1.0 / self.scale
         translation = self.scale * translation
         return SimilarityTransform(rotation, translation, scale,
@@ -887,7 +887,7 @@ class SimilarityTransform(RigidTransform):
         f.close()
 
     def as_frames(self, from_frame, to_frame='world'):
-        return SimliarityTransform(self.rotation, self.translation, self.scale, from_frame, to_frame)
+        return SimilarityTransform(self.rotation, self.translation, self.scale, from_frame, to_frame)
 
     @staticmethod
     def load(filename):

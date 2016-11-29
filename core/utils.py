@@ -92,6 +92,7 @@ def deskew(S):
         A 3x3 skew-symmetric matrix.
 
     Returns
+    -------
     :obj:`numpy.ndarray` of float
         A 3-entry vector that corresponds to the given cross product matrix.
     """
@@ -101,3 +102,19 @@ def deskew(S):
     x[2] = S[1,0]
     return x
 
+def reverse_dictionary(d):
+    """ Reverses the key value pairs for a given dictionary.
+
+    Parameters
+    ----------
+    d : :obj:`dict`
+        dictionary to reverse
+
+    Returns
+    -------
+    :obj:`dict`
+        dictionary with keys and values swapped
+    """
+    rev_d = {}
+    [rev_d.update({v:k}) for k, v in d.iteritems()]
+    return rev_d
