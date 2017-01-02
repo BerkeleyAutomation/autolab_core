@@ -82,7 +82,7 @@ class RigidTransform(object):
         if len(rotation.shape) != 2 or rotation.shape[0] != 3 or rotation.shape[1] != 3:
             raise ValueError('Rotation must be specified as a 3x3 ndarray')
 
-        if np.abs(np.linalg.det(rotation) - 1.0) > 1e-4:
+        if np.abs(np.linalg.det(rotation) - 1.0) > 1e-3:
             raise ValueError('Illegal rotation. Must have determinant == 1.0')
 
     def _check_valid_translation(self, translation):
@@ -245,8 +245,8 @@ class RigidTransform(object):
         """
         return 'from {0} to {1}'.format(self.from_frame, self.to_frame)
 
-    def interpolate(self, other_tf, t):
-        """Interpolate two rigid transformations.
+    def interpolate_with(self, other_tf, t):
+        """Interpolate with another rigid transformation.
 
         Parameters
         ----------
@@ -296,7 +296,7 @@ class RigidTransform(object):
         t = 0.0
         traj = []
         while t < 1.0:
-            traj.append(self.interpolate(target_tf, t))
+            traj.append(self.interpolate_with(target_tf, t))
             t += delta_t
         traj.append(target_tf)
         return traj

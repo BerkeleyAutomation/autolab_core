@@ -69,13 +69,13 @@ class Box(object):
     def width(self):
         """float: Maximal extent in x.
         """
-        return self.dims[0]
+        return int(np.round(self.dims[1]))
 
     @property
     def height(self):
         """float: Maximal extent in y.
         """
-        return self.dims[1]
+        return int(np.round(self.dims[0]))
 
     @property
     def area(self):
@@ -102,7 +102,43 @@ class Box(object):
         return self.min_pt + self.dims / 2.0
 
     @property
+    def ci(self):
+        """float value of center i coordinate"""
+        return self.center[0]
+
+    @property
+    def cj(self):
+        """float value of center j coordinate"""
+        return self.center[1]
+
+    @property
     def frame(self):
         """:obj:`str`: The frame in which this box is placed.
         """
         return self._frame
+
+class Contour(object):
+    """ Struct to encapsulate contour objects from a binary image.
+
+    Attributes
+    ----------
+    boundary_pixels : :obj:`numpy.ndarray`
+        2xN array of pixel coordinates on the boundary of a contour
+    bounding_box : :obj:`Box`
+        smallest box containing the contour
+    area : float
+        area of the contour
+    num_pixels : int
+        number of pixels along thr boundary
+    """
+    def __init__(self, boundary_pixels, area=0.0, frame='unspecified'):
+        self.boundary_pixels = boundary_pixels.squeeze()
+        self.bounding_box = Box(np.min(self.boundary_pixels, axis=0),
+                                np.max(self.boundary_pixels, axis=0),
+                                frame)
+        self.area = area
+        
+    @property
+    def num_pixels(self):
+        return self.boundary_pixels.shape[0]
+

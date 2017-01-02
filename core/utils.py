@@ -118,3 +118,40 @@ def reverse_dictionary(d):
     rev_d = {}
     [rev_d.update({v:k}) for k, v in d.iteritems()]
     return rev_d
+
+def pretty_str_time(dt):
+    """Get a pretty string for the given datetime object.
+    
+    Parameters
+    ----------
+    :obj:`datetime`
+        A datetime object to format.
+    
+    Returns
+    -------
+    :obj:`str`
+        The `datetime` formatted as {year}_{month}_{day}_{hour}_{minute}.
+    """
+    return "{0}_{1}_{2}_{3}:{4}".format(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+
+def filenames(directory, tag='', sorted=False):
+    """ Reads in all filenames from a directory.
+
+    Parameters
+    ----------
+    directory : :obj:`str`
+        the directory to read from
+    tag : :obj:`str`
+        optional tag to match in the filenames
+    sorted : bool
+        whether or not to sort the filenames
+
+    Returns
+    -------
+    :obj:`list` of :obj:`str`
+        filenames to read from
+    """
+    f = [os.path.join(directory, f) for f in os.listdir(directory) if f.find(tag) > -1]
+    if sorted:
+        f.sort()
+    return f
