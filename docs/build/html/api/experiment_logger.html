@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Experiment Logging &mdash; core 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+        <link rel="next" title="JSON Manipulation" href="json_serialization.html"/>
+        <link rel="prev" title="Exceptions" href="exceptions.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Installation Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Installation Instructions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="csv_model.html">CSV Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dual_quaternion.html">Quaternions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Experiment Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#experimentlogger">ExperimentLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluategraspsexperimentlogger">EvaluateGraspsExperimentLogger</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="json_serialization.html">JSON Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="points.html">Points and Point Clouds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitives.html">Geometric Primitives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_variables.html">Random Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rigid_transform.html">Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yaml_config.html">YAML Config Processor</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Experiment Logging</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/experiment_logger.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="experiment-logging">
+<h1>Experiment Logging<a class="headerlink" href="#experiment-logging" title="Permalink to this headline">¶</a></h1>
+<p>Classes for logging experimental data to files in a well-specified format.</p>
+<div class="section" id="experimentlogger">
+<h2>ExperimentLogger<a class="headerlink" href="#experimentlogger" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.ExperimentLogger">
+<em class="property">class </em><code class="descclassname">core.</code><code class="descname">ExperimentLogger</code><span class="sig-paren">(</span><em>experiment_root_path</em>, <em>experiment_tag='experiment'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Abstract class for experiment logging.</p>
+<p>Experiments are logged to CSV files, which are encapsulated with the
+<code class="xref py py-obj docutils literal"><span class="pre">CSVModel</span></code> class.</p>
+<dl class="method">
+<dt id="core.ExperimentLogger.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>experiment_root_path</em>, <em>experiment_tag='experiment'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize an ExperimentLogger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>experiment_root_path</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The root directory in which to save experiment files.</li>
+<li><strong>experiment_tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The tag to use when prefixing new experiments</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.ExperimentLogger.gen_experiment_ref">
+<em class="property">static </em><code class="descname">gen_experiment_ref</code><span class="sig-paren">(</span><em>experiment_tag</em>, <em>n=10</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.gen_experiment_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a random string for naming.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>experiment_tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; tag to prefix name with</li>
+<li><strong>n</strong> (<em>int</em>) &#8211; number of random chars to use</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">string experiment ref</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.ExperimentLogger.update_master_record">
+<code class="descname">update_master_record</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.update_master_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a row of the experimental master record CSV with the given data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uid</strong> (<em>int</em>) &#8211; The UID of the row to update.</li>
+<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) &#8211; A dictionary mapping keys (header strings) to values, which
+represents the new row.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.ExperimentLogger.experiment_meta_headers">
+<code class="descname">experiment_meta_headers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.experiment_meta_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dict of header names and types of meta information for the experiments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The metadata for this experiment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.ExperimentLogger.experiment_meta_data">
+<code class="descname">experiment_meta_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.experiment_meta_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dict of header names and value of meta information for the experiments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The metadata for this experiment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="evaluategraspsexperimentlogger">
+<h2>EvaluateGraspsExperimentLogger<a class="headerlink" href="#evaluategraspsexperimentlogger" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="json_serialization.html" class="btn btn-neutral float-right" title="JSON Manipulation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="exceptions.html" class="btn btn-neutral" title="Exceptions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Jeff Mahler.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
