@@ -1,6 +1,6 @@
 Geometric Primitives
 ====================
-A set of general geometric primitives.
+A set of geometric primitives.
 
 Box
 ~~~

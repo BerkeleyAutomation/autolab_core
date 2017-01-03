@@ -43,6 +43,14 @@ Alternatively, you can run ::
 
 to install `core` from anywhere.
 
+Testing
+~~~~~~~
+To test your installation, run ::
+
+    $ python setup.py test
+
+We highly recommend testing before using the module.
+
 Building Documentation
 ~~~~~~~~~~~~~~~~~~~~~~
 Building `core`'s documentation requires a few extra dependencies --
