@@ -12,7 +12,7 @@ class YamlConfig(object):
 
     Attributes
     ----------
-    :obj:`dictionary`
+    config : :obj:`dictionary`
         A dictionary that contains the contents of the configuration.
     """
 

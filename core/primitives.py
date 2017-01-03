@@ -118,7 +118,7 @@ class Box(object):
         return self._frame
 
 class Contour(object):
-    """ Struct to encapsulate contour objects from a binary image.
+    """ A set of pixels forming the boundary of an object of interest in an image.
 
     Attributes
     ----------

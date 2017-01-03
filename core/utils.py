@@ -15,6 +15,7 @@ def gen_experiment_id(n=10):
 
     Returns
     -------
+    :obj:`str`
         A string with only alphabetic characters. 
     """
     chrs = 'abcdefghijklmnopqrstuvwxyz'
@@ -135,7 +136,7 @@ def pretty_str_time(dt):
     return "{0}_{1}_{2}_{3}:{4}".format(dt.year, dt.month, dt.day, dt.hour, dt.minute)
 
 def filenames(directory, tag='', sorted=False):
-    """ Reads in all filenames from a directory.
+    """ Reads in all filenames from a directory that contain a specified substring.
 
     Parameters
     ----------
@@ -157,14 +158,52 @@ def filenames(directory, tag='', sorted=False):
     return f
 
 def sph2cart(r, az, elev):
-    """ Convert spherical to cartesian coordinates """
+    """ Convert spherical to cartesian coordinates.
+
+    Attributes
+    ----------
+    r : float
+        radius
+    az : float
+        aziumth (angle about z axis)
+    elev : float
+        elevation from xy plane
+
+    Returns
+    -------
+    float
+        x-coordinate
+    float
+        y-coordinate
+    float
+        z-coordinate
+    """
     x = r * np.cos(az) * np.sin(elev)
     y = r * np.sin(az) * np.sin(elev)
     z = r * np.cos(elev)
     return x, y, z
 
 def cart2sph(x, y, z):
-    """ Convert cartesian to spherical coordinates """
+    """ Convert cartesian to spherical coordinates.
+
+    Attributes
+    ----------
+    x : float
+        x-coordinate
+    y : float
+        y-coordinate
+    z : float
+        z-coordinate
+
+    Returns
+    -------
+    float
+        radius
+    float
+        aziumth
+    float
+        elevation
+    """
     r = np.sqrt(x**2 + y**2 + z**2)
     if x > 0 and y > 0:
         az = np.arctan(y / x)
