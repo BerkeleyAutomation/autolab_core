@@ -19,6 +19,6 @@ setup(name='core',
       package_dir = {'': '.'},
       packages=['core'],
       install_requires=requirements,
-      #test_suite='test'
+      test_suite='test'
      )
 

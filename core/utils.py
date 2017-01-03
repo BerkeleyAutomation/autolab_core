@@ -155,3 +155,32 @@ def filenames(directory, tag='', sorted=False):
     if sorted:
         f.sort()
     return f
+
+def sph2cart(r, az, elev):
+    """ Convert spherical to cartesian coordinates """
+    x = r * np.cos(az) * np.sin(elev)
+    y = r * np.sin(az) * np.sin(elev)
+    z = r * np.cos(elev)
+    return x, y, z
+
+def cart2sph(x, y, z):
+    """ Convert cartesian to spherical coordinates """
+    r = np.sqrt(x**2 + y**2 + z**2)
+    if x > 0 and y > 0:
+        az = np.arctan(y / x)
+    elif x > 0 and y < 0:
+        az = 2*np.pi - np.arctan(-y / x)
+    elif x < 0 and y > 0:
+        az = np.pi - np.arctan(-y / x)    
+    elif x < 0 and y < 0:
+        az = np.pi + np.arctan(y / x)    
+    elif x == 0 and y > 0:
+        az = np.pi / 2
+    elif x == 0 and y < 0:
+        az = 3 * np.pi / 2
+    elif y == 0 and x > 0:
+        az = 0
+    elif y == 0 and x < 0:
+        az = np.pi
+    elev = np.arccos(z / r)
+    return r, az, elev

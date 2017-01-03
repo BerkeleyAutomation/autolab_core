@@ -123,7 +123,7 @@ class Contour(object):
     Attributes
     ----------
     boundary_pixels : :obj:`numpy.ndarray`
-        2xN array of pixel coordinates on the boundary of a contour
+        Nx2 array of pixel coordinates on the boundary of a contour
     bounding_box : :obj:`Box`
         smallest box containing the contour
     area : float
