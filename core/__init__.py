@@ -1,5 +1,6 @@
 from csv_model import CSVModel
 from dual_quaternion import DualQuaternion
+from exceptions import TerminateException
 from experiment_logger import ExperimentLogger
 from json_serialization import dump, load
 from points import BagOfPoints, BagOfVectors, Point, Direction, Plane3D
@@ -18,6 +19,7 @@ except Exception:
 
 __all__ = ['CSVModel',
            'DualQuaternion',
+           'TerminateException',
            'ExperimentLogger', 'EvaluateGraspsExperimentLogger',
            'dump', 'load',
            'BagOfPoints', 'BagOfVectors', 'Point', 'Direction', 'Plane3D',
