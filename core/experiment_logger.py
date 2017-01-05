@@ -42,11 +42,11 @@ class ExperimentLogger:
         self.experiment_root_path = experiment_root_path
         
         # open the master record
-        self.master_record_filepath = os.path.join(self.experiment_root_path, ExperimentRecorder._MASTER_RECORD_FILENAME)
+        self.master_record_filepath = os.path.join(self.experiment_root_path, ExperimentLogger._MASTER_RECORD_FILENAME)
         self.master_record = CSVModel.get_or_create(self.master_record_filepath, self.experiment_meta_headers)
         
         # add new experiment to the master record
-        self.id = ExperimentRecorder.gen_experiment_ref(experiment_tag)
+        self.id = ExperimentLogger.gen_experiment_ref(experiment_tag)
         self._master_record_uid = self.master_record.insert(self.experiment_meta_data)
 
         # make experiment output dir
