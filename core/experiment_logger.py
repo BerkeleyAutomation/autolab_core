@@ -65,7 +65,13 @@ class ExperimentLogger:
 
         if log_to_file:
             # redirect logging statements to a file
-            experiment_log = os.path.join(self.experiment_path, '%s.log' %(self.id))
+            if not sub_experiment_dirs:
+                self.log_path = os.path.join(self.experiment_root_path, 'logs')
+            else:
+                self.log_path = self.experiment_path
+            if not os.path.exists(self.log_path):
+                os.makedirs(self.log_path)
+            experiment_log = os.path.join(self.log_path, '%s.log' %(self.id))
             formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
             hdlr = logging.FileHandler(experiment_log)
             hdlr.setFormatter(formatter)
@@ -198,7 +204,7 @@ class ExperimentLogger:
         basename = os.path.basename(src_file_path)
         target_file_path = os.path.join(abs_path, basename)
 
-        logging.info("Copying {0} to {1}".format(src_file_path, target_file_path))
+        logging.debug("Copying {0} to {1}".format(src_file_path, target_file_path))
         shutil.copyfile(src_file_path, target_file_path)
 
     def copy_dirs(self, src_dirs_path, target_dirs):
