@@ -15,7 +15,7 @@ class CSVModel:
         'bool': bool
     }
 
-    def __init__(self, full_filename, headers_types_dict, default_entry=''):
+    def __init__(self, full_filename, headers_types_list, default_entry=''):
         """Instantiates a CSVModel object.
 
         Parameters
@@ -23,9 +23,9 @@ class CSVModel:
         full_filename : :obj:`str`
             The file path to a .csv file.
 
-        headers_types_dict : :obj:`dict` mapping :obj:`str` to :obj:`str`
-            A dictionary where each key is a string header for a column and
-            the correspoding value is the data type as a string.
+        headers_types_list : :obj:`list` of two-tuples :obj:`str`, :obj:`str`
+            A list where each item is a tuple of string header for a column and
+            the correspoding data type as a string.
 
         default_entry : :obj:`str`
             The default entry for cells in the CSV.
@@ -35,8 +35,7 @@ class CSVModel:
         Exception
             If the types, headers, or default entry are not strings.
         """
-        headers = headers_types_dict.keys()
-        types = headers_types_dict.values()
+        headers, types = zip(*headers_types_list)
         headers_types = {headers[i]:types[i] for i in range(len(headers))}
         for key, val in headers_types.items():
             if type(val) != str:
@@ -47,7 +46,7 @@ class CSVModel:
                 raise Exception("Cannot create reserved columns _uid or _default!")
         if type(default_entry) != str:
             raise Exception('Default entry must be a string! Got: {0}'.format(default_entry))
-        
+
         self._headers_types = headers_types.copy()
         self._headers = ('_uid',) + tuple(headers) + ('_default',)
 
@@ -168,7 +167,7 @@ class CSVModel:
         row = self._table[uid+1]
         for key, val in data.items():
             if key == '_uid' or key == '_default':
-                continue            
+                continue
             if key not in self._headers:
                 logging.warn("Unknown column name: {0}".format(key))
                 continue
@@ -357,10 +356,9 @@ class CSVModel:
 
         headers_init = headers[1:-1]
         types_init = [types[column_name] for column_name in headers_init]
-        headers_types_dict = {}
-        [headers_types_dict.update({k:v}) for k,v in zip(headers_init, types_init)]
+        headers_types_list = zip(headers_init, types_init)
 
-        csv_model = CSVModel(full_filename, headers_types_dict, default_entry=default_entry)
+        csv_model = CSVModel(full_filename, headers_types_list, default_entry=default_entry)
         csv_model._uid = next_valid_uid
         csv_model._table = table
         csv_model._save()

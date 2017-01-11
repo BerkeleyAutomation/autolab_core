@@ -8,8 +8,8 @@ from uuid import uuid4
 import IPython
 from joblib import dump, load
 from time import sleep, time
-
-_LOGGING_LEVEL = logging.DEBUG
+from setproctitle import setproctitle
+_LOGGING_LEVEL = logging.INFO
 
 _NULL = lambda : None
 
@@ -78,6 +78,7 @@ class DataStreamRecorder(Process):
 
     def run(self):
         logging.getLogger().setLevel(self._logging_level)
+        setproctitle('python.DataStreamRecorder.{0}'.format(self._name))
         try:
             logging.debug("Starting data recording on {0}".format(self.name))
             self._tokens_q.put(("return", self.id))

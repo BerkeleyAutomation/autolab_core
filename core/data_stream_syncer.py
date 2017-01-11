@@ -6,6 +6,7 @@ from multiprocess import Process, Queue
 from time import time
 from Queue import Empty
 import logging, sys
+from setproctitle import setproctitle
 import IPython
 
 class _DataStreamSyncer(Process):
@@ -26,6 +27,7 @@ class _DataStreamSyncer(Process):
 
     def run(self):
         self._session_start_time = time()
+        setproctitle("python._DataStreamSyncer")
         try:
             while True:
                 if not self._cmds_q.empty():
@@ -34,9 +36,11 @@ class _DataStreamSyncer(Process):
                         self._session_start_time = time()
                     elif cmd[0] == 'pause':
                         self._pause = True
+                        self._pause_time = time()
                         self._take_oks()
                     elif cmd[0] == 'resume':
                         self._pause = False
+                        self._session_start_time += time() - self._pause_time
                     elif cmd[0] == "stop":
                         break
                 if not self._tokens_q.empty():
