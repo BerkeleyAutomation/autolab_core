@@ -188,7 +188,7 @@ class RigidTransform(object):
         """
         qr = self.quaternion
         qd = np.append([0], self.translation / 2.)
-        return DualQuaternion(qr, qd)    
+        return DualQuaternion(qr, qd)
 
     @property
     def euler(self):
@@ -323,9 +323,9 @@ class RigidTransform(object):
         if not isinstance(points, BagOfPoints):
             raise ValueError('Rigid transformations can only be applied to bags of points')
         if points.dim != 3:
-            raise ValueError('Rigid transformations can only be applied to 3-dimensional points')            
+            raise ValueError('Rigid transformations can only be applied to 3-dimensional points')
         if points.frame != self._from_frame:
-            raise ValueError('Cannot transform points in frame %s with rigid transformation from frame %s to frame %s' %(points.frame, self._from_frame, self._to_frame))            
+            raise ValueError('Cannot transform points in frame %s with rigid transformation from frame %s to frame %s' %(points.frame, self._from_frame, self._to_frame))
 
         if isinstance(points, BagOfVectors):
             # rotation only
@@ -476,7 +476,7 @@ class RigidTransform(object):
         return RigidTransform(self.rotation, self.translation, from_frame, to_frame)
 
     def __str__(self):
-        out = 'Tra: {0}\n Rot: {1}\n Qtn: {2}\n from {3} to {4}'.format(self.translation, self.rotation, 
+        out = 'Tra: {0}\n Rot: {1}\n Qtn: {2}\n from {3} to {4}'.format(self.translation, self.rotation,
             self.quaternion, self.from_frame, self.to_frame)
         return out
 
@@ -666,7 +666,7 @@ class RigidTransform(object):
         """
         file_root, file_ext = os.path.splitext(filename)
         if file_ext.lower() != TF_EXTENSION:
-            raise ValueError('Extension %s not supported for RigidTransform. Can only load extension %s' %(file_ext, TF_EXTENSION))        
+            raise ValueError('Extension %s not supported for RigidTransform. Can only load extension %s' %(file_ext, TF_EXTENSION))
 
         f = open(filename, 'r')
         lines = list(f)
@@ -769,10 +769,10 @@ class SimilarityTransform(RigidTransform):
         if not isinstance(points, BagOfPoints):
             raise ValueError('Rigid transformations can only be applied to bags of points')
         if points.dim != 3:
-            raise ValueError('Rigid transformations can only be applied to 3-dimensional points')            
+            raise ValueError('Rigid transformations can only be applied to 3-dimensional points')
         if points.frame != self._from_frame:
-            raise ValueError('Cannot transform points in frame %s with rigid transformation from frame %s to frame %s' %(points.frame, self._from_frame, self._to_frame))            
-        
+            raise ValueError('Cannot transform points in frame %s with rigid transformation from frame %s to frame %s' %(points.frame, self._from_frame, self._to_frame))
+
         if isinstance(points, BagOfVectors):
             # rotation only
             x = points.data
@@ -919,7 +919,7 @@ class SimilarityTransform(RigidTransform):
         """
         file_root, file_ext = os.path.splitext(filename)
         if file_ext.lower() != STF_EXTENSION:
-            raise ValueError('Extension %s not supported for SimilarityTransform. Can only load extension %s' %(file_ext, STF_EXTENSION))        
+            raise ValueError('Extension %s not supported for SimilarityTransform. Can only load extension %s' %(file_ext, STF_EXTENSION))
 
         f = open(filename, 'r')
         lines = list(f)
@@ -960,5 +960,6 @@ class SimilarityTransform(RigidTransform):
         return out
 
     def __repr__(self):
-        out = 'SimilarityTransform(rotation={0}, translation={1}, scale={2}, from_frame={3}, to_frame={4})'.format(self.rotation, self.translation, self.scale, self.from_frame, self.to_frame)
+        out = "SimilarityTransform(rotation={0}, translation={1}, scale={2}, from_frame={3}, to_frame={4})".format(
+                                    repr(self.rotation), repr(self.translation), repr(self.scale), repr(self.from_frame), repr(self.to_frame))
         return out
