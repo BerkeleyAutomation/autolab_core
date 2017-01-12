@@ -9,12 +9,10 @@ import IPython
 from joblib import dump, load
 from time import sleep, time
 from setproctitle import setproctitle
-_LOGGING_LEVEL = logging.INFO
 
 _NULL = lambda : None
 
 def _caches_to_file(cache_path, start, end, filename, cb):
-    logging.getLogger().setLevel(_LOGGING_LEVEL)
     all_data = []
     for i in range(start, end):
         data = load(os.path.join(cache_path, "{0}.jb".format(i)))
@@ -24,19 +22,17 @@ def _caches_to_file(cache_path, start, end, filename, cb):
     cb()
 
 def _dump_cache(data, filename, name, i):
-    logging.getLogger().setLevel(_LOGGING_LEVEL)
     dump(data, filename, 3)
     logging.debug("Finished saving cache for {0} block {1} to {2}".format(name, i, filename))
 
 def _dump_cb(data, filename, cb):
-    logging.getLogger().setLevel(_LOGGING_LEVEL)
     dump(data, filename, 3)
     logging.debug("Finished saving data to {0}".format(filename))
     cb()
 
 class DataStreamRecorder(Process):
 
-    def __init__(self, name, data_sampler_method, logging_level=_LOGGING_LEVEL, cache_path=None, save_every=50):
+    def __init__(self, name, data_sampler_method, cache_path=None, save_every=50):
         """ Initializes a DataStreamRecorder
         Parameters
         ----------
@@ -44,13 +40,9 @@ class DataStreamRecorder(Process):
                     User-friendly identifier for this data stream
             data_sampler_method : function
                     Method to call to retrieve data
-            logging_level : logging level, optional
-                    Logging level for internal recorder process
-                    Defaults to logging.DEBUG
         """
         Process.__init__(self)
         self._data_sampler_method = data_sampler_method
-        self._logging_level = logging_level
 
         self._has_set_sampler_params = False
         self._recording = False
@@ -77,7 +69,6 @@ class DataStreamRecorder(Process):
         self._saving_ps = []
 
     def run(self):
-        logging.getLogger().setLevel(self._logging_level)
         setproctitle('python.DataStreamRecorder.{0}'.format(self._name))
         try:
             logging.debug("Starting data recording on {0}".format(self.name))

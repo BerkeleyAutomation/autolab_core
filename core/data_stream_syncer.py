@@ -11,7 +11,7 @@ import IPython
 
 class _DataStreamSyncer(Process):
 
-    def __init__(self, frequency, ok_qs, cmds_q, tokens_q, logging_level):
+    def __init__(self, frequency, ok_qs, cmds_q, tokens_q):
         Process.__init__(self)
         self._cmds_q = cmds_q
         self._tokens_q = tokens_q
@@ -22,8 +22,6 @@ class _DataStreamSyncer(Process):
         self._T = 1./frequency if frequency > 0 else 0
         self._ok_start_time = None
         self._pause = False
-
-        logging.getLogger().setLevel(logging_level)
 
     def run(self):
         self._session_start_time = time()
@@ -77,7 +75,7 @@ class _DataStreamSyncer(Process):
 
 class DataStreamSyncer:
 
-    def __init__(self, data_stream_recorders, frequency=0, logging_level=logging.DEBUG):
+    def __init__(self, data_stream_recorders, frequency=0):
         """
         Instantiates a new DataStreamSyncer
 
@@ -87,9 +85,6 @@ class DataStreamSyncer:
             frequency : float, optional
                     Frequency in hz used for ratelimiting. If set to 0 or less, will not rate limit.
                     Defaults to 0
-            logging_level : logging level, optional
-                    Logging level for internal syncer process
-                    Defaults to logging.DEBUG
         """
         self._cmds_q = Queue()
         self._tokens_q = Queue()
@@ -101,7 +96,7 @@ class DataStreamSyncer:
             ok_qs[data_stream_recorder.id] = ok_q
             data_stream_recorder._set_qs(ok_q, self._tokens_q)
 
-        self._syncer = _DataStreamSyncer(frequency, ok_qs, self._cmds_q, self._tokens_q, logging_level)
+        self._syncer = _DataStreamSyncer(frequency, ok_qs, self._cmds_q, self._tokens_q)
         self._syncer.start()
 
     def start(self):
