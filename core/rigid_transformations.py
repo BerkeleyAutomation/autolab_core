@@ -699,6 +699,19 @@ class RigidTransform(object):
                               from_frame=from_frame,
                               to_frame=to_frame)
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return hash(self) == hash(other)
+        return False
+
+    def __ne__(self, other):
+        if isinstance(other, self.__class__):
+            return not self.__eq__(other)
+        return NotImplemented
+
+    def __hash__(self):
+        return hash(str(self.__dict__))
+
 class SimilarityTransform(RigidTransform):
     """ A Similarity Transformation from one frame to another (rigid transformation + scaling)
     """
