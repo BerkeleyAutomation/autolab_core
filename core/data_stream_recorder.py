@@ -2,23 +2,40 @@
 Class to record streams of data from a given object in separate process.
 Author: Jacky Liang
 """
-import os, sys, logging
+import os, sys, logging, shutil
 from multiprocess import Process, Queue
 from uuid import uuid4
-import IPython
 from joblib import dump, load
 from time import sleep, time
 from setproctitle import setproctitle
+import IPython
 
 _NULL = lambda : None
 
-def _caches_to_file(cache_path, start, end, filename, cb):
-    all_data = []
-    for i in range(start, end):
-        data = load(os.path.join(cache_path, "{0}.jb".format(i)))
-        all_data.extend(data)
-    dump(all_data, filename, 3)
-    logging.debug("Finished saving data to {0}".format(filename))
+def _caches_to_file(cache_path, start, end, name, cb, concat):
+    start_time = time()
+    if concat:
+        all_data = []
+        for i in range(start, end):
+            data = load(os.path.join(cache_path, "{0}.jb".format(i)))
+            all_data.extend(data)
+        dump(all_data, name, 3)
+    else:
+        target_path = os.path.join(cache_path, name[:-3])
+        if not os.path.exists(target_path):
+            os.makedirs(target_path)
+        for i in range(start, end):
+            src_file_path = os.path.join(cache_path, "{0}.jb".format(i))
+
+            basename = os.path.basename(src_file_path)
+            target_file_path = os.path.join(target_path, basename)
+            shutil.move(src_file_path, target_file_path)
+
+        finished_flag = os.path.join(target_path, '.finished')
+        with open(finished_flag, 'a'):
+            os.utime(finished_flag, None)
+
+    logging.debug("Finished saving data to {0}. Took {1}s".format(name, time()-start_time))
     cb()
 
 def _dump_cache(data, filename, name, i):
@@ -90,7 +107,7 @@ class DataStreamRecorder(Process):
                     elif cmd[0] == 'resume':
                         self._recording = True
                     elif cmd[0] == 'save':
-                        self._save_data(cmd[1], cmd[2])
+                        self._save_data(cmd[1], cmd[2], cmd[3])
                     elif cmd[0] == 'params':
                         self._args = cmd[1]
                         self._kwargs = cmd[2]
@@ -121,7 +138,7 @@ class DataStreamRecorder(Process):
             vals.append(q.get())
         return vals
 
-    def _save_data(self, path, cb):
+    def _save_data(self, path, cb, concat):
         if not os.path.exists(path):
             os.makedirs(path)
         target_filename = os.path.join(path, "{0}.jb".format(self.name))
@@ -130,7 +147,7 @@ class DataStreamRecorder(Process):
                 sleep(1e-3)
 
             p = Process(target=_caches_to_file, args=(self._save_path, self._start_data_segment, self._cur_data_segment,
-                                                      target_filename, cb))
+                                                      target_filename, cb, concat))
             p.start()
             self._start_data_segment = self._cur_data_segment
         else:
@@ -190,10 +207,10 @@ class DataStreamRecorder(Process):
             data = self._extract_q(self._data_qs[0])
             return data
 
-    def save_data(self, path, cb=_NULL):
+    def save_data(self, path, cb=_NULL, concat=True):
         if self._recording:
             raise Exception("Cannot save data while recording!")
-        self._cmds_q.put(("save", path, cb))
+        self._cmds_q.put(("save", path, cb, concat))
 
     def _stop(self):
         """ Stops recording. Returns all recorded data and their timestamps. Destroys recorder process."""
