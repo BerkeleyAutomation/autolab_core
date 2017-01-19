@@ -62,7 +62,7 @@ To install the dependencies required, simply run ::
 
     $ pip install -r docs_requirements.txt
 
-Then, go to the `docs` directory and run `make` with the appropriate target.
+Then, go to the `docs` directory and run ``make`` with the appropriate target.
 For example, ::
 
     $ cd docs/
