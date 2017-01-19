@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploying-documentation">Deploying Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -169,8 +170,8 @@ $ pip install pyyaml
 </div>
 <div class="section" id="cloning-the-repository">
 <h2>Cloning the Repository<a class="headerlink" href="#cloning-the-repository" title="Permalink to this headline">¶</a></h2>
-<p>You can clone or download our source code from <a class="reference external" href="https://github.com/mmatl/core">Github</a>.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone git@github.com:mmatl/core.git
+<p>You can clone or download our source code from <a class="reference external" href="https://github.com/BerkeleyAutomation/core">Github</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone git@github.com:BerkeleyAutomation/core.git
 </pre></div>
 </div>
 </div>
@@ -215,6 +216,18 @@ $ make html
 </div>
 <p>will generate a set of web pages. Any documentation files
 generated in this manner can be found in <cite>docs/build</cite>.</p>
+</div>
+<div class="section" id="deploying-documentation">
+<h2>Deploying Documentation<a class="headerlink" href="#deploying-documentation" title="Permalink to this headline">¶</a></h2>
+<p>To deploy documentation to the Github Pages site for the repository,
+simply push any changes to the documentation source to master
+and then run</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ . gh_deploy.sh
+</pre></div>
+</div>
+<p>from the <cite>docs</cite> folder. This script will automatically checkout the
+<code class="docutils literal"><span class="pre">gh-pages</span></code> branch, build the documentation from source, and push it
+to Github.</p>
 </div>
 </div>
 
