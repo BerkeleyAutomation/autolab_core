@@ -9,7 +9,8 @@ requirements = [
     'scipy',
     'matplotlib',
     'pyyaml',
-    'multiprocess'
+    'multiprocess',
+    'setproctitle'
 ]
 
 setup(name='core',
