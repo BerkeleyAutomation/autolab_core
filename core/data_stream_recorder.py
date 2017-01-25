@@ -5,7 +5,6 @@ Author: Jacky Liang
 import os, sys, logging
 from multiprocess import Process, Queue
 from uuid import uuid4
-import IPython
 from joblib import dump, load
 from time import sleep, time
 from setproctitle import setproctitle
