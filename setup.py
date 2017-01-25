@@ -10,7 +10,8 @@ requirements = [
     'matplotlib',
     'pyyaml',
     'multiprocess',
-    'setproctitle'
+    'setproctitle',
+    'joblib'
 ]
 
 setup(name='core',
