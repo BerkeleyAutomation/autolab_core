@@ -8,7 +8,8 @@ requirements = [
     'numpy',
     'scipy',
     'matplotlib',
-    'pyyaml'
+    'pyyaml',
+    'multiprocess'
 ]
 
 setup(name='core',
