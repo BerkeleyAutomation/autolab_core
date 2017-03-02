@@ -12,7 +12,7 @@ from dual_quaternion import DualQuaternion
 import transformations
 
 try:
-    import geometry_msgs
+    from geometry_msgs import msg
 except:
     logging.warning('Failed to import geometry msgs in rigid_transformations.py.')
 
@@ -229,7 +229,7 @@ class RigidTransform(object):
     def pose_msg(self):
         """:obj:`geometry_msgs.msg.Pose` The rigid transform as a geometry_msg pose.
         """
-        pose = geometry_msgs.msg.Pose()
+        pose = msg.Pose()
         pose.orientation.w = float(self.quaternion[0])
         pose.orientation.x = float(self.quaternion[1])
         pose.orientation.y = float(self.quaternion[2])
