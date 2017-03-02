@@ -9,14 +9,13 @@ import socket
 import time
 import unittest
 
-from alan.core.points import Point, PointCloud, Direction
-from alan.core.rigid_transformations import RigidTransform, SimilarityTransform
-import alan.core.rigid_transformations as rtf
+from core import Point, PointCloud, Direction
+from core import RigidTransform, SimilarityTransform
 
 class RigidTransformTest(unittest.TestCase):
     def test_init(self):
-        R = rtf.random_rotation()
-        t = rtf.random_translation()
+        R = RigidTransform.random_rotation()
+        t = RigidTransform.random_translation()
         from_frame = 'a'
         to_frame = 'b'
         T_a_b = RigidTransform(R, t, from_frame, to_frame)
@@ -70,8 +69,8 @@ class RigidTransformTest(unittest.TestCase):
         self.assertTrue(caught_bad_translation, msg='Failed to catch 2x1 translation')
 
     def test_inverse(self):
-        R_a_b = rtf.random_rotation()
-        t_a_b = rtf.random_translation()
+        R_a_b = RigidTransform.random_rotation()
+        t_a_b = RigidTransform.random_translation()
         T_a_b = RigidTransform(R_a_b, t_a_b, 'a', 'b')
         T_b_a = T_a_b.inverse()
         
@@ -86,10 +85,10 @@ class RigidTransformTest(unittest.TestCase):
         self.assertEqual(T_b_a.to_frame, 'a', msg='Inverse has incorrect output frame')
 
     def test_composition(self):
-        R_a_b = rtf.random_rotation()
-        t_a_b = rtf.random_translation()
-        R_b_c = rtf.random_rotation()
-        t_b_c = rtf.random_translation()
+        R_a_b = RigidTransform.random_rotation()
+        t_a_b = RigidTransform.random_translation()
+        R_b_c = RigidTransform.random_rotation()
+        t_b_c = RigidTransform.random_translation()
         T_a_b = RigidTransform(R_a_b, t_a_b, 'a', 'b')
         T_b_c = RigidTransform(R_b_c, t_b_c, 'b', 'c')
         
@@ -108,8 +107,8 @@ class RigidTransformTest(unittest.TestCase):
         self.assertEqual(T_a_c.to_frame, 'c', msg='Composition has incorrect output frame')
 
     def test_point_transformation(self):
-        R_a_b = rtf.random_rotation()
-        t_a_b = rtf.random_translation()
+        R_a_b = RigidTransform.random_rotation()
+        t_a_b = RigidTransform.random_translation()
         T_a_b = RigidTransform(R_a_b, t_a_b, 'a', 'b')
 
         x_a = np.random.rand(3)
@@ -127,8 +126,8 @@ class RigidTransformTest(unittest.TestCase):
         self.assertEqual(p_b.frame, 'b', msg='Transformed point has incorrect frame')
 
     def test_point_cloud_transformation(self, num_points=10):
-        R_a_b = rtf.random_rotation()
-        t_a_b = rtf.random_translation()
+        R_a_b = RigidTransform.random_rotation()
+        t_a_b = RigidTransform.random_translation()
         T_a_b = RigidTransform(R_a_b, t_a_b, 'a', 'b')
 
         x_a = np.random.rand(3, num_points)
@@ -146,8 +145,8 @@ class RigidTransformTest(unittest.TestCase):
         self.assertEqual(pc_b.frame, 'b', msg='Transformed point cloud has incorrect frame')
 
     def test_bad_transformation(self, num_points=10):
-        R_a_b = rtf.random_rotation()
-        t_a_b = rtf.random_translation()
+        R_a_b = RigidTransform.random_rotation()
+        t_a_b = RigidTransform.random_translation()
         T_a_b = RigidTransform(R_a_b, t_a_b, 'a', 'b')
 
         # bad point frame
@@ -180,11 +179,11 @@ class RigidTransformTest(unittest.TestCase):
         self.assertTrue(caught_bad_input, msg='Failed to catch numpy array input')
 
     def test_similarity_transformation(self):
-        R_a_b = rtf.random_rotation()
-        t_a_b = rtf.random_translation()
+        R_a_b = RigidTransform.random_rotation()
+        t_a_b = RigidTransform.random_translation()
         s_a_b = 2 * np.random.rand()
-        R_b_c = rtf.random_rotation()
-        t_b_c = rtf.random_translation()
+        R_b_c = RigidTransform.random_rotation()
+        t_b_c = RigidTransform.random_translation()
         s_b_c = 2 * np.random.rand()
         T_a_b = SimilarityTransform(R_a_b, t_a_b, s_a_b, 'a', 'b')
         T_b_c = SimilarityTransform(R_b_c, t_b_c, s_b_c, 'b', 'c')
