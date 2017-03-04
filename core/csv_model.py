@@ -209,6 +209,39 @@ class CSVModel:
         """
         return self._table[row + 1].copy()
 
+    def get_col(self, col_name, filter = lambda _ : True):
+        """
+        Return all values in the column corresponding to col_name that satisfies filter, which is
+        a function that takes in a value of the column's type and returns True or False 
+        Parameters
+        -------------
+        col_name: 'str'
+            Name of desired column
+        filter: function, optional
+            A function that takes in a value of the column's type and returns True or False 
+            Defaults to a function that always returns True 
+            
+        Returns
+        ---------
+        list
+            A list of values in the desired columns by order of their storage in the model
+            
+        Raises
+        ------
+        ValueError
+            If the desired column name is not found in the model
+        """
+        if col_name not in self._headers:
+            raise ValueError("{} not found! Model has headers: {}".format(col_name, self._headers))
+        col = []
+        for i in range(self.num_rows):
+            row = self._table[i + 1]
+            val = row[col_name]
+            if filter(val):
+                col.append(val)
+                
+        return col
+        
     def get_by_cols(self, cols, direction=1):
         """Return the first or last row that satisfies the given col value constraints,
         or None if no row contains the given value.
