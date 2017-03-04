@@ -9,7 +9,7 @@ import socket
 import time
 import unittest
 
-from alan.core.points import BagOfPoints, ImageCoords, Point, PointCloud, RgbCloud, RgbPointCloud
+from core import BagOfPoints, ImageCoords, Point, PointCloud, RgbCloud, RgbPointCloud
 
 class PointsTest(unittest.TestCase):
     def test_inits(self, num_points=10):

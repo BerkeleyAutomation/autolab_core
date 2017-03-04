@@ -5,7 +5,6 @@ Authors: Jeff, Jacky
 from abc import ABCMeta, abstractmethod
 import os
 import csv
-import IPython
 import shutil
 import subprocess
 from datetime import datetime

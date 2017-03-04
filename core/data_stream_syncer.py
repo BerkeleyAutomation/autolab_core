@@ -7,7 +7,6 @@ from time import time
 from Queue import Empty
 import logging, sys
 from setproctitle import setproctitle
-import IPython
 
 class _DataStreamSyncer(Process):
 
