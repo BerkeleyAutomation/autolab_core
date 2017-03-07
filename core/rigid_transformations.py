@@ -26,6 +26,9 @@ try:
     from core.srv import *
 except ImportError:
     logging.warning("core not installed as catkin package, RigidTransform ros methods will be unavailable")
+    
+import subprocess
+import signal
 
 TF_EXTENSION = '.tf'
 STF_EXTENSION = '.stf'
@@ -543,7 +546,53 @@ class RigidTransform(object):
         return out
     
     @staticmethod
-    def rigid_transform_from_ROS(from_frame, to_frame):
+    def start_ros_services():
+        """Convenience method to launch the listener and publisher services if they aren't already running
+        
+        Raises
+        ------
+        RuntimeError
+            If failed to start service(s)
+        """
+        if rosservice.get_service_node('{0}rigid_transform_publisher'.format(rospy.get_namespace())) == None:
+            try:
+                subprocess.Popen("rosrun core rigid_transform_ros_publisher.py", shell=True, stdout=open(os.devnull, 'w'))
+            except:
+                raise RuntimeError("Could not run rigid_transform_ros_publisher.py, either core is not a catkin package or " +
+                                   "rigid_transform_ros_publisher.py is not executable (use chmod to make it executable)")
+                
+        if rosservice.get_service_node('{0}rigid_transform_listener'.format(rospy.get_namespace())) == None:
+            try:
+                subprocess.Popen("rosrun core rigid_transform_ros_listener.py", shell=True, stdout=open(os.devnull, 'w'))
+            except:
+                raise RuntimeError("Could not run rigid_transform_ros_listener.py, either core is not a catkin package or " +
+                                   "rigid_transform_ros_listener.py is not executable (use chmod to make it executable)")
+    
+    @staticmethod
+    def stop_ros_services():
+        """Convenience method to kill the listener and publisher services
+        
+        Raises
+        ------
+        RuntimeError
+            If failed to stop service(s)
+        """
+        publisher = rosservice.get_service_node('{0}rigid_transform_publisher'.format(rospy.get_namespace()))
+        listener = rosservice.get_service_node('{0}rigid_transform_listener'.format(rospy.get_namespace())) 
+        if publisher != None:
+            try:
+                subprocess.Popen("rosnode kill {0}".format(publisher), shell=True, stdout=open(os.devnull, 'w'))
+            except:
+                raise RuntimeError("Failed to kill publisher, check if ros is setup correctly")
+                
+        if listener != None:
+            try:
+                subprocess.Popen("rosnode kill {0}".format(listener), shell=True, stdout=open(os.devnull, 'w'))
+            except:
+                raise RuntimeError("Failed to kill listener, check if ros is setup correctly")
+    
+    @staticmethod
+    def rigid_transform_from_ros(from_frame, to_frame):
         """Gets transform from ROS as a rigid transform
         
         Requires rigid_transform_ros_listener service to be running
