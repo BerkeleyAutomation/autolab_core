@@ -10,7 +10,7 @@ import geometry_msgs
 try:
     from core.srv import *
 except ImportError:
-    raise RuntimeError("rigid_transform_ros_publisher_service unavailable outside of catkin package")
+    raise RuntimeError("rigid_transform_ros_publisher service unavailable outside of catkin package")
 
 if __name__ == '__main__':
     to_publish = {}

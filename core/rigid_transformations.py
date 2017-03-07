@@ -541,7 +541,35 @@ class RigidTransform(object):
         out = 'RigidTransform(rotation={0}, translation={1}, from_frame={2}, to_frame={3})'.format(self.rotation,
                 self.translation, self.from_frame, self.to_frame)
         return out
-
+    
+    @staticmethod
+    def rigid_transform_from_ROS(from_frame, to_frame):
+        """Gets transform from ROS as a rigid transform
+        
+        Requires rigid_transform_ros_listener service to be running
+        
+        Parameters
+        ----------
+        from_frame : :obj:`str`
+        to_frame : :obj:`str`
+        
+        Raises
+        ------
+        rospy.ServiceException
+            If service call to rigid_transform_listener fails
+        """
+        rospy.wait_for_service('{0}rigid_transform_listener'.format(rospy.get_namespace()), timeout = 10)
+        listener = rospy.ServiceProxy('{0}rigid_transform_listener'.format(rospy.get_namespace()), RigidTransformListener)
+        
+        ret = listener(from_frame, to_frame)
+        
+        quat = np.asarray([ret.w_rot, ret.x_rot, ret.y_rot, ret.z_rot])
+        trans = np.asarray([ret.x_trans, ret.y_trans, ret.z_trans])
+        
+        rot = RigidTransform.rotation_from_quaternion(quat)
+        
+        return RigidTransform(rotation=rot, translation=trans, from_frame=from_frame, to_frame=to_frame)
+        
     @staticmethod
     def rotation_from_quaternion(q_wxyz):
         """Convert quaternion array to rotation matrix.
