@@ -15,6 +15,17 @@ try:
     import geometry_msgs
 except:
     logging.warning('Failed to import geometry msgs in rigid_transformations.py.')
+    
+try:
+    import rospy
+    import rosservice
+except ImportError:
+    logging.warning("Failed to import ros dependencies in rigid_transforms.py")
+    
+try:
+    from core.srv import *
+except ImportError:
+    logging.warning("core not installed as catkin package, RigidTransform ros methods will be unavailable")
 
 TF_EXTENSION = '.tf'
 STF_EXTENSION = '.stf'
@@ -474,6 +485,52 @@ class RigidTransform(object):
             The RigidTransform with new frames.
         """
         return RigidTransform(self.rotation, self.translation, from_frame, to_frame)
+    
+    def publish_to_ros(self, mode='transform'):
+        """Publishes RigidTransform to ROS
+        If a transform with the same from and to frames already exists in the ROS publisher, it is updated instead
+        
+        Note that this checking is order-sensitive, that is, if a rigid transform from a to b exists, a publishing a 
+        rigid transform from b to a WILL NOT update the transform. Behavior is undefined in this case. In this case,
+        delete the first transform from ROS before trying to publish the second
+        
+        Requires rigid_transform_ros_publisher service to be running
+        
+        Parameters
+        ----------
+        mode : :obj:`str`
+            Mode in which to publish. In {'transform', 'frame'}
+            Defaults to 'transform'
+        
+        Raises
+        ------
+        rospy.ServiceException
+            If service call to rigid_transform_publisher fails
+        """
+        rospy.wait_for_service('{0}rigid_transform_publisher'.format(rospy.get_namespace()), timeout = 10)
+        publisher = rospy.ServiceProxy('{0}rigid_transform_publisher'.format(rospy.get_namespace()), RigidTransformPublisher)
+        
+        trans = self.translation
+        rot = self.quaternion
+        
+        publisher(trans[0], trans[1], trans[2], rot[0], rot[1], rot[2], rot[3], self.from_frame, self.to_frame, mode)
+        
+    def delete_from_ros(self):
+        """Removes RigidTransform from from_frame to to_frame from ROS publisher.
+        Note that this may not be this exact transform, but one with the same from and to frames
+        
+        Requires rigid_transform_ros_publisher service to be running
+        
+        
+        Raises
+        ------
+        rospy.ServiceException
+            If service call to rigid_transform_publisher fails
+        """
+        rospy.wait_for_service('{0}rigid_transform_publisher'.format(rospy.get_namespace()), timeout = 10)
+        publisher = rospy.ServiceProxy('{0}rigid_transform_publisher'.format(rospy.get_namespace()), RigidTransformPublisher)
+        
+        publisher(0, 0, 0, 0, 0, 0, 0, self.from_frame, self.to_frame, 'delete')
 
     def __str__(self):
         out = 'Tra: {0}\n Rot: {1}\n Qtn: {2}\n from {3} to {4}'.format(self.translation, self.rotation,
