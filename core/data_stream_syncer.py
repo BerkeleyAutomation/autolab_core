@@ -38,7 +38,10 @@ class _DataStreamSyncer(Process):
                         self._take_oks()
                     elif cmd[0] == 'resume':
                         self._pause = False
-                        self._session_start_time += time() - self._pause_time
+                        if cmd[1]:
+                            self._session_start_time = time()
+                        else:
+                            self._session_start_time += time() - self._pause_time
                     elif cmd[0] == "stop":
                         break
                 if not self._tokens_q.empty():
@@ -53,6 +56,7 @@ class _DataStreamSyncer(Process):
             sys.exit(0)
 
     def _send_oks(self):
+        self._ok_start_time = time()
         t = self._ok_start_time - self._session_start_time
         for ok_q in self._ok_qs.values():
             ok_q.put(t)
@@ -70,7 +74,6 @@ class _DataStreamSyncer(Process):
             return
         if self._T <= 0 or self._ok_start_time is None or \
             time() - self._ok_start_time > self._T:
-            self._ok_start_time = time()
             self._send_oks()
 
 class DataStreamSyncer:
@@ -120,9 +123,7 @@ class DataStreamSyncer:
             recorder._pause()
 
     def resume(self, reset_time=False):
-        self._cmds_q.put(("resume",))
-        if reset_time:
-            self.reset_time()
+        self._cmds_q.put(("resume",reset_time))
         for recorder in self._data_stream_recorders:
             recorder._resume()
 
