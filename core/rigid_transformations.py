@@ -28,7 +28,6 @@ except ImportError:
     logging.warning("core not installed as catkin package, RigidTransform ros methods will be unavailable")
     
 import subprocess
-import signal
 
 TF_EXTENSION = '.tf'
 STF_EXTENSION = '.stf'
