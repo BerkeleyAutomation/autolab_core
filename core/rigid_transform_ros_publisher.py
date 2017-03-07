@@ -55,6 +55,7 @@ if __name__ == '__main__':
                 publish_transform = publish_transform_frame
             elif mode == 'transform':
                 publish_transform = publish_transform_transform
+            transform.header.stamp = rospy.Time.now()
             publish_transform(transform)
         rate_keeper.sleep()
     
