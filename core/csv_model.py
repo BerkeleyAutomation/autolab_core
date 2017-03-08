@@ -212,20 +212,20 @@ class CSVModel:
     def get_col(self, col_name, filter = lambda _ : True):
         """
         Return all values in the column corresponding to col_name that satisfies filter, which is
-        a function that takes in a value of the column's type and returns True or False 
+        a function that takes in a value of the column's type and returns True or False
         Parameters
         -------------
         col_name: 'str'
             Name of desired column
         filter: function, optional
-            A function that takes in a value of the column's type and returns True or False 
-            Defaults to a function that always returns True 
-            
+            A function that takes in a value of the column's type and returns True or False
+            Defaults to a function that always returns True
+
         Returns
         ---------
         list
             A list of values in the desired columns by order of their storage in the model
-            
+
         Raises
         ------
         ValueError
@@ -239,9 +239,9 @@ class CSVModel:
             val = row[col_name]
             if filter(val):
                 col.append(val)
-                
+
         return col
-        
+
     def get_by_cols(self, cols, direction=1):
         """Return the first or last row that satisfies the given col value constraints,
         or None if no row contains the given value.
@@ -266,7 +266,7 @@ class CSVModel:
             iterator = range(self.num_rows-1, -1, -1)
         else:
             raise ValueError("Direction can only be 1 (first) or -1 (last). Got: {0}".format(direction))
-        
+
         for i in iterator:
             row = self._table[i+1]
 
@@ -322,6 +322,33 @@ class CSVModel:
             the specified column.
         """
         return self.get_by_cols({col:val}, direction=-1)
+
+    def get_rows_by_cols(self, matching_dict):
+        """Return all rows where the cols match the elements given in the matching_dict
+
+        Parameters
+        ----------
+        matching_dict: :obj:'dict'
+            Desired dictionary of col values.
+
+        Returns
+        -------
+        :obj:`list`
+            A list of rows that satisfy the matching_dict
+        """
+        result = []
+        for i in range(self.num_rows):
+            row = self._table[i+1]
+            matching = True
+            for key, val in matching_dict.items():
+                if row[key] != val:
+                    matching = False
+                    break
+
+            if matching:
+                result.append(row)
+
+        return result
 
     def __iter__(self):
         """ Forms an iterator """
