@@ -589,7 +589,7 @@ class PointCloud(BagOfPoints):
         mean_point_data = np.mean(self._data, axis=1)
         return Point(mean_point_data, self._frame)
 
-    def subsample(self, rate):
+    def subsample(self, rate, random=False):
         """Returns a subsampled version of the PointCloud.
 
         Parameters
@@ -609,7 +609,10 @@ class PointCloud(BagOfPoints):
         """
         if type(rate) != int and rate < 1:
             raise ValueError('Can only subsample with strictly positive integer rate')
-        subsample_inds = np.arange(self.num_points)[::rate]
+        indices = np.arange(self.num_points)
+        if random:
+            np.random.shuffle(indices)
+        subsample_inds = indices[::rate]
         subsampled_data = self._data[:,subsample_inds]
         return PointCloud(subsampled_data, self._frame)
 
