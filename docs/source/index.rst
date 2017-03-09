@@ -7,12 +7,6 @@ Berkeley AutoLab Core Documentation
 ===================================
 Welcome to the documentation for the Berkeley AutoLab's `core` module!
 This module is designed to be useful in a broad set of robotics tasks.
-As a general package, the `core` module only depends on `numpy`_, `scipy`_, and
-`matplotlib`_, which you can install with pip.
-
-.. _numpy: http://www.numpy.org/
-.. _scipy: https://www.scipy/org/
-.. _matplotlib: http://www.matplotlib.org/
 
 .. toctree::
    :maxdepth: 2

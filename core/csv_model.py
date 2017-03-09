@@ -15,7 +15,7 @@ class CSVModel:
         'bool': bool
     }
 
-    def __init__(self, full_filename, headers_types_dict, default_entry=''):
+    def __init__(self, full_filename, headers_types_list, default_entry=''):
         """Instantiates a CSVModel object.
 
         Parameters
@@ -23,9 +23,9 @@ class CSVModel:
         full_filename : :obj:`str`
             The file path to a .csv file.
 
-        headers_types_dict : :obj:`dict` mapping :obj:`str` to :obj:`str`
-            A dictionary where each key is a string header for a column and
-            the correspoding value is the data type as a string.
+        headers_types_list : :obj:`list` of two-tuples :obj:`str`, :obj:`str`
+            A list where each item is a tuple of string header for a column and
+            the correspoding data type as a string.
 
         default_entry : :obj:`str`
             The default entry for cells in the CSV.
@@ -35,8 +35,7 @@ class CSVModel:
         Exception
             If the types, headers, or default entry are not strings.
         """
-        headers = headers_types_dict.keys()
-        types = headers_types_dict.values()
+        headers, types = zip(*headers_types_list)
         headers_types = {headers[i]:types[i] for i in range(len(headers))}
         for key, val in headers_types.items():
             if type(val) != str:
@@ -47,7 +46,7 @@ class CSVModel:
                 raise Exception("Cannot create reserved columns _uid or _default!")
         if type(default_entry) != str:
             raise Exception('Default entry must be a string! Got: {0}'.format(default_entry))
-        
+
         self._headers_types = headers_types.copy()
         self._headers = ('_uid',) + tuple(headers) + ('_default',)
 
@@ -168,7 +167,7 @@ class CSVModel:
         row = self._table[uid+1]
         for key, val in data.items():
             if key == '_uid' or key == '_default':
-                continue            
+                continue
             if key not in self._headers:
                 logging.warn("Unknown column name: {0}".format(key))
                 continue
@@ -210,6 +209,39 @@ class CSVModel:
         """
         return self._table[row + 1].copy()
 
+    def get_col(self, col_name, filter = lambda _ : True):
+        """
+        Return all values in the column corresponding to col_name that satisfies filter, which is
+        a function that takes in a value of the column's type and returns True or False
+        Parameters
+        -------------
+        col_name: 'str'
+            Name of desired column
+        filter: function, optional
+            A function that takes in a value of the column's type and returns True or False
+            Defaults to a function that always returns True
+
+        Returns
+        ---------
+        list
+            A list of values in the desired columns by order of their storage in the model
+
+        Raises
+        ------
+        ValueError
+            If the desired column name is not found in the model
+        """
+        if col_name not in self._headers:
+            raise ValueError("{} not found! Model has headers: {}".format(col_name, self._headers))
+        col = []
+        for i in range(self.num_rows):
+            row = self._table[i + 1]
+            val = row[col_name]
+            if filter(val):
+                col.append(val)
+
+        return col
+
     def get_by_cols(self, cols, direction=1):
         """Return the first or last row that satisfies the given col value constraints,
         or None if no row contains the given value.
@@ -231,7 +263,7 @@ class CSVModel:
         if direction == 1:
             iterator = range(self.num_rows)
         elif direction == -1:
-            iterator = range(self.num_rows-1, 0, -1)
+            iterator = range(self.num_rows-1, -1, -1)
         else:
             raise ValueError("Direction can only be 1 (first) or -1 (last). Got: {0}".format(direction))
 
@@ -290,6 +322,33 @@ class CSVModel:
             the specified column.
         """
         return self.get_by_cols({col:val}, direction=-1)
+
+    def get_rows_by_cols(self, matching_dict):
+        """Return all rows where the cols match the elements given in the matching_dict
+
+        Parameters
+        ----------
+        matching_dict: :obj:'dict'
+            Desired dictionary of col values.
+
+        Returns
+        -------
+        :obj:`list`
+            A list of rows that satisfy the matching_dict
+        """
+        result = []
+        for i in range(self.num_rows):
+            row = self._table[i+1]
+            matching = True
+            for key, val in matching_dict.items():
+                if row[key] != val:
+                    matching = False
+                    break
+
+            if matching:
+                result.append(row)
+
+        return result
 
     def __iter__(self):
         """ Forms an iterator """
@@ -357,10 +416,9 @@ class CSVModel:
 
         headers_init = headers[1:-1]
         types_init = [types[column_name] for column_name in headers_init]
-        headers_types_dict = {}
-        [headers_types_dict.update({k:v}) for k,v in zip(headers_init, types_init)]
+        headers_types_list = zip(headers_init, types_init)
 
-        csv_model = CSVModel(full_filename, headers_types_dict, default_entry=default_entry)
+        csv_model = CSVModel(full_filename, headers_types_list, default_entry=default_entry)
         csv_model._uid = next_valid_uid
         csv_model._table = table
         csv_model._save()

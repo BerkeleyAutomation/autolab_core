@@ -20,7 +20,7 @@ except Exception:
 __all__ = ['CSVModel',
            'DualQuaternion',
            'TerminateException',
-           'ExperimentLogger', 'EvaluateGraspsExperimentLogger',
+           'ExperimentLogger',
            'dump', 'load',
            'BagOfPoints', 'BagOfVectors', 'Point', 'Direction', 'Plane3D',
            'PointCloud', 'NormalCloud', 'ImageCoords', 'RgbCloud', 'RgbPointCloud', 'PointNormalCloud',

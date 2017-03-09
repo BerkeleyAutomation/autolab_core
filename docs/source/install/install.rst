@@ -22,9 +22,9 @@ Cloning the Repository
 ~~~~~~~~~~~~~~~~~~~~~~
 You can clone or download our source code from `Github`_. ::
 
-    $ git clone git@github.com:mmatl/core.git
+    $ git clone git@github.com:BerkeleyAutomation/core.git
 
-.. _Github: https://github.com/mmatl/core
+.. _Github: https://github.com/BerkeleyAutomation/core
 
 Installation
 ~~~~~~~~~~~~
@@ -62,7 +62,7 @@ To install the dependencies required, simply run ::
 
     $ pip install -r docs_requirements.txt
 
-Then, go to the `docs` directory and run `make` with the appropriate target.
+Then, go to the `docs` directory and run ``make`` with the appropriate target.
 For example, ::
 
     $ cd docs/
@@ -70,4 +70,16 @@ For example, ::
 
 will generate a set of web pages. Any documentation files
 generated in this manner can be found in `docs/build`.
+
+Deploying Documentation
+~~~~~~~~~~~~~~~~~~~~~~~
+To deploy documentation to the Github Pages site for the repository,
+simply push any changes to the documentation source to master
+and then run ::
+
+    $ . gh_deploy.sh
+
+from the `docs` folder. This script will automatically checkout the
+``gh-pages`` branch, build the documentation from source, and push it
+to Github.
 

@@ -6,11 +6,11 @@ from multiprocess import Process, Queue
 from time import time
 from Queue import Empty
 import logging, sys
-import IPython
+from setproctitle import setproctitle
 
 class _DataStreamSyncer(Process):
 
-    def __init__(self, frequency, ok_qs, cmds_q, tokens_q, logging_level):
+    def __init__(self, frequency, ok_qs, cmds_q, tokens_q):
         Process.__init__(self)
         self._cmds_q = cmds_q
         self._tokens_q = tokens_q
@@ -22,10 +22,9 @@ class _DataStreamSyncer(Process):
         self._ok_start_time = None
         self._pause = False
 
-        logging.getLogger().setLevel(logging_level)
-
     def run(self):
         self._session_start_time = time()
+        setproctitle("python._DataStreamSyncer")
         try:
             while True:
                 if not self._cmds_q.empty():
@@ -34,9 +33,14 @@ class _DataStreamSyncer(Process):
                         self._session_start_time = time()
                     elif cmd[0] == 'pause':
                         self._pause = True
+                        self._pause_time = time()
                         self._take_oks()
                     elif cmd[0] == 'resume':
                         self._pause = False
+                        if cmd[1]:
+                            self._session_start_time = time()
+                        else:
+                            self._session_start_time += time() - self._pause_time
                     elif cmd[0] == "stop":
                         break
                 if not self._tokens_q.empty():
@@ -51,6 +55,7 @@ class _DataStreamSyncer(Process):
             sys.exit(0)
 
     def _send_oks(self):
+        self._ok_start_time = time()
         t = self._ok_start_time - self._session_start_time
         for ok_q in self._ok_qs.values():
             ok_q.put(t)
@@ -68,12 +73,11 @@ class _DataStreamSyncer(Process):
             return
         if self._T <= 0 or self._ok_start_time is None or \
             time() - self._ok_start_time > self._T:
-            self._ok_start_time = time()
             self._send_oks()
 
 class DataStreamSyncer:
 
-    def __init__(self, data_stream_recorders, frequency=0, logging_level=logging.DEBUG):
+    def __init__(self, data_stream_recorders, frequency=0):
         """
         Instantiates a new DataStreamSyncer
 
@@ -83,9 +87,6 @@ class DataStreamSyncer:
             frequency : float, optional
                     Frequency in hz used for ratelimiting. If set to 0 or less, will not rate limit.
                     Defaults to 0
-            logging_level : logging level, optional
-                    Logging level for internal syncer process
-                    Defaults to logging.DEBUG
         """
         self._cmds_q = Queue()
         self._tokens_q = Queue()
@@ -97,7 +98,7 @@ class DataStreamSyncer:
             ok_qs[data_stream_recorder.id] = ok_q
             data_stream_recorder._set_qs(ok_q, self._tokens_q)
 
-        self._syncer = _DataStreamSyncer(frequency, ok_qs, self._cmds_q, self._tokens_q, logging_level)
+        self._syncer = _DataStreamSyncer(frequency, ok_qs, self._cmds_q, self._tokens_q)
         self._syncer.start()
 
     def start(self):
@@ -121,9 +122,7 @@ class DataStreamSyncer:
             recorder._pause()
 
     def resume(self, reset_time=False):
-        self._cmds_q.put(("resume",))
-        if reset_time:
-            self.reset_time()
+        self._cmds_q.put(("resume",reset_time))
         for recorder in self._data_stream_recorders:
             recorder._resume()
 
