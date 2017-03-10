@@ -490,7 +490,7 @@ class RigidTransform(object):
     
     def publish_to_ros(self, mode='transform'):
         """Publishes RigidTransform to ROS
-        If a transform with the same from and to frames already exists in the ROS publisher, it is updated instead
+        If a transform referencing the same frames already exists in the ROS publisher, it is updated instead
         
         Note that this checking is order-sensitive, that is, if a rigid transform from a to b exists, a publishing a 
         rigid transform from b to a WILL NOT update the transform. Behavior is undefined in this case. In this case,
@@ -518,8 +518,8 @@ class RigidTransform(object):
         publisher(trans[0], trans[1], trans[2], rot[0], rot[1], rot[2], rot[3], self.from_frame, self.to_frame, mode)
         
     def delete_from_ros(self):
-        """Removes RigidTransform from from_frame to to_frame from ROS publisher.
-        Note that this may not be this exact transform, but one with the same from and to frames (order doesn't matter)
+        """Removes RigidTransform referencing from_frame and to_frame from ROS publisher.
+        Note that this may not be this exact transform, but may that references the same frames (order doesn't matter)
         
         Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
         

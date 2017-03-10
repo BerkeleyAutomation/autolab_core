@@ -17,9 +17,10 @@ if __name__ == '__main__':
     
     def handle_request(req):
         mode = req.mode.lower()
+        transform_key = set((req.from_frame, req.to_frame))
         if mode == 'delete':
-            if (req.from_frame, req.to_frame) in to_publish:
-                del to_publish[(req.from_frame, req.to_frame)]
+            if transform_key in to_publish:
+                del to_publish[transform_key]
         elif req.mode == 'frame' or mode == 'transform':
             t = geometry_msgs.msg.TransformStamped()
             
@@ -35,7 +36,7 @@ if __name__ == '__main__':
             t.transform.rotation.y = req.y_rot
             t.transform.rotation.z = req.z_rot
         
-            to_publish[(req.from_frame, req.to_frame)] = (t, mode)
+            to_publish[transform_key] = (t, mode)
         else:
             raise RuntimeError("mode {0} is not supported".format(req.mode))
         return RigidTransformPublisherResponse()
