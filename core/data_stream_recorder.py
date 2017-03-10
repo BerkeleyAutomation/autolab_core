@@ -4,7 +4,6 @@ Author: Jacky Liang
 """
 import os, sys, logging, shutil
 from multiprocess import Process, Queue
-from uuid import uuid4
 from joblib import dump, load
 from time import sleep, time
 from setproctitle import setproctitle
@@ -71,13 +70,11 @@ class DataStreamRecorder(Process):
         self._ok_q = None
         self._tokens_q = None
 
-        self._id = uuid4()
-
         self._save_every = save_every
         self._cache_path = cache_path
         self._saving_cache = cache_path is not None
         if self._saving_cache:
-            self._save_path = os.path.join(cache_path, self.id)
+            self._save_path = os.path.join(cache_path, self.name)
             if not os.path.exists(self._save_path):
                 os.makedirs(self._save_path)
 
@@ -89,7 +86,7 @@ class DataStreamRecorder(Process):
         setproctitle('python.DataStreamRecorder.{0}'.format(self._name))
         try:
             logging.debug("Starting data recording on {0}".format(self.name))
-            self._tokens_q.put(("return", self.id))
+            self._tokens_q.put(("return", self.name))
             while True:
                 if not self._cmds_q.empty():
                     cmd = self._cmds_q.get()
@@ -114,7 +111,7 @@ class DataStreamRecorder(Process):
 
                 if self._recording and not self._ok_q.empty():
                     timestamp = self._ok_q.get()
-                    self._tokens_q.put(("take", self.id))
+                    self._tokens_q.put(("take", self.name))
 
                     data = self._data_sampler_method(*self._args, **self._kwargs)
 
@@ -126,7 +123,7 @@ class DataStreamRecorder(Process):
                         self._data_qs.append(cur_data_q)
                     cur_data_q.put((timestamp, data))
 
-                    self._tokens_q.put(("return", self.id))
+                    self._tokens_q.put(("return", self.name))
 
         except KeyboardInterrupt:
             logging.debug("Shutting down data streamer on {0}".format(self.name))
@@ -183,10 +180,6 @@ class DataStreamRecorder(Process):
 
         self._recording = True
         self.start()
-
-    @property
-    def id(self):
-        return self._id.hex
 
     @property
     def name(self):
