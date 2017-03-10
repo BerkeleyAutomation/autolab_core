@@ -17,7 +17,7 @@ if __name__ == '__main__':
     
     def handle_request(req):
         mode = req.mode.lower()
-        transform_key = set((req.from_frame, req.to_frame))
+        transform_key = frozenset((req.from_frame, req.to_frame))
         if mode == 'delete':
             if transform_key in to_publish:
                 del to_publish[transform_key]
