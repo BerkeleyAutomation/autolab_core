@@ -1,4 +1,4 @@
 <launch>
-  <node pkg="core" type="rigid_transform_publisher.py" />
-  <node pkg="core" type="rigid_transform_listener.py" />
+  <node name="rigid_transform_publisher" pkg="core" type="rigid_transform_publisher.py" />
+  <node name="rigid_transform_listener" pkg="core" type="rigid_transform_listener.py" />
 </launch>
