@@ -496,7 +496,7 @@ class RigidTransform(object):
         rigid transform from b to a WILL NOT update the transform. Behavior is undefined in this case. In this case,
         delete the first transform from ROS before trying to publish the second
         
-        Requires rigid_transform_ros_publisher service to be running
+        Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
         
         Parameters
         ----------
@@ -519,9 +519,9 @@ class RigidTransform(object):
         
     def delete_from_ros(self):
         """Removes RigidTransform from from_frame to to_frame from ROS publisher.
-        Note that this may not be this exact transform, but one with the same from and to frames
+        Note that this may not be this exact transform, but one with the same from and to frames (order doesn't matter)
         
-        Requires rigid_transform_ros_publisher service to be running
+        Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
         
         
         Raises
@@ -555,14 +555,14 @@ class RigidTransform(object):
         """
         if rosservice.get_service_node('{0}rigid_transform_publisher'.format(rospy.get_namespace())) == None:
             try:
-                subprocess.Popen("rosrun core rigid_transform_ros_publisher.py", shell=True, stdout=open(os.devnull, 'w'))
+                subprocess.Popen("rosrun core rigid_transform_publisher.py", shell=True, stdout=open(os.devnull, 'w'))
             except:
                 raise RuntimeError("Could not run rigid_transform_ros_publisher.py, either core is not a catkin package or " +
                                    "rigid_transform_ros_publisher.py is not executable (use chmod to make it executable)")
                 
         if rosservice.get_service_node('{0}rigid_transform_listener'.format(rospy.get_namespace())) == None:
             try:
-                subprocess.Popen("rosrun core rigid_transform_ros_listener.py", shell=True, stdout=open(os.devnull, 'w'))
+                subprocess.Popen("rosrun core rigid_transform_listener.py", shell=True, stdout=open(os.devnull, 'w'))
             except:
                 raise RuntimeError("Could not run rigid_transform_ros_listener.py, either core is not a catkin package or " +
                                    "rigid_transform_ros_listener.py is not executable (use chmod to make it executable)")
@@ -594,7 +594,7 @@ class RigidTransform(object):
     def rigid_transform_from_ros(from_frame, to_frame):
         """Gets transform from ROS as a rigid transform
         
-        Requires rigid_transform_ros_listener service to be running
+        Requires ROS rigid_transform_listener service to be running under the same namespace as this program
         
         Parameters
         ----------
