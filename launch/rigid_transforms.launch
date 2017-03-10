@@ -1,0 +1,4 @@
+<launch>
+  <pkg="core" type="rigid_transform_publisher.py"/>
+  <pkg="core" type="rigid_transform_listener.py"/>
+</launch>
