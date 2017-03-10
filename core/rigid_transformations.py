@@ -521,6 +521,8 @@ class RigidTransform(object):
         """Removes RigidTransform referencing from_frame and to_frame from ROS publisher.
         Note that this may not be this exact transform, but may that references the same frames (order doesn't matter)
         
+        Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher's cache 
+        
         Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
         
         
