@@ -488,7 +488,7 @@ class RigidTransform(object):
         """
         return RigidTransform(self.rotation, self.translation, from_frame, to_frame)
     
-    def publish_to_ros(self, mode='transform'):
+    def publish_to_ros(self, mode='transform', service_name='rigid_transforms/rigid_transform_publisher', namespace=None):
         """Publishes RigidTransform to ROS
         If a transform referencing the same frames already exists in the ROS publisher, it is updated instead
         
@@ -503,21 +503,31 @@ class RigidTransform(object):
         mode : :obj:`str`
             Mode in which to publish. In {'transform', 'frame'}
             Defaults to 'transform'
+        transform_publisher_service : string, optional
+            RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+            rigid_transforms.launch it will be called rigid_transform_publisher
+        namespace : string, optional
+            Namespace to prepend to transform_listener_service. If None, current namespace is prepended.
         
         Raises
         ------
         rospy.ServiceException
             If service call to rigid_transform_publisher fails
         """
-        rospy.wait_for_service('{0}rigid_transform_publisher'.format(rospy.get_namespace()), timeout = 10)
-        publisher = rospy.ServiceProxy('{0}rigid_transform_publisher'.format(rospy.get_namespace()), RigidTransformPublisher)
+        if namespace == None:
+            service_name = rospy.get_namespace() + service_name
+        else:
+            service_name = namespace + service_name
+        
+        rospy.wait_for_service(service_name, timeout = 10)
+        publisher = rospy.ServiceProxy(service_name, RigidTransformPublisher)
         
         trans = self.translation
         rot = self.quaternion
         
         publisher(trans[0], trans[1], trans[2], rot[0], rot[1], rot[2], rot[3], self.from_frame, self.to_frame, mode)
         
-    def delete_from_ros(self):
+    def delete_from_ros(self, service_name='rigid_transforms/rigid_transform_publisher', namespace=None):
         """Removes RigidTransform referencing from_frame and to_frame from ROS publisher.
         Note that this may not be this exact transform, but may that references the same frames (order doesn't matter)
         
@@ -525,14 +535,26 @@ class RigidTransform(object):
         
         Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
         
+        Parameters
+        ----------
+        transform_publisher_service : string, optional
+            RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+            rigid_transforms.launch it will be called rigid_transform_publisher
+        namespace : string, optional
+            Namespace to prepend to transform_listener_service. If None, current namespace is prepended.
         
         Raises
         ------
         rospy.ServiceException
             If service call to rigid_transform_publisher fails
         """
-        rospy.wait_for_service('{0}rigid_transform_publisher'.format(rospy.get_namespace()), timeout = 10)
-        publisher = rospy.ServiceProxy('{0}rigid_transform_publisher'.format(rospy.get_namespace()), RigidTransformPublisher)
+        if namespace == None:
+            service_name = rospy.get_namespace() + service_name
+        else:
+            service_name = namespace + service_name
+            
+        rospy.wait_for_service(service_name, timeout = 10)
+        publisher = rospy.ServiceProxy(service_name, RigidTransformPublisher)
         
         publisher(0, 0, 0, 0, 0, 0, 0, self.from_frame, self.to_frame, 'delete')
 
@@ -547,7 +569,7 @@ class RigidTransform(object):
         return out
     
     @staticmethod
-    def rigid_transform_from_ros(from_frame, to_frame):
+    def rigid_transform_from_ros(from_frame, to_frame, service_name='rigid_transforms/rigid_transform_listener', namespace=None):
         """Gets transform from ROS as a rigid transform
         
         Requires ROS rigid_transform_listener service to be running under the same namespace as this program
@@ -556,14 +578,24 @@ class RigidTransform(object):
         ----------
         from_frame : :obj:`str`
         to_frame : :obj:`str`
+        transform_listener_service : string, optional
+            RigidTransformListener service to interface with. If the RigidTransformListener services are started through
+            rigid_transforms.launch it will be called rigid_transform_listener
+        namespace : string, optional
+            Namespace to prepend to transform_listener_service. If None, current namespace is prepended.
         
         Raises
         ------
         rospy.ServiceException
             If service call to rigid_transform_listener fails
         """
-        rospy.wait_for_service('{0}rigid_transform_listener'.format(rospy.get_namespace()), timeout = 10)
-        listener = rospy.ServiceProxy('{0}rigid_transform_listener'.format(rospy.get_namespace()), RigidTransformListener)
+        if namespace == None:
+            service_name = rospy.get_namespace() + service_name
+        else:
+            service_name = namespace + service_name
+        
+        rospy.wait_for_service(service_name, timeout = 10)
+        listener = rospy.ServiceProxy(service_name, RigidTransformListener)
         
         ret = listener(from_frame, to_frame)
         
