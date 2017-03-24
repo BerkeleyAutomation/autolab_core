@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -35,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="YAML Config Processor" href="yaml_config.html"/>
-        <link rel="prev" title="Transformations" href="rigid_transform.html"/> 
+        <link rel="prev" title="Rigid Transformations" href="rigid_transform.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,9 +87,15 @@
           
             
             
-                <p class="caption"><span class="caption-text">Installation Guide</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
@@ -98,7 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="points.html">Points and Point Clouds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="primitives.html">Geometric Primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random_variables.html">Random Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rigid_transform.html">Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rigid_transform.html">Rigid Transformations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="yaml_config.html">YAML Config Processor</a></li>
 </ul>
@@ -113,8 +122,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">core</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">core</a>
+        
       </nav>
 
 
@@ -123,23 +134,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Utility Functions</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Utility Functions</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/api/utils.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -356,15 +384,18 @@ vector. Only works for 3x3 matrices.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="yaml_config.html" class="btn btn-neutral float-right" title="YAML Config Processor" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="yaml_config.html" class="btn btn-neutral float-right" title="YAML Config Processor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rigid_transform.html" class="btn btn-neutral" title="Transformations" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rigid_transform.html" class="btn btn-neutral" title="Rigid Transformations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -398,7 +429,8 @@ vector. Only works for 3x3 matrices.</p>
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

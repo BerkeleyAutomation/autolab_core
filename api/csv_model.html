@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -35,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="Quaternions" href="dual_quaternion.html"/>
-        <link rel="prev" title="Installation Instructions" href="../install/install.html"/> 
+        <link rel="prev" title="Python Installation" href="../install/install.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,9 +87,15 @@
           
             
             
-                <p class="caption"><span class="caption-text">Installation Guide</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
@@ -101,7 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="points.html">Points and Point Clouds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="primitives.html">Geometric Primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random_variables.html">Random Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rigid_transform.html">Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rigid_transform.html">Rigid Transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="yaml_config.html">YAML Config Processor</a></li>
 </ul>
@@ -116,8 +125,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">core</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">core</a>
+        
       </nav>
 
 
@@ -126,23 +137,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>CSV Processing</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>CSV Processing</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/api/csv_model.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -283,6 +311,30 @@ represents a row of the table.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="core.CSVModel.get_col">
+<code class="descname">get_col</code><span class="sig-paren">(</span><em>col_name</em>, <em>filter=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all values in the column corresponding to col_name that satisfies filter, which is
+a function that takes in a value of the column&#8217;s type and returns True or False
+:param col_name: Name of desired column
+:type col_name: &#8216;str&#8217;
+:param filter: A function that takes in a value of the column&#8217;s type and returns True or False</p>
+<blockquote>
+<div>Defaults to a function that always returns True</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of values in the desired columns by order of their storage in the model</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the desired column name is not found in the model</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="core.CSVModel.get_by_cols">
 <code class="descname">get_by_cols</code><span class="sig-paren">(</span><em>cols</em>, <em>direction=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_by_cols" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the first or last row that satisfies the given col value constraints,
@@ -364,6 +416,24 @@ the specified column.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="core.CSVModel.get_rows_by_cols">
+<code class="descname">get_rows_by_cols</code><span class="sig-paren">(</span><em>matching_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_rows_by_cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all rows where the cols match the elements given in the matching_dict</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matching_dict</strong> (<em>:obj:'dict'</em>) &#8211; Desired dictionary of col values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of rows that satisfy the matching_dict</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">list</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="core.CSVModel.__iter__">
 <code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.__iter__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forms an iterator</p>
@@ -431,15 +501,18 @@ CSVModel tied to the filename if the file doesn&#8217;t currently exist.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dual_quaternion.html" class="btn btn-neutral float-right" title="Quaternions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dual_quaternion.html" class="btn btn-neutral float-right" title="Quaternions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../install/install.html" class="btn btn-neutral" title="Installation Instructions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../install/install.html" class="btn btn-neutral" title="Python Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -473,7 +546,8 @@ CSVModel tied to the filename if the file doesn&#8217;t currently exist.</p>
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

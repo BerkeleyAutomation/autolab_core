@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Transformations &mdash; core 0.1.0 documentation</title>
+  <title>Rigid Transformations &mdash; core 0.1.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,9 +87,15 @@
           
             
             
-                <p class="caption"><span class="caption-text">Installation Guide</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
@@ -98,7 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="points.html">Points and Point Clouds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="primitives.html">Geometric Primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random_variables.html">Random Variables</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Transformations</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rigid Transformations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#rigidtransform">RigidTransform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#similaritytransform">SimilarityTransform</a></li>
 </ul>
@@ -117,8 +126,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">core</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">core</a>
+        
       </nav>
 
 
@@ -127,30 +138,47 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Transformations</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Rigid Transformations</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/api/rigid_transform.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="transformations">
-<h1>Transformations<a class="headerlink" href="#transformations" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="rigid-transformations">
+<h1>Rigid Transformations<a class="headerlink" href="#rigid-transformations" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="rigidtransform">
 <h2>RigidTransform<a class="headerlink" href="#rigidtransform" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -475,6 +503,86 @@ changed.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.RigidTransform.publish_to_ros">
+<code class="descname">publish_to_ros</code><span class="sig-paren">(</span><em>mode='transform'</em>, <em>service_name='rigid_transforms/rigid_transform_publisher'</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.publish_to_ros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publishes RigidTransform to ROS
+If a transform referencing the same frames already exists in the ROS publisher, it is updated instead.
+This checking is not order sensitive</p>
+<p>Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+this can be done with: roslaunch core rigid_transforms.launch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mode</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; Mode in which to publish. In {&#8216;transform&#8217;, &#8216;frame&#8217;}
+Defaults to &#8216;transform&#8217;</li>
+<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+rigid_transforms.launch it will be called rigid_transform_publisher</li>
+<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> &#8211; If service call to rigid_transform_publisher fails</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.RigidTransform.delete_from_ros">
+<code class="descname">delete_from_ros</code><span class="sig-paren">(</span><em>service_name='rigid_transforms/rigid_transform_publisher'</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.delete_from_ros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes RigidTransform referencing from_frame and to_frame from ROS publisher.
+Note that this may not be this exact transform, but may that references the same frames (order doesn&#8217;t matter)</p>
+<p>Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher&#8217;s cache</p>
+<p>Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+this can be done with: roslaunch core rigid_transforms.launch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+rigid_transforms.launch it will be called rigid_transform_publisher</li>
+<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> &#8211; If service call to rigid_transform_publisher fails</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.RigidTransform.rigid_transform_from_ros">
+<em class="property">static </em><code class="descname">rigid_transform_from_ros</code><span class="sig-paren">(</span><em>from_frame</em>, <em>to_frame</em>, <em>service_name='rigid_transforms/rigid_transform_listener'</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.rigid_transform_from_ros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets transform from ROS as a rigid transform</p>
+<p>Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+this can be done with: roslaunch core rigid_transforms.launch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; </li>
+<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; </li>
+<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; RigidTransformListener service to interface with. If the RigidTransformListener services are started through
+rigid_transforms.launch it will be called rigid_transform_listener</li>
+<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> &#8211; If service call to rigid_transform_listener fails</p>
 </td>
 </tr>
 </tbody>
@@ -825,15 +933,18 @@ rotation_row_2 (space separated)</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utility Functions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utility Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="random_variables.html" class="btn btn-neutral" title="Random Variables" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="random_variables.html" class="btn btn-neutral" title="Random Variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -867,7 +978,8 @@ rotation_row_2 (space separated)</p>
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

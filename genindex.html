@@ -14,6 +14,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -83,9 +86,15 @@
           
             
             
-                <p class="caption"><span class="caption-text">Installation Guide</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install/install.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/install.html">Python Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/install.html#documentation">Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -97,7 +106,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/points.html">Points and Point Clouds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/primitives.html">Geometric Primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/random_variables.html">Random Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/rigid_transform.html">Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/rigid_transform.html">Rigid Transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/yaml_config.html">YAML Config Processor</a></li>
 </ul>
@@ -112,8 +121,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">core</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">core</a>
+        
       </nav>
 
 
@@ -126,17 +137,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li></li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Index</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -380,6 +408,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/points.html#core.BagOfPoints.data">data (core.BagOfPoints attribute)</a>
 </li>
+      <li><a href="api/rigid_transform.html#core.RigidTransform.delete_from_ros">delete_from_ros() (core.RigidTransform method)</a>
+</li>
       <li><a href="api/utils.html#core.deskew">deskew() (in module core)</a>
 </li>
       <li><a href="api/points.html#core.BagOfPoints.dim">dim (core.BagOfPoints attribute)</a>
@@ -466,17 +496,21 @@
 </li>
       <li><a href="api/csv_model.html#core.CSVModel.get_by_col_last">get_by_col_last() (core.CSVModel method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/csv_model.html#core.CSVModel.get_by_cols">get_by_cols() (core.CSVModel method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/csv_model.html#core.CSVModel.get_by_row">get_by_row() (core.CSVModel method)</a>
 </li>
       <li><a href="api/csv_model.html#core.CSVModel.get_by_uid">get_by_uid() (core.CSVModel method)</a>
 </li>
+      <li><a href="api/csv_model.html#core.CSVModel.get_col">get_col() (core.CSVModel method)</a>
+</li>
       <li><a href="api/csv_model.html#core.CSVModel.get_cur_uid">get_cur_uid() (core.CSVModel method)</a>
 </li>
       <li><a href="api/csv_model.html#core.CSVModel.get_or_create">get_or_create() (core.CSVModel static method)</a>
+</li>
+      <li><a href="api/csv_model.html#core.CSVModel.get_rows_by_cols">get_rows_by_cols() (core.CSVModel method)</a>
 </li>
       <li><a href="api/points.html#core.RgbCloud.green">green (core.RgbCloud attribute)</a>
 </li>
@@ -672,6 +706,8 @@
 </li>
       <li><a href="api/utils.html#core.pretty_str_time">pretty_str_time() (in module core)</a>
 </li>
+      <li><a href="api/rigid_transform.html#core.RigidTransform.publish_to_ros">publish_to_ros() (core.RigidTransform method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -723,6 +759,8 @@
       <li><a href="api/points.html#core.RgbCloud">RgbCloud (class in core)</a>
 </li>
       <li><a href="api/points.html#core.RgbPointCloud">RgbPointCloud (class in core)</a>
+</li>
+      <li><a href="api/rigid_transform.html#core.RigidTransform.rigid_transform_from_ros">rigid_transform_from_ros() (core.RigidTransform static method)</a>
 </li>
       <li><a href="api/rigid_transform.html#core.RigidTransform">RigidTransform (class in core)</a>
 </li>
@@ -904,6 +942,9 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -937,7 +978,8 @@
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
