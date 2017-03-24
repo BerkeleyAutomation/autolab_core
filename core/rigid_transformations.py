@@ -490,20 +490,18 @@ class RigidTransform(object):
     
     def publish_to_ros(self, mode='transform', service_name='rigid_transforms/rigid_transform_publisher', namespace=None):
         """Publishes RigidTransform to ROS
-        If a transform referencing the same frames already exists in the ROS publisher, it is updated instead
+        If a transform referencing the same frames already exists in the ROS publisher, it is updated instead.
+        This checking is not order sensitive
         
-        Note that this checking is order-sensitive, that is, if a rigid transform from a to b exists, a publishing a 
-        rigid transform from b to a WILL NOT update the transform. Behavior is undefined in this case. In this case,
-        delete the first transform from ROS before trying to publish the second
-        
-        Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
+        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+        this can be done with: roslaunch core rigid_transforms.launch
         
         Parameters
         ----------
         mode : :obj:`str`
             Mode in which to publish. In {'transform', 'frame'}
             Defaults to 'transform'
-        transform_publisher_service : string, optional
+        service_name : string, optional
             RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
             rigid_transforms.launch it will be called rigid_transform_publisher
         namespace : string, optional
@@ -533,11 +531,12 @@ class RigidTransform(object):
         
         Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher's cache 
         
-        Requires ROS rigid_transform_publisher service to be running under the same namespace as this program
+        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+        this can be done with: roslaunch core rigid_transforms.launch
         
         Parameters
         ----------
-        transform_publisher_service : string, optional
+        service_name : string, optional
             RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
             rigid_transforms.launch it will be called rigid_transform_publisher
         namespace : string, optional
@@ -572,13 +571,14 @@ class RigidTransform(object):
     def rigid_transform_from_ros(from_frame, to_frame, service_name='rigid_transforms/rigid_transform_listener', namespace=None):
         """Gets transform from ROS as a rigid transform
         
-        Requires ROS rigid_transform_listener service to be running under the same namespace as this program
+        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+        this can be done with: roslaunch core rigid_transforms.launch
         
         Parameters
         ----------
         from_frame : :obj:`str`
         to_frame : :obj:`str`
-        transform_listener_service : string, optional
+        service_name : string, optional
             RigidTransformListener service to interface with. If the RigidTransformListener services are started through
             rigid_transforms.launch it will be called rigid_transform_listener
         namespace : string, optional

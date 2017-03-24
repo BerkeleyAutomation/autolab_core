@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+""" Buffers ROS TF and provides a service to get transforms
+"""
+
 import logging
 import rospy
 import tf

@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+""" Publisher service that takes transforms and publishes them to ROS TF periodically
+"""
+
 
 import logging
 import rospy
