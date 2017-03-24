@@ -1,0 +1,9 @@
+<launch>
+  <!-- Namespace for the node and services -->
+  <arg name="ns"  default="rigid_transforms" />
+  
+  <group ns="$(arg ns)">
+    <node name="rigid_transform_publisher" pkg="core" type="rigid_transform_publisher.py" />
+    <node name="rigid_transform_listener"  pkg="core" type="rigid_transform_listener.py" />
+  </group>
+</launch>
