@@ -28,12 +28,6 @@ Alternatively, you can run ::
 to install `core` from anywhere.
 This will install `core` in your current Python environment.
 
-3. Test the installation
-""""""""""""""""""""""""
-Change directories into the `core` repository and run ::
-
-    $ python setup.py test
-
 ROS Installation
 ~~~~~~~~~~~~~~~~
 
@@ -71,6 +65,17 @@ Build the catkin pacakge by running ::
     $ catkin_make
 
 Then re-source devel/setup.bash for the module to be available through Python.
+
+Testing
+~~~~~~~
+To test your installation, run ::
+
+  $ python setup.py test
+
+with the robot on and calibrated.
+
+We highly recommend testing before using the module.
+
 
 Dependencies
 ~~~~~~~~~~~~
