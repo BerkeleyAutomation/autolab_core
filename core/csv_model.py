@@ -363,6 +363,17 @@ class CSVModel:
         self._cur_row += 1
         return data
 
+    @staticmethod
+    def _str_to_bool(s):
+        truthy = {'T', 'True', 't', 'true', 'TRUE'}
+        falsy = {'F', 'False', 'f', 'false', 'FALSE'}
+
+        if s in truthy:
+            return True
+        elif s in falsy:
+            return False
+        else:
+            raise ValueError('Cannot convert {} to a boolean value! Accepted values are {} and {}'.format(s, truthy, falsy))
 
     @staticmethod
     def load(full_filename):
@@ -400,9 +411,7 @@ class CSVModel:
                 for column_name in headers:
                     if raw_row[column_name] != default_entry:
                         if types[column_name] == 'bool':
-                            row[column_name] = True
-                            if raw_row[column_name] == 'False':
-                                row[column_name] = False
+                            row[column_name] = CSVModel._str_to_bool(raw_row[column_name])
                         else:
                             row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](raw_row[column_name])
                     else:
