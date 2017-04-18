@@ -256,3 +256,18 @@ def keyboard_input(message, yesno=False):
             logging.info('Did not understand input. Please answer \'y\' or \'n\'')
             human_input = raw_input(message)
     return human_input
+
+def sqrt_ceil(n):
+    """ Computes the square root of an number rounded up to the nearest integer. Very useful for plotting.
+
+    Parameters
+    ----------
+    n : int
+        number to sqrt
+
+    Returns
+    -------
+    int
+        the sqrt rounded up to the nearest integer
+    """
+    return int(np.ceil(np.sqrt(n)))

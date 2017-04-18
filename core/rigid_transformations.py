@@ -15,6 +15,19 @@ try:
     from geometry_msgs import msg
 except:
     logging.warning('Failed to import geometry msgs in rigid_transformations.py.')
+    
+try:
+    import rospy
+    import rosservice
+except ImportError:
+    logging.warning("Failed to import ros dependencies in rigid_transforms.py")
+    
+try:
+    from core.srv import *
+except ImportError:
+    logging.warning("core not installed as catkin package, RigidTransform ros methods will be unavailable")
+    
+import subprocess
 
 TF_EXTENSION = '.tf'
 STF_EXTENSION = '.stf'
@@ -474,6 +487,75 @@ class RigidTransform(object):
             The RigidTransform with new frames.
         """
         return RigidTransform(self.rotation, self.translation, from_frame, to_frame)
+    
+    def publish_to_ros(self, mode='transform', service_name='rigid_transforms/rigid_transform_publisher', namespace=None):
+        """Publishes RigidTransform to ROS
+        If a transform referencing the same frames already exists in the ROS publisher, it is updated instead.
+        This checking is not order sensitive
+        
+        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+        this can be done with: roslaunch core rigid_transforms.launch
+        
+        Parameters
+        ----------
+        mode : :obj:`str`
+            Mode in which to publish. In {'transform', 'frame'}
+            Defaults to 'transform'
+        service_name : string, optional
+            RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+            rigid_transforms.launch it will be called rigid_transform_publisher
+        namespace : string, optional
+            Namespace to prepend to transform_listener_service. If None, current namespace is prepended.
+        
+        Raises
+        ------
+        rospy.ServiceException
+            If service call to rigid_transform_publisher fails
+        """
+        if namespace == None:
+            service_name = rospy.get_namespace() + service_name
+        else:
+            service_name = namespace + service_name
+        
+        rospy.wait_for_service(service_name, timeout = 10)
+        publisher = rospy.ServiceProxy(service_name, RigidTransformPublisher)
+        
+        trans = self.translation
+        rot = self.quaternion
+        
+        publisher(trans[0], trans[1], trans[2], rot[0], rot[1], rot[2], rot[3], self.from_frame, self.to_frame, mode)
+        
+    def delete_from_ros(self, service_name='rigid_transforms/rigid_transform_publisher', namespace=None):
+        """Removes RigidTransform referencing from_frame and to_frame from ROS publisher.
+        Note that this may not be this exact transform, but may that references the same frames (order doesn't matter)
+        
+        Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher's cache 
+        
+        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+        this can be done with: roslaunch core rigid_transforms.launch
+        
+        Parameters
+        ----------
+        service_name : string, optional
+            RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+            rigid_transforms.launch it will be called rigid_transform_publisher
+        namespace : string, optional
+            Namespace to prepend to transform_listener_service. If None, current namespace is prepended.
+        
+        Raises
+        ------
+        rospy.ServiceException
+            If service call to rigid_transform_publisher fails
+        """
+        if namespace == None:
+            service_name = rospy.get_namespace() + service_name
+        else:
+            service_name = namespace + service_name
+            
+        rospy.wait_for_service(service_name, timeout = 10)
+        publisher = rospy.ServiceProxy(service_name, RigidTransformPublisher)
+        
+        publisher(0, 0, 0, 0, 0, 0, 0, self.from_frame, self.to_frame, 'delete')
 
     def __str__(self):
         out = 'Tra: {0}\n Rot: {1}\n Qtn: {2}\n from {3} to {4}'.format(self.translation, self.rotation,
@@ -484,7 +566,46 @@ class RigidTransform(object):
         out = 'RigidTransform(rotation={0}, translation={1}, from_frame={2}, to_frame={3})'.format(self.rotation,
                 self.translation, self.from_frame, self.to_frame)
         return out
-
+    
+    @staticmethod
+    def rigid_transform_from_ros(from_frame, to_frame, service_name='rigid_transforms/rigid_transform_listener', namespace=None):
+        """Gets transform from ROS as a rigid transform
+        
+        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
+        this can be done with: roslaunch core rigid_transforms.launch
+        
+        Parameters
+        ----------
+        from_frame : :obj:`str`
+        to_frame : :obj:`str`
+        service_name : string, optional
+            RigidTransformListener service to interface with. If the RigidTransformListener services are started through
+            rigid_transforms.launch it will be called rigid_transform_listener
+        namespace : string, optional
+            Namespace to prepend to transform_listener_service. If None, current namespace is prepended.
+        
+        Raises
+        ------
+        rospy.ServiceException
+            If service call to rigid_transform_listener fails
+        """
+        if namespace == None:
+            service_name = rospy.get_namespace() + service_name
+        else:
+            service_name = namespace + service_name
+        
+        rospy.wait_for_service(service_name, timeout = 10)
+        listener = rospy.ServiceProxy(service_name, RigidTransformListener)
+        
+        ret = listener(from_frame, to_frame)
+        
+        quat = np.asarray([ret.w_rot, ret.x_rot, ret.y_rot, ret.z_rot])
+        trans = np.asarray([ret.x_trans, ret.y_trans, ret.z_trans])
+        
+        rot = RigidTransform.rotation_from_quaternion(quat)
+        
+        return RigidTransform(rotation=rot, translation=trans, from_frame=from_frame, to_frame=to_frame)
+        
     @staticmethod
     def rotation_from_quaternion(q_wxyz):
         """Convert quaternion array to rotation matrix.
