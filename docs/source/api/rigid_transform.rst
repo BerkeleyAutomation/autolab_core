@@ -1,5 +1,5 @@
-Transformations
-===============
+Rigid Transformations
+=====================
 
 RigidTransform
 ~~~~~~~~~~~~~~

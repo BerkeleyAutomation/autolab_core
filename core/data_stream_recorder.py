@@ -4,7 +4,6 @@ Author: Jacky Liang
 """
 import os, sys, logging, shutil
 from multiprocess import Process, Queue
-from uuid import uuid4
 from joblib import dump, load
 from time import sleep, time
 from setproctitle import setproctitle
@@ -71,13 +70,11 @@ class DataStreamRecorder(Process):
         self._ok_q = None
         self._tokens_q = None
 
-        self._id = uuid4()
-
         self._save_every = save_every
         self._cache_path = cache_path
         self._saving_cache = cache_path is not None
         if self._saving_cache:
-            self._save_path = os.path.join(cache_path, self.id)
+            self._save_path = os.path.join(cache_path, self.name)
             if not os.path.exists(self._save_path):
                 os.makedirs(self._save_path)
 
@@ -89,7 +86,7 @@ class DataStreamRecorder(Process):
         setproctitle('python.DataStreamRecorder.{0}'.format(self._name))
         try:
             logging.debug("Starting data recording on {0}".format(self.name))
-            self._tokens_q.put(("return", self.id))
+            self._tokens_q.put(("return", self.name))
             while True:
                 if not self._cmds_q.empty():
                     cmd = self._cmds_q.get()
@@ -98,8 +95,7 @@ class DataStreamRecorder(Process):
                     elif cmd[0] == 'pause':
                         self._recording = False
                         if self._saving_cache:
-                            cur_data_q = self._data_qs[self._cur_data_segment]
-                            self._save_cache(cur_data_q)
+                            self._save_cache(self._cur_data_segment)
                             self._cur_data_segment += 1
                             self._data_qs.append(Queue())
                     elif cmd[0] == 'reset_data_segment':
@@ -114,28 +110,31 @@ class DataStreamRecorder(Process):
 
                 if self._recording and not self._ok_q.empty():
                     timestamp = self._ok_q.get()
-                    self._tokens_q.put(("take", self.id))
+                    self._tokens_q.put(("take", self.name))
 
                     data = self._data_sampler_method(*self._args, **self._kwargs)
 
                     cur_data_q = self._data_qs[self._cur_data_segment]
                     if self._saving_cache and cur_data_q.qsize() == self._save_every:
-                        self._save_cache(cur_data_q)
-                        self._cur_data_segment += 1
+                        self._save_cache(self._cur_data_segment)
                         cur_data_q = Queue()
                         self._data_qs.append(cur_data_q)
+                        self._cur_data_segment += 1
                     cur_data_q.put((timestamp, data))
 
-                    self._tokens_q.put(("return", self.id))
+                    self._tokens_q.put(("return", self.name))
 
         except KeyboardInterrupt:
             logging.debug("Shutting down data streamer on {0}".format(self.name))
             sys.exit(0)
 
-    def _extract_q(self, q):
+    def _extract_q(self, i):
+        q = self._data_qs[i]
         vals = []
         while q.qsize() > 0:
             vals.append(q.get())
+        self._data_qs[i] = None
+        del q
         return vals
 
     def _save_data(self, path, cb, concat):
@@ -151,15 +150,15 @@ class DataStreamRecorder(Process):
             p.start()
             self._start_data_segment = self._cur_data_segment
         else:
-            data = self._extract_q(self._data_qs[0])
+            data = self._extract_q(0)
             p = Process(target=_dump, args=(data, target_filename, cb))
             p.start()
 
-    def _save_cache(self, data_q):
+    def _save_cache(self, i):
         if not self._save_cache:
             raise Exception("Cannot save cache if no cache path was specified.")
         logging.debug("Saving cache for {0} block {1}".format(self.name, self._cur_data_segment))
-        data = self._extract_q(data_q)
+        data = self._extract_q(i)
         p = Process(target=_dump_cache, args=(data, os.path.join(self._save_path, "{0}.jb".format(self._cur_data_segment)), self.name, self._cur_data_segment))
         p.start()
         self._saving_ps.append(p)
@@ -185,10 +184,6 @@ class DataStreamRecorder(Process):
         self.start()
 
     @property
-    def id(self):
-        return self._id.hex
-
-    @property
     def name(self):
         return self._name
 
@@ -204,7 +199,7 @@ class DataStreamRecorder(Process):
             logging.warn("Flush when using cache means unsaved data will be lost and not returned!")
             self._cmds_q.put(("reset_data_segment",))
         else:
-            data = self._extract_q(self._data_qs[0])
+            data = self._extract_q(0)
             return data
 
     def save_data(self, path, cb=_NULL, concat=True):
