@@ -448,6 +448,11 @@ class CSVModel:
             The CSVModel initialized with the data in the given file, or a new
             CSVModel tied to the filename if the file doesn't currently exist.
         """
+        # convert dictionaries to list
+        if isinstance(headers_types, dict):
+            headers_types_list = [(k,v) for k,v in headers_types.iteritems()]
+            headers_types = headers_types_list
+
         if os.path.isfile(full_filename):
             return CSVModel.load(full_filename)
         else:

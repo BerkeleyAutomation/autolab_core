@@ -556,6 +556,26 @@ class RigidTransform(object):
         return rotation, translation
 
     @staticmethod
+    def z_axis_rotation(theta):
+        """Generates a 3x3 rotation matrix for a rotation of angle
+        theta about the z axis.
+
+        Parameters
+        ----------
+        theta : float
+            amount to rotate, in radians
+
+        Returns
+        -------
+        :obj:`numpy.ndarray` of float
+            A random 3x3 rotation matrix.
+        """
+        R = np.array([[np.cos(theta), -np.sin(theta), 0],
+                      [np.sin(theta), np.cos(theta), 0],
+                      [0, 0, 1]])
+        return R
+
+    @staticmethod
     def random_rotation():
         """Generates a random 3x3 rotation matrix with SVD.
 

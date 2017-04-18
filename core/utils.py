@@ -2,6 +2,7 @@
 Commonly used helper functions
 Author: Jeff Mahler
 """
+import logging
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -126,7 +127,7 @@ def pretty_str_time(dt):
     
     Parameters
     ----------
-    :obj:`datetime`
+    dt : :obj:`datetime`
         A datetime object to format.
     
     Returns
@@ -224,3 +225,34 @@ def cart2sph(x, y, z):
         az = np.pi
     elev = np.arccos(z / r)
     return r, az, elev
+
+def keyboard_input(message, yesno=False):
+    """ Get keyboard input from a human, optionally reasking for valid
+    yes or no input.
+
+    Parameters
+    ----------
+    message : :obj:`str`
+        the message to display to the user
+    yesno : :obj:`bool`
+        whether or not to enforce yes or no inputs
+    
+    Returns
+    -------
+    :obj:`str`
+        string input by the human
+    """
+    # add space for readability
+    message += ' '
+
+    # add yes or no to message
+    if yesno:
+        message += '[y/n] '
+
+    # ask human
+    human_input = raw_input(message)
+    if yesno:
+        while human_input.lower() != 'n' and human_input.lower() != 'y':
+            logging.info('Did not understand input. Please answer \'y\' or \'n\'')
+            human_input = raw_input(message)
+    return human_input
