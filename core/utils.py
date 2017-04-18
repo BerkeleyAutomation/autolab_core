@@ -224,3 +224,18 @@ def cart2sph(x, y, z):
         az = np.pi
     elev = np.arccos(z / r)
     return r, az, elev
+
+def sqrt_ceil(n):
+    """ Computes the square root of an number rounded up to the nearest integer. Very useful for plotting.
+
+    Parameters
+    ----------
+    n : int
+        number to sqrt
+
+    Returns
+    -------
+    int
+        the sqrt rounded up to the nearest integer
+    """
+    return int(np.ceil(np.sqrt(n)))

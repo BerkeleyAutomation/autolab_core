@@ -129,7 +129,7 @@ class Contour(object):
     area : float
         area of the contour
     num_pixels : int
-        number of pixels along thr boundary
+        number of pixels along the boundary
     """
     def __init__(self, boundary_pixels, area=0.0, frame='unspecified'):
         self.boundary_pixels = boundary_pixels.squeeze()
