@@ -677,6 +677,46 @@ class RigidTransform(object):
         return rotation, translation
 
     @staticmethod
+    def x_axis_rotation(theta):
+        """Generates a 3x3 rotation matrix for a rotation of angle
+        theta about the x axis.
+
+        Parameters
+        ----------
+        theta : float
+            amount to rotate, in radians
+
+        Returns
+        -------
+        :obj:`numpy.ndarray` of float
+            A random 3x3 rotation matrix.
+        """
+        R = np.array([[1, 0, 0,],
+                      [0, np.cos(theta), -np.sin(theta)],
+                      [0, np.sin(theta), np.cos(theta)]])
+        return R
+
+    @staticmethod
+    def y_axis_rotation(theta):
+        """Generates a 3x3 rotation matrix for a rotation of angle
+        theta about the y axis.
+
+        Parameters
+        ----------
+        theta : float
+            amount to rotate, in radians
+
+        Returns
+        -------
+        :obj:`numpy.ndarray` of float
+            A random 3x3 rotation matrix.
+        """
+        R = np.array([[np.cos(theta), 0, np.sin(theta)],
+                      [0, 1, 0],
+                      [-np.sin(theta), 0, np.cos(theta)]])
+        return R
+
+    @staticmethod
     def z_axis_rotation(theta):
         """Generates a 3x3 rotation matrix for a rotation of angle
         theta about the z axis.
@@ -743,6 +783,28 @@ class RigidTransform(object):
             given target frame.
         """
         return np.hstack((x_axis[:,np.newaxis], y_axis[:,np.newaxis], z_axis[:,np.newaxis]))
+
+    @staticmethod
+    def sph_coords_to_pose(theta, psi):
+        """ Convert spherical coordinates to a pose.
+        
+        Parameters
+        ----------
+        theta : float
+            azimuth angle
+        psi : float
+            elevation angle
+
+        Returns
+        -------
+        :obj:`core.RigidTransformation`
+            rigid transformation corresponding to rotation with no translation
+        """
+        # rotate about the z and y axes individually
+        rot_z = RigidTransform.z_axis_rotation(theta)
+        rot_y = RigidTransform.y_axis_rotation(psi)
+        R = rot_y.dot(rot_z)
+        return RigidTransform(rotation=R)        
 
     @staticmethod
     def interpolate(T0, T1, t):

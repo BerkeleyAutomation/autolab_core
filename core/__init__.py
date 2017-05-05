@@ -6,10 +6,12 @@ from json_serialization import dump, load
 from points import BagOfPoints, BagOfVectors, Point, Direction, Plane3D
 from points import PointCloud, NormalCloud, ImageCoords, RgbCloud, RgbPointCloud, PointNormalCloud
 from primitives import Box, Contour
-from random_variables import RandomVariable, BernoulliRV, GaussianRV, ArtificialRV, ArtificialSingleRV
 from rigid_transformations import RigidTransform, SimilarityTransform
 from utils import gen_experiment_id, histogram, skew, deskew, pretty_str_time, filenames, sph2cart, cart2sph
 from yaml_config import YamlConfig
+
+from random_variables import RandomVariable, BernoulliRV, GaussianRV, ArtificialRV, ArtificialSingleRV, IsotropicGaussianRigidTransformRandomVariable
+
 try:
     from data_stream_syncer import DataStreamSyncer
     from data_stream_recorder import DataStreamRecorder
@@ -25,9 +27,9 @@ __all__ = ['CSVModel',
            'BagOfPoints', 'BagOfVectors', 'Point', 'Direction', 'Plane3D',
            'PointCloud', 'NormalCloud', 'ImageCoords', 'RgbCloud', 'RgbPointCloud', 'PointNormalCloud',
            'Box', 'Contour',
-           'RandomVariable', 'BernoulliRV', 'GaussianRV', 'ArtificialRV', 'ArtificialSingleRV',
            'RigidTransform', 'SimilarityTransform',
            'gen_experiment_id', 'histogram', 'skew', 'deskew',
            'YamlConfig',
+           'RandomVariable', 'BernoulliRV', 'GaussianRV', 'ArtificialRV', 'ArtificialSingleRV', 'IsotropicGaussianRigidTransformRandomVariable',
            'DataStreamSyncer',
            'DataStreamRecorder']

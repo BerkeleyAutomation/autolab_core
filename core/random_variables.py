@@ -7,6 +7,9 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 import scipy.stats
 
+from core import RigidTransform
+from core.utils import skew
+
 class RandomVariable(object):
     """Abstract base class for random variables.
     """
@@ -189,4 +192,59 @@ class ArtificialSingleRV(ArtificialRV):
             The copies of the fake RV.
         """
         return self.obj_
+
+class IsotropicGaussianRigidTransformRandomVariable(RandomVariable):
+    """ Random variable for sampling RigidTransformations with
+    a zero-mean isotropic Gaussian distribution over pose variables.
+
+    Attributes
+    ----------
+    t_rv : :obj:`scipy.stats.multivariate_normal`
+        multivariate Gaussian random variable for object translation
+    r_xi_rv : :obj:`scipy.stats.multivariate_normal`
+        multivariate Gaussian random variable of object rotations over the Lie Algebra
+    """
+    def __init__(self, sigma_trans, sigma_rot,
+                 from_frame='world', to_frame='world',
+                 num_prealloc_samples=0):
+        # read params
+        self._sigma_trans = max(1e-10, sigma_trans)
+        self._sigma_rot = max(1e-10, sigma_rot)
+        self._from_frame = from_frame
+        self._to_frame = to_frame
+
+        # setup random variables
+        self._t_rv = scipy.stats.multivariate_normal(np.zeros(3), self._sigma_trans**2)
+        self._r_xi_rv = scipy.stats.multivariate_normal(np.zeros(3), self._sigma_rot**2)
+        RandomVariable.__init__(self, num_prealloc_samples)
+
+    def sample(self, size=1):
+        """ Sample rigid transform random variables.
+
+        Parameters
+        ----------
+        size : int
+            number of sample to take
+        
+        Returns
+        -------
+        :obj:`list` of :obj:`RigidTransform`
+            sampled rigid transformations
+        """
+        samples = []
+        for i in range(size):
+            # sample random pose
+            xi = self._r_xi_rv.rvs(size=1)
+            S_xi = skew(xi)
+            R_sample = scipy.linalg.expm(S_xi)
+            t_sample = self._t_rv.rvs(size=1)
+            samples.append(RigidTransform(rotation=R_sample,
+                                          translation=t_sample,
+                                          from_frame=self._from_frame,
+                                          to_frame=self._to_frame))
+
+        # not a list if only 1 sample
+        if size == 1 and len(samples) > 0:
+            return samples[0]
+        return samples
 
