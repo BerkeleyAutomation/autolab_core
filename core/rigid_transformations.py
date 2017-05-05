@@ -390,6 +390,12 @@ class RigidTransform(object):
 
         pose_tf = self.matrix.dot(other_tf.matrix)
         rotation, translation = RigidTransform.rotation_and_translation_from_matrix(pose_tf)
+
+        if isinstance(other_tf, SimilarityTransform):
+            return SimilarityTransform(rotation, translation,
+                                       other_tf.scale,
+                                       from_frame=other_tf.from_frame,
+                                       to_frame=self.to_frame)
         return RigidTransform(rotation, translation,
                               from_frame=other_tf.from_frame,
                               to_frame=self.to_frame)
