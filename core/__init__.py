@@ -10,6 +10,7 @@ from rigid_transformations import RigidTransform, SimilarityTransform
 from utils import gen_experiment_id, histogram, skew, deskew, pretty_str_time, filenames, sph2cart, cart2sph
 from yaml_config import YamlConfig
 
+from dist_metrics import abs_angle_diff, DistMetrics
 from random_variables import RandomVariable, BernoulliRV, GaussianRV, ArtificialRV, ArtificialSingleRV, IsotropicGaussianRigidTransformRandomVariable
 
 try:
@@ -32,4 +33,5 @@ __all__ = ['CSVModel',
            'YamlConfig',
            'RandomVariable', 'BernoulliRV', 'GaussianRV', 'ArtificialRV', 'ArtificialSingleRV', 'IsotropicGaussianRigidTransformRandomVariable',
            'DataStreamSyncer',
-           'DataStreamRecorder']
+           'DataStreamRecorder',
+           'abs_angle_diff', 'DistMetrics']
