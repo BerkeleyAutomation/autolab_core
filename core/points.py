@@ -196,7 +196,7 @@ class Point(BagOfPoints):
     """A single 3D point.
     """
 
-    def __init__(self, data, frame):
+    def __init__(self, data, frame='unspecified'):
         """Initialize a Point.
 
         Parameters
@@ -525,7 +525,7 @@ class PointCloud(BagOfPoints):
     """A set of points.
     """
 
-    def __init__(self, data, frame):
+    def __init__(self, data, frame='unspecified'):
         """Initialize a PointCloud.
 
         Parameters
@@ -807,7 +807,7 @@ class PointCloud(BagOfPoints):
 class NormalCloud(BagOfVectors):
     """A set of normal vectors.
     """
-    def __init__(self, data, frame):
+    def __init__(self, data, frame='unspecified'):
         """Initialize a NormalCloud.
 
         Parameters
