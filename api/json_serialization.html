@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>JSON Manipulation &mdash; core 0.1.0 documentation</title>
+  <title>JSON Manipulation &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="Points and Point Clouds" href="points.html"/>
         <link rel="prev" title="Experiment Logging" href="experiment_logger.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -124,7 +125,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -178,16 +179,16 @@
 <p>Functions for JSON serialization and deserialization that use custom hooks
 for properly processing numpy arrays.</p>
 <dl class="function">
-<dt id="core.dump">
-<code class="descclassname">core.</code><code class="descname">dump</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.dump" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.dump">
+<code class="descclassname">autolab_core.</code><code class="descname">dump</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump a numpy.ndarray to file stream.</p>
 <p>This works exactly like the usual <cite>json.dump()</cite> function,
 but it uses our custom serializer.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.load">
-<code class="descclassname">core.</code><code class="descname">load</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#core.load" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.load">
+<code class="descclassname">autolab_core.</code><code class="descname">load</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load an numpy.ndarray from a file stream.</p>
 <p>This works exactly like the usual <cite>json.load()</cite> function,
 but it uses our custom deserializer.</p>

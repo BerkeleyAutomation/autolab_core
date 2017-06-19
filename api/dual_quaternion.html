@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quaternions &mdash; core 0.1.0 documentation</title>
+  <title>Quaternions &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="Exceptions" href="exceptions.html"/>
         <link rel="prev" title="CSV Processing" href="csv_model.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -127,7 +128,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -182,56 +183,56 @@
 <h2>DualQuaternion<a class="headerlink" href="#dualquaternion" title="Permalink to this headline">¶</a></h2>
 <p>A class for represeting and manipulating dual quaternions.</p>
 <dl class="class">
-<dt id="core.DualQuaternion">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">DualQuaternion</code><span class="sig-paren">(</span><em>qr=[1, 0, 0, 0], qd=[0, 0, 0, 0], enforce_unit_norm=True</em><span class="sig-paren">)</span><a class="headerlink" href="#core.DualQuaternion" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.DualQuaternion">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">DualQuaternion</code><span class="sig-paren">(</span><em>qr=[1, 0, 0, 0], qd=[0, 0, 0, 0], enforce_unit_norm=True</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.DualQuaternion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Class for handling dual quaternions and their interpolations.</p>
 <dl class="attribute">
 <dt id="DualQuaternion.qr">
 <code class="descname">qr</code><a class="headerlink" href="#DualQuaternion.qr" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 4-entry quaternion in wxyz format.</p>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 4-entry quaternion in wxyz format.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="DualQuaternion.qd">
 <code class="descname">qd</code><a class="headerlink" href="#DualQuaternion.qd" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 4-entry quaternion in wxyz format.</p>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 4-entry quaternion in wxyz format.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="DualQuaternion.conjugate">
 <code class="descname">conjugate</code><a class="headerlink" href="#DualQuaternion.conjugate" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> &#8211; The conjugate of this DualQuaternion.</p>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> – The conjugate of this DualQuaternion.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="DualQuaternion.norm">
 <code class="descname">norm</code><a class="headerlink" href="#DualQuaternion.norm" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> &#8211; The normalized vectors for qr and qd, respectively.</p>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> – The normalized vectors for qr and qd, respectively.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="DualQuaternion.normalized">
 <code class="descname">normalized</code><a class="headerlink" href="#DualQuaternion.normalized" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> &#8211; This quaternion with qr normalized.</p>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> – This quaternion with qr normalized.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.DualQuaternion.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>qr=[1, 0, 0, 0], qd=[0, 0, 0, 0], enforce_unit_norm=True</em><span class="sig-paren">)</span><a class="headerlink" href="#core.DualQuaternion.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.DualQuaternion.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>qr=[1, 0, 0, 0], qd=[0, 0, 0, 0], enforce_unit_norm=True</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.DualQuaternion.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a dual quaternion.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>qr</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 4-entry quaternion in wxyz format.</li>
-<li><strong>qd</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 4-entry quaternion in wxyz format.</li>
-<li><strong>enforce_unit_norm</strong> (<em>bool</em>) &#8211; If true, raises a ValueError when the quaternion is not normalized.</li>
+<li><strong>qr</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 4-entry quaternion in wxyz format.</li>
+<li><strong>qd</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 4-entry quaternion in wxyz format.</li>
+<li><strong>enforce_unit_norm</strong> (<em>bool</em>) – If true, raises a ValueError when the quaternion is not normalized.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If enforce_unit_norm is True and the norm of qr is not 1.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If enforce_unit_norm is True and the norm of qr is not 1.</p>
 </td>
 </tr>
 </tbody>
@@ -239,38 +240,38 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.DualQuaternion.qr">
-<code class="descname">qr</code><a class="headerlink" href="#core.DualQuaternion.qr" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 4-entry quaternion in wxyz format.</p>
+<dt id="autolab_core.DualQuaternion.qr">
+<code class="descname">qr</code><a class="headerlink" href="#autolab_core.DualQuaternion.qr" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 4-entry quaternion in wxyz format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.DualQuaternion.qd">
-<code class="descname">qd</code><a class="headerlink" href="#core.DualQuaternion.qd" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 4-entry quaternion in wxyz format.</p>
+<dt id="autolab_core.DualQuaternion.qd">
+<code class="descname">qd</code><a class="headerlink" href="#autolab_core.DualQuaternion.qd" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 4-entry quaternion in wxyz format.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.DualQuaternion.conjugate">
-<code class="descname">conjugate</code><a class="headerlink" href="#core.DualQuaternion.conjugate" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> &#8211; The conjugate of this quaternion.</p>
+<dt id="autolab_core.DualQuaternion.conjugate">
+<code class="descname">conjugate</code><a class="headerlink" href="#autolab_core.DualQuaternion.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> – The conjugate of this quaternion.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.DualQuaternion.norm">
-<code class="descname">norm</code><a class="headerlink" href="#core.DualQuaternion.norm" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> &#8211; The normalized vectors for qr and qd, respectively.</p>
+<dt id="autolab_core.DualQuaternion.norm">
+<code class="descname">norm</code><a class="headerlink" href="#autolab_core.DualQuaternion.norm" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> – The normalized vectors for qr and qd, respectively.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.DualQuaternion.normalized">
-<code class="descname">normalized</code><a class="headerlink" href="#core.DualQuaternion.normalized" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> &#8211; This quaternion with qr normalized.</p>
+<dt id="autolab_core.DualQuaternion.normalized">
+<code class="descname">normalized</code><a class="headerlink" href="#autolab_core.DualQuaternion.normalized" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> – This quaternion with qr normalized.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.DualQuaternion.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.DualQuaternion.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.DualQuaternion.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.DualQuaternion.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a copy of this quaternion.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -285,20 +286,20 @@
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.DualQuaternion.interpolate">
-<em class="property">static </em><code class="descname">interpolate</code><span class="sig-paren">(</span><em>dq0</em>, <em>dq1</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#core.DualQuaternion.interpolate" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.DualQuaternion.interpolate">
+<em class="property">static </em><code class="descname">interpolate</code><span class="sig-paren">(</span><em>dq0</em>, <em>dq1</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.DualQuaternion.interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the interpolation of two DualQuaternions.</p>
-<p>This uses the Dual Quaternion Linear Blending Method as described by Matthew Smith&#8217;s
-&#8216;Applications of Dual Quaternions in Three Dimensional Transformation and Interpolation&#8217;
+<p>This uses the Dual Quaternion Linear Blending Method as described by Matthew Smith’s
+‘Applications of Dual Quaternions in Three Dimensional Transformation and Interpolation’
 <a class="reference external" href="https://www.cosc.canterbury.ac.nz/research/reports/HonsReps/2013/hons_1305.pdf">https://www.cosc.canterbury.ac.nz/research/reports/HonsReps/2013/hons_1305.pdf</a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dq0</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) &#8211; The first DualQuaternion.</li>
-<li><strong>dq1</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) &#8211; The second DualQuaternion.</li>
-<li><strong>t</strong> (<em>float</em>) &#8211; The interpolation step in [0,1]. When t=0, this returns dq0, and
+<li><strong>dq0</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) – The first DualQuaternion.</li>
+<li><strong>dq1</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) – The second DualQuaternion.</li>
+<li><strong>t</strong> (<em>float</em>) – The interpolation step in [0,1]. When t=0, this returns dq0, and
 when t=1, this returns dq1.</li>
 </ul>
 </td>
@@ -309,7 +310,7 @@ when t=1, this returns dq1.</li>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If t isn&#8217;t in [0,1].</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If t isn’t in [0,1].</p>
 </td>
 </tr>
 </tbody>
@@ -317,41 +318,41 @@ when t=1, this returns dq1.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.DualQuaternion.__mul__">
-<code class="descname">__mul__</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#core.DualQuaternion.__mul__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.DualQuaternion.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.DualQuaternion.__mul__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multiplies the dual quaternion by another dual quaternion or a
 scalar.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>val</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> or number) &#8211; The value by which to multiply this dual quaternion.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>val</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> or number) – The value by which to multiply this dual quaternion.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new DualQuaternion that results from the multiplication.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If val is not a DualQuaternion or Number.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If val is not a DualQuaternion or Number.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.DualQuaternion.__add__">
-<code class="descname">__add__</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#core.DualQuaternion.__add__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.DualQuaternion.__add__">
+<code class="descname">__add__</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.DualQuaternion.__add__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the dual quaternion to another dual quaternion.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>val</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) &#8211; The DualQuaternion to add to this one.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>val</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) – The DualQuaternion to add to this one.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new DualQuaternion that results from the addition..</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If val is not a DualQuaternion.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If val is not a DualQuaternion.</td>
 </tr>
 </tbody>
 </table>

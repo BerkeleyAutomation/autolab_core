@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Experiment Logging &mdash; core 0.1.0 documentation</title>
+  <title>Experiment Logging &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="JSON Manipulation" href="json_serialization.html"/>
         <link rel="prev" title="Exceptions" href="exceptions.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -127,7 +128,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -182,26 +183,26 @@
 <div class="section" id="experimentlogger">
 <h2>ExperimentLogger<a class="headerlink" href="#experimentlogger" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.ExperimentLogger">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">ExperimentLogger</code><span class="sig-paren">(</span><em>experiment_root_path</em>, <em>experiment_tag='experiment'</em>, <em>log_to_file=True</em>, <em>sub_experiment_dirs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ExperimentLogger">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">ExperimentLogger</code><span class="sig-paren">(</span><em>experiment_root_path</em>, <em>experiment_tag=’experiment’</em>, <em>log_to_file=True</em>, <em>sub_experiment_dirs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ExperimentLogger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Abstract class for experiment logging.</p>
 <p>Experiments are logged to CSV files, which are encapsulated with the
 <code class="xref py py-obj docutils literal"><span class="pre">CSVModel</span></code> class.</p>
 <dl class="method">
-<dt id="core.ExperimentLogger.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>experiment_root_path</em>, <em>experiment_tag='experiment'</em>, <em>log_to_file=True</em>, <em>sub_experiment_dirs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ExperimentLogger.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>experiment_root_path</em>, <em>experiment_tag=’experiment’</em>, <em>log_to_file=True</em>, <em>sub_experiment_dirs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ExperimentLogger.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize an ExperimentLogger.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>experiment_root_path</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The root directory in which to save experiment files.</li>
-<li><strong>experiment_tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The tag to use when prefixing new experiments</li>
-<li><strong>log_to_file</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; Default: True
+<li><strong>experiment_root_path</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The root directory in which to save experiment files.</li>
+<li><strong>experiment_tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The tag to use when prefixing new experiments</li>
+<li><strong>log_to_file</strong> (<em>bool</em><em>, </em><em>optional</em>) – Default: True
 If True will log all logging statements to a log file</li>
-<li><strong>sub_experiment_dirs</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; Defautl: True
+<li><strong>sub_experiment_dirs</strong> (<em>bool</em><em>, </em><em>optional</em>) – Defautl: True
 If True will make sub directories corresponding to generated experiment name</li>
 </ul>
 </td>
@@ -211,16 +212,16 @@ If True will make sub directories corresponding to generated experiment name</li
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.ExperimentLogger.gen_experiment_ref">
-<em class="property">static </em><code class="descname">gen_experiment_ref</code><span class="sig-paren">(</span><em>experiment_tag</em>, <em>n=10</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.gen_experiment_ref" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ExperimentLogger.gen_experiment_ref">
+<em class="property">static </em><code class="descname">gen_experiment_ref</code><span class="sig-paren">(</span><em>experiment_tag</em>, <em>n=10</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ExperimentLogger.gen_experiment_ref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a random string for naming.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>experiment_tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; tag to prefix name with</li>
-<li><strong>n</strong> (<em>int</em>) &#8211; number of random chars to use</li>
+<li><strong>experiment_tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – tag to prefix name with</li>
+<li><strong>n</strong> (<em>int</em>) – number of random chars to use</li>
 </ul>
 </td>
 </tr>
@@ -235,16 +236,16 @@ If True will make sub directories corresponding to generated experiment name</li
 </dd></dl>
 
 <dl class="method">
-<dt id="core.ExperimentLogger.update_master_record">
-<code class="descname">update_master_record</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.update_master_record" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ExperimentLogger.update_master_record">
+<code class="descname">update_master_record</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ExperimentLogger.update_master_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update a row of the experimental master record CSV with the given data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>uid</strong> (<em>int</em>) &#8211; The UID of the row to update.</li>
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) &#8211; A dictionary mapping keys (header strings) to values, which
+<li><strong>uid</strong> (<em>int</em>) – The UID of the row to update.</li>
+<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) – A dictionary mapping keys (header strings) to values, which
 represents the new row.</li>
 </ul>
 </td>
@@ -254,8 +255,8 @@ represents the new row.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.ExperimentLogger.experiment_meta_headers">
-<code class="descname">experiment_meta_headers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.experiment_meta_headers" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ExperimentLogger.experiment_meta_headers">
+<code class="descname">experiment_meta_headers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ExperimentLogger.experiment_meta_headers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns list of two-tuples of header names and types of meta information for the experiments</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -270,8 +271,8 @@ represents the new row.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.ExperimentLogger.experiment_meta_data">
-<code class="descname">experiment_meta_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.ExperimentLogger.experiment_meta_data" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ExperimentLogger.experiment_meta_data">
+<code class="descname">experiment_meta_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ExperimentLogger.experiment_meta_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the dict of header names and value of meta information for the experiments</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

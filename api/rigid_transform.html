@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Rigid Transformations &mdash; core 0.1.0 documentation</title>
+  <title>Rigid Transformations &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="Utility Functions" href="utils.html"/>
         <link rel="prev" title="Random Variables" href="random_variables.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -128,7 +129,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -182,31 +183,31 @@
 <div class="section" id="rigidtransform">
 <h2>RigidTransform<a class="headerlink" href="#rigidtransform" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.RigidTransform">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">RigidTransform</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), from_frame='unassigned', to_frame='world'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">RigidTransform</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), from_frame=’unassigned’, to_frame=’world’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A Rigid Transformation from one frame to another.</p>
 <dl class="method">
-<dt id="core.RigidTransform.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), from_frame='unassigned', to_frame='world'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), from_frame=’unassigned’, to_frame=’world’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a RigidTransform.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rotation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 3x3 rotation matrix (should be unitary).</li>
-<li><strong>translation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 3-entry translation vector.</li>
-<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A name for the frame of reference on which this transform
+<li><strong>rotation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 3x3 rotation matrix (should be unitary).</li>
+<li><strong>translation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 3-entry translation vector.</li>
+<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A name for the frame of reference on which this transform
 operates. This and to_frame are used for checking compositions
 of RigidTransforms, which is useful for debugging and catching
 errors.</li>
-<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A name for the frame of reference to which this transform
+<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A name for the frame of reference to which this transform
 moves objects.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If any of the arguments are invalid. The frames must be strings or
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If any of the arguments are invalid. The frames must be strings or
 unicode, the translations and rotations must be ndarrays, have the
 correct shape, and the determinant of the rotation matrix should be
 1.0.</p>
@@ -217,8 +218,8 @@ correct shape, and the determinant of the rotation matrix should be
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of the RigidTransform.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -233,66 +234,66 @@ correct shape, and the determinant of the rotation matrix should be
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.rotation">
-<code class="descname">rotation</code><a class="headerlink" href="#core.RigidTransform.rotation" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 3x3 rotation matrix.</p>
+<dt id="autolab_core.RigidTransform.rotation">
+<code class="descname">rotation</code><a class="headerlink" href="#autolab_core.RigidTransform.rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 3x3 rotation matrix.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.translation">
-<code class="descname">translation</code><a class="headerlink" href="#core.RigidTransform.translation" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 3-ndarray that represents the
-transform&#8217;s translation vector.</p>
+<dt id="autolab_core.RigidTransform.translation">
+<code class="descname">translation</code><a class="headerlink" href="#autolab_core.RigidTransform.translation" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 3-ndarray that represents the
+transform’s translation vector.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.position">
-<code class="descname">position</code><a class="headerlink" href="#core.RigidTransform.position" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A 3-ndarray that represents the
-transform&#8217;s translation vector (same as translation).</p>
+<dt id="autolab_core.RigidTransform.position">
+<code class="descname">position</code><a class="headerlink" href="#autolab_core.RigidTransform.position" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A 3-ndarray that represents the
+transform’s translation vector (same as translation).</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.from_frame">
-<code class="descname">from_frame</code><a class="headerlink" href="#core.RigidTransform.from_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> &#8211; The identifier for the &#8216;from&#8217; frame of reference.</p>
+<dt id="autolab_core.RigidTransform.from_frame">
+<code class="descname">from_frame</code><a class="headerlink" href="#autolab_core.RigidTransform.from_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – The identifier for the ‘from’ frame of reference.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.to_frame">
-<code class="descname">to_frame</code><a class="headerlink" href="#core.RigidTransform.to_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> &#8211; The identifier for the &#8216;to&#8217; frame of reference.</p>
+<dt id="autolab_core.RigidTransform.to_frame">
+<code class="descname">to_frame</code><a class="headerlink" href="#autolab_core.RigidTransform.to_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – The identifier for the ‘to’ frame of reference.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.euler_angles">
-<code class="descname">euler_angles</code><a class="headerlink" href="#core.RigidTransform.euler_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of float &#8211; The three euler angles for the rotation.</p>
+<dt id="autolab_core.RigidTransform.euler_angles">
+<code class="descname">euler_angles</code><a class="headerlink" href="#autolab_core.RigidTransform.euler_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of float – The three euler angles for the rotation.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.quaternion">
-<code class="descname">quaternion</code><a class="headerlink" href="#core.RigidTransform.quaternion" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; A quaternion vector in wxyz layout.</p>
+<dt id="autolab_core.RigidTransform.quaternion">
+<code class="descname">quaternion</code><a class="headerlink" href="#autolab_core.RigidTransform.quaternion" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – A quaternion vector in wxyz layout.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.dual_quaternion">
-<code class="descname">dual_quaternion</code><a class="headerlink" href="#core.RigidTransform.dual_quaternion" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> &#8211; The DualQuaternion corresponding to this
+<dt id="autolab_core.RigidTransform.dual_quaternion">
+<code class="descname">dual_quaternion</code><a class="headerlink" href="#autolab_core.RigidTransform.dual_quaternion" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code> – The DualQuaternion corresponding to this
 transform.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.euler">
-<code class="descname">euler</code><a class="headerlink" href="#core.RigidTransform.euler" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.euler">
+<code class="descname">euler</code><a class="headerlink" href="#autolab_core.RigidTransform.euler" title="Permalink to this definition">¶</a></dt>
 <dd><p>TODO DEPRECATE THIS?</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.matrix">
-<code class="descname">matrix</code><a class="headerlink" href="#core.RigidTransform.matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; The canonical 4x4 matrix
+<dt id="autolab_core.RigidTransform.matrix">
+<code class="descname">matrix</code><a class="headerlink" href="#autolab_core.RigidTransform.matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The canonical 4x4 matrix
 representation of this transform.</p>
 <p>The first three columns contain the columns of the rotation matrix
 followed by a zero, and the last column contains the translation vector
@@ -300,46 +301,46 @@ followed by a one.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.x_axis">
-<code class="descname">x_axis</code><a class="headerlink" href="#core.RigidTransform.x_axis" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; X axis of &#8216;from&#8217; frame in &#8216;to&#8217; basis.</p>
+<dt id="autolab_core.RigidTransform.x_axis">
+<code class="descname">x_axis</code><a class="headerlink" href="#autolab_core.RigidTransform.x_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – X axis of ‘from’ frame in ‘to’ basis.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.y_axis">
-<code class="descname">y_axis</code><a class="headerlink" href="#core.RigidTransform.y_axis" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; Y axis of &#8216;from&#8217; frame in &#8216;to&#8217; basis.</p>
+<dt id="autolab_core.RigidTransform.y_axis">
+<code class="descname">y_axis</code><a class="headerlink" href="#autolab_core.RigidTransform.y_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – Y axis of ‘from’ frame in ‘to’ basis.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.z_axis">
-<code class="descname">z_axis</code><a class="headerlink" href="#core.RigidTransform.z_axis" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float &#8211; Z axis of &#8216;from&#8217; frame in &#8216;to&#8217; basis.</p>
+<dt id="autolab_core.RigidTransform.z_axis">
+<code class="descname">z_axis</code><a class="headerlink" href="#autolab_core.RigidTransform.z_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – Z axis of ‘from’ frame in ‘to’ basis.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.pose_msg">
-<code class="descname">pose_msg</code><a class="headerlink" href="#core.RigidTransform.pose_msg" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.pose_msg">
+<code class="descname">pose_msg</code><a class="headerlink" href="#autolab_core.RigidTransform.pose_msg" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="xref py py-obj docutils literal"><span class="pre">geometry_msgs.msg.Pose</span></code> The rigid transform as a geometry_msg pose.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.RigidTransform.frames">
-<code class="descname">frames</code><a class="headerlink" href="#core.RigidTransform.frames" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> &#8211; A string represeting the frame transform &#8211; from {} to {}.</p>
+<dt id="autolab_core.RigidTransform.frames">
+<code class="descname">frames</code><a class="headerlink" href="#autolab_core.RigidTransform.frames" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – A string represeting the frame transform – from {} to {}.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.interpolate_with">
-<code class="descname">interpolate_with</code><span class="sig-paren">(</span><em>other_tf</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.interpolate_with" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.interpolate_with">
+<code class="descname">interpolate_with</code><span class="sig-paren">(</span><em>other_tf</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.interpolate_with" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolate with another rigid transformation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>other_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) &#8211; The transform to interpolate with.</li>
-<li><strong>t</strong> (<em>float</em>) &#8211; The interpolation step in [0,1], where 0 favors this RigidTransform.</li>
+<li><strong>other_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) – The transform to interpolate with.</li>
+<li><strong>t</strong> (<em>float</em>) – The interpolation step in [0,1], where 0 favors this RigidTransform.</li>
 </ul>
 </td>
 </tr>
@@ -349,7 +350,7 @@ followed by a one.</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If t isn&#8217;t in [0,1].</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If t isn’t in [0,1].</p>
 </td>
 </tr>
 </tbody>
@@ -357,16 +358,16 @@ followed by a one.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.linear_trajectory_to">
-<code class="descname">linear_trajectory_to</code><span class="sig-paren">(</span><em>target_tf</em>, <em>traj_len</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.linear_trajectory_to" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.linear_trajectory_to">
+<code class="descname">linear_trajectory_to</code><span class="sig-paren">(</span><em>target_tf</em>, <em>traj_len</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.linear_trajectory_to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a trajectory of poses linearly interpolated from this tf to a target tf.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>target_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) &#8211; The RigidTransform to interpolate to.</li>
-<li><strong>traj_len</strong> (<em>int</em>) &#8211; The number of RigidTransforms in the returned trajectory.</li>
+<li><strong>target_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) – The RigidTransform to interpolate to.</li>
+<li><strong>traj_len</strong> (<em>int</em>) – The number of RigidTransforms in the returned trajectory.</li>
 </ul>
 </td>
 </tr>
@@ -381,42 +382,42 @@ followed by a one.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.apply">
-<code class="descname">apply</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.apply" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the rigid transformation to a set of 3D objects.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>points</strong> (<code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code>) &#8211; A set of objects to transform. Could be any subclass of BagOfPoints.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>points</strong> (<code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code>) – A set of objects to transform. Could be any subclass of BagOfPoints.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A transformed set of objects of the same type as the input.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the input is not a Bag of 3D points or if the points are not in
-this transform&#8217;s from_frame.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the input is not a Bag of 3D points or if the points are not in
+this transform’s from_frame.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.dot">
-<code class="descname">dot</code><span class="sig-paren">(</span><em>other_tf</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.dot" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.dot">
+<code class="descname">dot</code><span class="sig-paren">(</span><em>other_tf</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.dot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose this rigid transform with another.</p>
 <p>This transform is on the left-hand side of the composition.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) &#8211; The other RigidTransform to compose with this one.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) – The other RigidTransform to compose with this one.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A RigidTransform that represents the composition.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the to_frame of other_tf is not identical to this transform&#8217;s
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the to_frame of other_tf is not identical to this transform’s
 from_frame.</td>
 </tr>
 </tbody>
@@ -424,8 +425,8 @@ from_frame.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.__mul__">
-<code class="descname">__mul__</code><span class="sig-paren">(</span><em>rigid_object</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.__mul__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>rigid_object</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.__mul__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Selects composition of rigid transforms based on input type.</p>
 <p>If the input is a BagOfPoints-type, it applies the transform.
 Otherwise, if it is another RigidTransform, it composes them.</p>
@@ -433,21 +434,21 @@ Otherwise, if it is another RigidTransform, it composes them.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rigid_object</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code>) &#8211; The rigid object to multiply by this transform.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rigid_object</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code>) – The rigid object to multiply by this transform.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An object of the same type as the input.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the input is not of one of the accepted types.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the input is not of one of the accepted types.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.inverse">
-<code class="descname">inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.inverse">
+<code class="descname">inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take the inverse of the rigid transform.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -462,8 +463,8 @@ Otherwise, if it is another RigidTransform, it composes them.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.save" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the RigidTransform to a file.</p>
 <p>The file format is:
 from_frame
@@ -476,17 +477,17 @@ rotation_row_2 (space separated)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file to save the transform to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to save the transform to.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If filename&#8217;s extension isn&#8217;t .tf.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If filename’s extension isn’t .tf.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.as_frames">
-<code class="descname">as_frames</code><span class="sig-paren">(</span><em>from_frame</em>, <em>to_frame='world'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.as_frames" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.as_frames">
+<code class="descname">as_frames</code><span class="sig-paren">(</span><em>from_frame</em>, <em>to_frame=’world’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.as_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a shallow copy of this rigid transform with just the frames
 changed.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -494,8 +495,8 @@ changed.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The new from_frame.</li>
-<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The new to_frame.</li>
+<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The new from_frame.</li>
+<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The new to_frame.</li>
 </ul>
 </td>
 </tr>
@@ -510,27 +511,27 @@ changed.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.publish_to_ros">
-<code class="descname">publish_to_ros</code><span class="sig-paren">(</span><em>mode='transform'</em>, <em>service_name='rigid_transforms/rigid_transform_publisher'</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.publish_to_ros" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.publish_to_ros">
+<code class="descname">publish_to_ros</code><span class="sig-paren">(</span><em>mode=’transform’</em>, <em>service_name=’rigid_transforms/rigid_transform_publisher’</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.publish_to_ros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Publishes RigidTransform to ROS
 If a transform referencing the same frames already exists in the ROS publisher, it is updated instead.
 This checking is not order sensitive</p>
-<p>Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
-this can be done with: roslaunch core rigid_transforms.launch</p>
+<p>Requires ROS rigid_transform_publisher service to be running. Assuming autolab_core is installed as a catkin package,
+this can be done with: roslaunch autolab_core rigid_transforms.launch</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>mode</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; Mode in which to publish. In {&#8216;transform&#8217;, &#8216;frame&#8217;}
-Defaults to &#8216;transform&#8217;</li>
-<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+<li><strong>mode</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – Mode in which to publish. In {‘transform’, ‘frame’}
+Defaults to ‘transform’</li>
+<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) – RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
 rigid_transforms.launch it will be called rigid_transform_publisher</li>
-<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
+<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) – Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> &#8211; If service call to rigid_transform_publisher fails</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> – If service call to rigid_transform_publisher fails</p>
 </td>
 </tr>
 </tbody>
@@ -538,25 +539,25 @@ rigid_transforms.launch it will be called rigid_transform_publisher</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RigidTransform.delete_from_ros">
-<code class="descname">delete_from_ros</code><span class="sig-paren">(</span><em>service_name='rigid_transforms/rigid_transform_publisher'</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.delete_from_ros" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.delete_from_ros">
+<code class="descname">delete_from_ros</code><span class="sig-paren">(</span><em>service_name=’rigid_transforms/rigid_transform_publisher’</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.delete_from_ros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes RigidTransform referencing from_frame and to_frame from ROS publisher.
-Note that this may not be this exact transform, but may that references the same frames (order doesn&#8217;t matter)</p>
-<p>Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher&#8217;s cache</p>
-<p>Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
-this can be done with: roslaunch core rigid_transforms.launch</p>
+Note that this may not be this exact transform, but may that references the same frames (order doesn’t matter)</p>
+<p>Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher’s cache</p>
+<p>Requires ROS rigid_transform_publisher service to be running. Assuming autolab_core is installed as a catkin package,
+this can be done with: roslaunch autolab_core rigid_transforms.launch</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
+<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) – RigidTransformPublisher service to interface with. If the RigidTransformPublisher services are started through
 rigid_transforms.launch it will be called rigid_transform_publisher</li>
-<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
+<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) – Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> &#8211; If service call to rigid_transform_publisher fails</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> – If service call to rigid_transform_publisher fails</p>
 </td>
 </tr>
 </tbody>
@@ -564,25 +565,25 @@ rigid_transforms.launch it will be called rigid_transform_publisher</li>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.rigid_transform_from_ros">
-<em class="property">static </em><code class="descname">rigid_transform_from_ros</code><span class="sig-paren">(</span><em>from_frame</em>, <em>to_frame</em>, <em>service_name='rigid_transforms/rigid_transform_listener'</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.rigid_transform_from_ros" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.rigid_transform_from_ros">
+<em class="property">static </em><code class="descname">rigid_transform_from_ros</code><span class="sig-paren">(</span><em>from_frame</em>, <em>to_frame</em>, <em>service_name=’rigid_transforms/rigid_transform_listener’</em>, <em>namespace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.rigid_transform_from_ros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets transform from ROS as a rigid transform</p>
-<p>Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
-this can be done with: roslaunch core rigid_transforms.launch</p>
+<p>Requires ROS rigid_transform_publisher service to be running. Assuming autolab_core is installed as a catkin package,
+this can be done with: roslaunch autolab_core rigid_transforms.launch</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; </li>
-<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; </li>
-<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; RigidTransformListener service to interface with. If the RigidTransformListener services are started through
+<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – </li>
+<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – </li>
+<li><strong>service_name</strong> (<em>string</em><em>, </em><em>optional</em>) – RigidTransformListener service to interface with. If the RigidTransformListener services are started through
 rigid_transforms.launch it will be called rigid_transform_listener</li>
-<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) &#8211; Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
+<li><strong>namespace</strong> (<em>string</em><em>, </em><em>optional</em>) – Namespace to prepend to transform_listener_service. If None, current namespace is prepended.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> &#8211; If service call to rigid_transform_listener fails</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">rospy.ServiceException</span></code> – If service call to rigid_transform_listener fails</p>
 </td>
 </tr>
 </tbody>
@@ -590,14 +591,14 @@ rigid_transforms.launch it will be called rigid_transform_listener</li>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.rotation_from_quaternion">
-<em class="property">static </em><code class="descname">rotation_from_quaternion</code><span class="sig-paren">(</span><em>q_wxyz</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.rotation_from_quaternion" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.rotation_from_quaternion">
+<em class="property">static </em><code class="descname">rotation_from_quaternion</code><span class="sig-paren">(</span><em>q_wxyz</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.rotation_from_quaternion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert quaternion array to rotation matrix.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>q_wxyz</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A quaternion in wxyz order.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>q_wxyz</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A quaternion in wxyz order.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A 3x3 rotation matrix made from the quaternion.</td>
 </tr>
@@ -608,18 +609,18 @@ rigid_transforms.launch it will be called rigid_transform_listener</li>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.transform_from_dual_quaternion">
-<em class="property">static </em><code class="descname">transform_from_dual_quaternion</code><span class="sig-paren">(</span><em>dq</em>, <em>from_frame='unassigned'</em>, <em>to_frame='world'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.transform_from_dual_quaternion" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.transform_from_dual_quaternion">
+<em class="property">static </em><code class="descname">transform_from_dual_quaternion</code><span class="sig-paren">(</span><em>dq</em>, <em>from_frame=’unassigned’</em>, <em>to_frame=’world’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.transform_from_dual_quaternion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a RigidTransform from a DualQuaternion.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dq</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) &#8211; The DualQuaternion to transform.</li>
-<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A name for the frame of reference on which this transform
+<li><strong>dq</strong> (<code class="xref py py-obj docutils literal"><span class="pre">DualQuaternion</span></code>) – The DualQuaternion to transform.</li>
+<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A name for the frame of reference on which this transform
 operates.</li>
-<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A name for the frame of reference to which this transform
+<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A name for the frame of reference to which this transform
 moves objects.</li>
 </ul>
 </td>
@@ -635,28 +636,85 @@ moves objects.</li>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.rotation_and_translation_from_matrix">
-<em class="property">static </em><code class="descname">rotation_and_translation_from_matrix</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.rotation_and_translation_from_matrix" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.rotation_and_translation_from_matrix">
+<em class="property">static </em><code class="descname">rotation_and_translation_from_matrix</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.rotation_and_translation_from_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper to convert 4x4 matrix to rotation matrix and translation vector.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; 4x4 rigid transformation matrix to be converted.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – 4x4 rigid transformation matrix to be converted.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A 3x3 rotation matrix and a 3-entry translation vector.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the incoming matrix isn&#8217;t a 4x4 ndarray.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the incoming matrix isn’t a 4x4 ndarray.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.random_rotation">
-<em class="property">static </em><code class="descname">random_rotation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.random_rotation" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.x_axis_rotation">
+<em class="property">static </em><code class="descname">x_axis_rotation</code><span class="sig-paren">(</span><em>theta</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.x_axis_rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a 3x3 rotation matrix for a rotation of angle
+theta about the x axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>theta</strong> (<em>float</em>) – amount to rotate, in radians</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A random 3x3 rotation matrix.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="autolab_core.RigidTransform.y_axis_rotation">
+<em class="property">static </em><code class="descname">y_axis_rotation</code><span class="sig-paren">(</span><em>theta</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.y_axis_rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a 3x3 rotation matrix for a rotation of angle
+theta about the y axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>theta</strong> (<em>float</em>) – amount to rotate, in radians</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A random 3x3 rotation matrix.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="autolab_core.RigidTransform.z_axis_rotation">
+<em class="property">static </em><code class="descname">z_axis_rotation</code><span class="sig-paren">(</span><em>theta</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.z_axis_rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a 3x3 rotation matrix for a rotation of angle
+theta about the z axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>theta</strong> (<em>float</em>) – amount to rotate, in radians</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A random 3x3 rotation matrix.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="autolab_core.RigidTransform.random_rotation">
+<em class="property">static </em><code class="descname">random_rotation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.random_rotation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a random 3x3 rotation matrix with SVD.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -671,8 +729,8 @@ moves objects.</li>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.random_translation">
-<em class="property">static </em><code class="descname">random_translation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.random_translation" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.random_translation">
+<em class="property">static </em><code class="descname">random_translation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.random_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a random translation vector.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -687,8 +745,8 @@ moves objects.</li>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.rotation_from_axes">
-<em class="property">static </em><code class="descname">rotation_from_axes</code><span class="sig-paren">(</span><em>x_axis</em>, <em>y_axis</em>, <em>z_axis</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.rotation_from_axes" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.rotation_from_axes">
+<em class="property">static </em><code class="descname">rotation_from_axes</code><span class="sig-paren">(</span><em>x_axis</em>, <em>y_axis</em>, <em>z_axis</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.rotation_from_axes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert specification of axis in target frame to
 a rotation matrix from source to target frame.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -696,9 +754,9 @@ a rotation matrix from source to target frame.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x_axis</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A normalized 3-vector for the target frame&#8217;s x-axis.</li>
-<li><strong>y_axis</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A normalized 3-vector for the target frame&#8217;s y-axis.</li>
-<li><strong>z_axis</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A normalized 3-vector for the target frame&#8217;s z-axis.</li>
+<li><strong>x_axis</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A normalized 3-vector for the target frame’s x-axis.</li>
+<li><strong>y_axis</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A normalized 3-vector for the target frame’s y-axis.</li>
+<li><strong>z_axis</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A normalized 3-vector for the target frame’s z-axis.</li>
 </ul>
 </td>
 </tr>
@@ -714,17 +772,41 @@ given target frame.</p>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.interpolate">
-<em class="property">static </em><code class="descname">interpolate</code><span class="sig-paren">(</span><em>T0</em>, <em>T1</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.interpolate" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.sph_coords_to_pose">
+<em class="property">static </em><code class="descname">sph_coords_to_pose</code><span class="sig-paren">(</span><em>theta</em>, <em>psi</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.sph_coords_to_pose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert spherical coordinates to a pose.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>theta</strong> (<em>float</em>) – azimuth angle</li>
+<li><strong>psi</strong> (<em>float</em>) – elevation angle</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">rigid transformation corresponding to rotation with no translation</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransformation</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="autolab_core.RigidTransform.interpolate">
+<em class="property">static </em><code class="descname">interpolate</code><span class="sig-paren">(</span><em>T0</em>, <em>T1</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an interpolation of two RigidTransforms.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>T0</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) &#8211; The first RigidTransform to interpolate.</li>
-<li><strong>T1</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) &#8211; The second RigidTransform to interpolate.</li>
-<li><strong>t</strong> (<em>float</em>) &#8211; The interpolation step in [0,1]. 0 favors T0, 1 favors T1.</li>
+<li><strong>T0</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) – The first RigidTransform to interpolate.</li>
+<li><strong>T1</strong> (<code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code>) – The second RigidTransform to interpolate.</li>
+<li><strong>t</strong> (<em>float</em>) – The interpolation step in [0,1]. 0 favors T0, 1 favors T1.</li>
 </ul>
 </td>
 </tr>
@@ -734,7 +816,7 @@ given target frame.</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the to_frame of the two RigidTransforms are not identical.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the to_frame of the two RigidTransforms are not identical.</p>
 </td>
 </tr>
 </tbody>
@@ -742,8 +824,8 @@ given target frame.</p>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.RigidTransform.load">
-<em class="property">static </em><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RigidTransform.load" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RigidTransform.load">
+<em class="property">static </em><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RigidTransform.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a RigidTransform from a file.</p>
 <p>The file format is:
 from_frame
@@ -756,13 +838,13 @@ rotation_row_2 (space separated)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file to load the transform from.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load the transform from.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The RigidTransform read from the file.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">RigidTransform</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If filename&#8217;s extension isn&#8217;t .tf.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If filename’s extension isn’t .tf.</td>
 </tr>
 </tbody>
 </table>
@@ -774,32 +856,32 @@ rotation_row_2 (space separated)</p>
 <div class="section" id="similaritytransform">
 <h2>SimilarityTransform<a class="headerlink" href="#similaritytransform" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.SimilarityTransform">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">SimilarityTransform</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), scale=1.0, from_frame='unassigned', to_frame='world'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">core.rigid_transformations.RigidTransform</span></code></p>
+<dt id="autolab_core.SimilarityTransform">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">SimilarityTransform</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), scale=1.0, from_frame=’unassigned’, to_frame=’world’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.rigid_transformations.RigidTransform</span></code></p>
 <p>A Similarity Transformation from one frame to another (rigid transformation + scaling)</p>
 <dl class="method">
-<dt id="core.SimilarityTransform.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), scale=1.0, from_frame='unassigned', to_frame='world'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.SimilarityTransform.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>rotation=array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), translation=array([ 0.,  0.,  0.]), scale=1.0, from_frame=’unassigned’, to_frame=’world’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a SimilarityTransform.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rotation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 3x3 rotation matrix (should be unitary).</li>
-<li><strong>translation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 3-entry translation vector.</li>
-<li><strong>scale</strong> (<em>float</em>) &#8211; Rescaling factor to the output reference frame</li>
-<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A name for the frame of reference on which this transform
+<li><strong>rotation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 3x3 rotation matrix (should be unitary).</li>
+<li><strong>translation</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 3-entry translation vector.</li>
+<li><strong>scale</strong> (<em>float</em>) – Rescaling factor to the output reference frame</li>
+<li><strong>from_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A name for the frame of reference on which this transform
 operates. This and to_frame are used for checking compositions
 of RigidTransforms, which is useful for debugging and catching
 errors.</li>
-<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A name for the frame of reference to which this transform
+<li><strong>to_frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A name for the frame of reference to which this transform
 moves objects.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If any of the arguments are invalid. The frames must be strings or
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If any of the arguments are invalid. The frames must be strings or
 unicode, the translations and rotations must be ndarrays, have the
 correct shape, and the determinant of the rotation matrix should be
 1.0.</p>
@@ -810,48 +892,48 @@ correct shape, and the determinant of the rotation matrix should be
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.SimilarityTransform.scale">
-<code class="descname">scale</code><a class="headerlink" href="#core.SimilarityTransform.scale" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; scaling factor</p>
+<dt id="autolab_core.SimilarityTransform.scale">
+<code class="descname">scale</code><a class="headerlink" href="#autolab_core.SimilarityTransform.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – scaling factor</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.SimilarityTransform.apply">
-<code class="descname">apply</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform.apply" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.SimilarityTransform.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the similarity transformation to a set of 3D objects.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>points</strong> (<code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code>) &#8211; A set of objects to transform. Could be any subclass of BagOfPoints.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>points</strong> (<code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code>) – A set of objects to transform. Could be any subclass of BagOfPoints.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A transformed set of objects of the same type as the input.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the input is not a Bag of 3D points or if the points are not in
-this transform&#8217;s from_frame.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the input is not a Bag of 3D points or if the points are not in
+this transform’s from_frame.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.SimilarityTransform.dot">
-<code class="descname">dot</code><span class="sig-paren">(</span><em>other_tf</em><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform.dot" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.SimilarityTransform.dot">
+<code class="descname">dot</code><span class="sig-paren">(</span><em>other_tf</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform.dot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose this simliarity transform with another.</p>
 <p>This transform is on the left-hand side of the composition.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">SimilarityTransform</span></code>) &#8211; The other SimilarityTransform to compose with this one.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_tf</strong> (<code class="xref py py-obj docutils literal"><span class="pre">SimilarityTransform</span></code>) – The other SimilarityTransform to compose with this one.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A SimilarityTransform that represents the composition.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">SimilarityTransform</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the to_frame of other_tf is not identical to this transform&#8217;s
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the to_frame of other_tf is not identical to this transform’s
 from_frame.</td>
 </tr>
 </tbody>
@@ -859,8 +941,8 @@ from_frame.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.SimilarityTransform.inverse">
-<code class="descname">inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform.inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.SimilarityTransform.inverse">
+<code class="descname">inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform.inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take the inverse of the similarity transform.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -875,8 +957,8 @@ from_frame.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.SimilarityTransform.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform.save" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.SimilarityTransform.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the SimliarityTransform to a file.</p>
 <p>The file format is:
 from_frame
@@ -890,17 +972,17 @@ rotation_row_2 (space separated)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file to save the transform to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to save the transform to.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If filename&#8217;s extension isn&#8217;t .stf.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If filename’s extension isn’t .stf.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.SimilarityTransform.load">
-<em class="property">static </em><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.SimilarityTransform.load" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.SimilarityTransform.load">
+<em class="property">static </em><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.SimilarityTransform.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a SimilarityTransform from a file.</p>
 <p>The file format is:
 from_frame
@@ -914,13 +996,13 @@ rotation_row_2 (space separated)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file to load the transform from.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load the transform from.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The SimilarityTransform read from the file.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">SimilarityTransform</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If filename&#8217;s extension isn&#8217;t .stf.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If filename’s extension isn’t .stf.</td>
 </tr>
 </tbody>
 </table>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Installation &mdash; core 0.1.0 documentation</title>
+  <title>Python Installation &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="CSV Processing" href="../api/csv_model.html"/>
         <link rel="prev" title="Berkeley AutoLab Core Documentation" href="../index.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -95,7 +95,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Python Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#clone-the-repository">1. Clone the repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-installation-script">2. Run installation script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-the-installation">3. Test the installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#ros-installation">ROS Installation</a><ul>
@@ -103,6 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#build-the-catkin-package">2. Build the catkin package</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#documentation">Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#building">Building</a></li>
@@ -137,7 +137,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -188,17 +188,17 @@
             
   <div class="section" id="python-installation">
 <h1>Python Installation<a class="headerlink" href="#python-installation" title="Permalink to this headline">¶</a></h1>
-<p>Note that the <cite>core</cite> module is known to work for Python 2.7 and has not been tested for Python 3.</p>
+<p>Note that the <cite>autolab_core</cite> module is known to work for Python 2.7 and has not been tested for Python 3.</p>
 <div class="section" id="clone-the-repository">
 <h2>1. Clone the repository<a class="headerlink" href="#clone-the-repository" title="Permalink to this headline">¶</a></h2>
-<p>Clone or download our source code from <a class="reference external" href="https://github.com/BerkeleyAutomation/core">Github</a>.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/BerkeleyAutomation/core.git
+<p>Clone or download our source code from <a class="reference external" href="https://github.com/BerkeleyAutomation/autolab_core">Github</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/BerkeleyAutomation/autolab_core.git
 </pre></div>
 </div>
 </div>
 <div class="section" id="run-installation-script">
 <h2>2. Run installation script<a class="headerlink" href="#run-installation-script" title="Permalink to this headline">¶</a></h2>
-<p>Change directories into the <cite>core</cite> repository and run</p>
+<p>Change directories into the <cite>autolab_core</cite> repository and run</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ python setup.py install
 </pre></div>
 </div>
@@ -207,23 +207,16 @@
 </pre></div>
 </div>
 <p>Alternatively, you can run</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install /path/to/core
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install /path/to/autolab_core
 </pre></div>
 </div>
-<p>to install <cite>core</cite> from anywhere.
-This will install <cite>core</cite> in your current Python environment.</p>
-</div>
-<div class="section" id="test-the-installation">
-<h2>3. Test the installation<a class="headerlink" href="#test-the-installation" title="Permalink to this headline">¶</a></h2>
-<p>Change directories into the <cite>core</cite> repository and run</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python setup.py test
-</pre></div>
-</div>
+<p>to install <cite>autolab_core</cite> from anywhere.
+This will install <cite>autolab_core</cite> in your current Python environment.</p>
 </div>
 </div>
 <div class="section" id="ros-installation">
 <h1>ROS Installation<a class="headerlink" href="#ros-installation" title="Permalink to this headline">¶</a></h1>
-<p>The <cite>core</cite> library can also be used with ROS, as our <a class="reference external" href="../api/rigid_transform.html">RigidTransform</a> class can be used to wrap rigid transformations accessed through <a class="reference external" href="http://wiki.ros.org/tf">tf</a>.
+<p>The <cite>autolab_core</cite> library can also be used with ROS, as our <a class="reference external" href="../api/rigid_transform.html">RigidTransform</a> class can be used to wrap rigid transformations accessed through <a class="reference external" href="http://wiki.ros.org/tf">tf</a>.
 This provides a convenient override of multiplication operator</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">T_b_a</span> <span class="o">=</span> <span class="n">RigidTransform</span><span class="o">.</span><span class="n">rigid_transform_from_ros</span><span class="p">(</span><span class="n">from_frame</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">to_frame</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">T_c_b</span> <span class="o">=</span> <span class="n">RigidTransform</span><span class="o">.</span><span class="n">rigid_transform_from_ros</span><span class="p">(</span><span class="n">from_frame</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">to_frame</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
@@ -231,12 +224,12 @@ This provides a convenient override of multiplication operator</p>
 </pre></div>
 </div>
 <p>The <a class="reference external" href="../api/rigid_transform.html">RigidTransform</a> class  also does automatic checking of frame name compatibility to help prevent bugs.</p>
-<p>See the static methods <a class="reference external" href="../api/rigid_transform.html#core.RigidTransform.publish_to_ros">publish_to_ros</a>, <a class="reference external" href="../api/rigid_transform.html#core.RigidTransform.delete_from_ros">delete_from_ros</a>, and <a class="reference external" href="../api/rigid_transform.html#core.RigidTransform.rigid_transform_from_ros">rigid_transform_from_ros</a> of <a class="reference external" href="../api/rigid_transform.html">RigidTransform</a> for more information.</p>
+<p>See the static methods <a class="reference external" href="../api/rigid_transform.html#autolab_core.RigidTransform.publish_to_ros">publish_to_ros</a>, <a class="reference external" href="../api/rigid_transform.html#autolab_core.RigidTransform.delete_from_ros">delete_from_ros</a>, and <a class="reference external" href="../api/rigid_transform.html#autolab_core.RigidTransform.rigid_transform_from_ros">rigid_transform_from_ros</a> of <a class="reference external" href="../api/rigid_transform.html">RigidTransform</a> for more information.</p>
 <div class="section" id="id1">
 <h2>1. Clone the repository<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Clone or download our source code from <a class="reference external" href="https://github.com/BerkeleyAutomation/core">Github</a>.</p>
+<p>Clone or download our source code from <a class="reference external" href="https://github.com/BerkeleyAutomation/autolab_core">Github</a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ cd {PATH_TO_YOUR_CATKIN_WORKSPACE}/src
-$ git clone https://github.com/BerkeleyAutomation/core.git
+$ git clone https://github.com/BerkeleyAutomation/autolab_core.git
 </pre></div>
 </div>
 </div>
@@ -250,9 +243,18 @@ $ catkin_make
 <p>Then re-source devel/setup.bash for the module to be available through Python.</p>
 </div>
 </div>
+<div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>To test your installation, run</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python setup.py test
+</pre></div>
+</div>
+<p>with the robot on and calibrated.</p>
+<p>We highly recommend testing before using the module.</p>
+</div>
 <div class="section" id="dependencies">
 <h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h1>
-<p>The <cite>core</cite> module&#8217;s only dependencies are on <a class="reference external" href="http://www.numpy.org/">numpy</a>, <a class="reference external" href="https://www.scipy/org/">scipy</a>,
+<p>The <cite>autolab_core</cite> module’s only dependencies are on <a class="reference external" href="http://www.numpy.org/">numpy</a>, <a class="reference external" href="https://www.scipy/org/">scipy</a>,
 <a class="reference external" href="http://www.matplotlib.org/">matplotlib</a>, and <cite>pyyaml</cite> and should be installed automatically.
 You can install these manually if you wish with
 pip.</p>
@@ -268,7 +270,7 @@ $ pip install pyyaml
 <h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="building">
 <h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
-<p>Building <cite>core</cite>&#8216;s documentation requires a few extra dependencies &#8211;
+<p>Building <cite>autolab_core</cite>’s documentation requires a few extra dependencies –
 specifically, <a class="reference external" href="http://www.sphinx-doc.org/en/1.4.8/">sphinx</a> and a few plugins.</p>
 <p>To install the dependencies required, simply run</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install -r docs_requirements.txt

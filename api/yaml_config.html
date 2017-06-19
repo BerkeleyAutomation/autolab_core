@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>YAML Config Processor &mdash; core 0.1.0 documentation</title>
+  <title>YAML Config Processor &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="prev" title="Utility Functions" href="utils.html"/> 
 
   
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -93,6 +93,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -123,7 +124,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -176,33 +177,33 @@
 <h1>YAML Config Processor<a class="headerlink" href="#yaml-config-processor" title="Permalink to this headline">¶</a></h1>
 <p>A class for loading and writing to YAML configuration files.</p>
 <dl class="class">
-<dt id="core.YamlConfig">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">YamlConfig</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.YamlConfig">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">YamlConfig</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Class to load a configuration file and parse it into a dictionary.</p>
 <dl class="attribute">
 <dt id="YamlConfig.config">
 <code class="descname">config</code><a class="headerlink" href="#YamlConfig.config" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">dictionary</span></code> &#8211; A dictionary that contains the contents of the configuration.</p>
+<dd><p><code class="xref py py-obj docutils literal"><span class="pre">dictionary</span></code> – A dictionary that contains the contents of the configuration.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.YamlConfig.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.YamlConfig.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a YamlConfig by loading it from the given file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The filename of the .yaml file that contains the configuration.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The filename of the .yaml file that contains the configuration.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.YamlConfig.keys">
-<code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig.keys" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.YamlConfig.keys">
+<code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the keys of the config dictionary.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -217,26 +218,26 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="core.YamlConfig.__contains__">
-<code class="descname">__contains__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig.__contains__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides &#8216;in&#8217; operator.</p>
+<dt id="autolab_core.YamlConfig.__contains__">
+<code class="descname">__contains__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides ‘in’ operator.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.YamlConfig.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.YamlConfig.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides the key access operator [].</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.YamlConfig.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.YamlConfig.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides the keyed setting operator [].</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.YamlConfig.iteritems">
-<code class="descname">iteritems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.YamlConfig.iteritems" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.YamlConfig.iteritems">
+<code class="descname">iteritems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.iteritems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns iterator over config dict.</p>
 </dd></dl>
 

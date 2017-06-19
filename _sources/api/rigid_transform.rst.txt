@@ -3,9 +3,9 @@ Rigid Transformations
 
 RigidTransform
 ~~~~~~~~~~~~~~
-.. autoclass:: core.RigidTransform
+.. autoclass:: autolab_core.RigidTransform
 
 SimilarityTransform
 ~~~~~~~~~~~~~~~~~~~
-.. autoclass:: core.SimilarityTransform
+.. autoclass:: autolab_core.SimilarityTransform
 

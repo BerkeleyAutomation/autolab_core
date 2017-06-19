@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Random Variables &mdash; core 0.1.0 documentation</title>
+  <title>Random Variables &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="Rigid Transformations" href="rigid_transform.html"/>
         <link rel="prev" title="Geometric Primitives" href="primitives.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -131,7 +132,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -186,33 +187,33 @@
 <div class="section" id="randomvariable">
 <h2>RandomVariable<a class="headerlink" href="#randomvariable" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.RandomVariable">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">RandomVariable</code><span class="sig-paren">(</span><em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RandomVariable" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RandomVariable">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">RandomVariable</code><span class="sig-paren">(</span><em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RandomVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Abstract base class for random variables.</p>
 <dl class="method">
-<dt id="core.RandomVariable.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RandomVariable.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RandomVariable.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RandomVariable.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a random variable with optional pre-sampling.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_prealloc_samples</strong> (<em>int</em>) &#8211; The number of samples to pre-allocate.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_prealloc_samples</strong> (<em>int</em>) – The number of samples to pre-allocate.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RandomVariable.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RandomVariable.sample" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RandomVariable.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RandomVariable.sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate samples of the random variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) &#8211; The number of samples to generate.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) – The number of samples to generate.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The samples of the random variable. If <cite>size == 1</cite>, then
 the returned value will not be wrapped in an array.</td>
@@ -224,8 +225,8 @@ the returned value will not be wrapped in an array.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.RandomVariable.rvs">
-<code class="descname">rvs</code><span class="sig-paren">(</span><em>size=1</em>, <em>iteration=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.RandomVariable.rvs" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.RandomVariable.rvs">
+<code class="descname">rvs</code><span class="sig-paren">(</span><em>size=1</em>, <em>iteration=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RandomVariable.rvs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sample the random variable, using the preallocated samples if
 possible.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -233,8 +234,8 @@ possible.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>size</strong> (<em>int</em>) &#8211; The number of samples to generate.</li>
-<li><strong>iteration</strong> (<em>int</em>) &#8211; The location in the preallocated sample array to start sampling
+<li><strong>size</strong> (<em>int</em>) – The number of samples to generate.</li>
+<li><strong>iteration</strong> (<em>int</em>) – The location in the preallocated sample array to start sampling
 from.</li>
 </ul>
 </td>
@@ -256,33 +257,33 @@ the returned value will not be wrapped in an array.</p>
 <div class="section" id="bernoullirv">
 <h2>BernoulliRV<a class="headerlink" href="#bernoullirv" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.BernoulliRV">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">BernoulliRV</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#core.BernoulliRV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">core.random_variables.RandomVariable</span></code></p>
+<dt id="autolab_core.BernoulliRV">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">BernoulliRV</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BernoulliRV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.random_variables.RandomVariable</span></code></p>
 <p>A Bernoulli random variable.</p>
 <dl class="method">
-<dt id="core.BernoulliRV.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#core.BernoulliRV.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.BernoulliRV.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BernoulliRV.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a Bernoulli random variable with probability p.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> (<em>float</em>) &#8211; The probability that the random variable takes the value 1.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> (<em>float</em>) – The probability that the random variable takes the value 1.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.BernoulliRV.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.BernoulliRV.sample" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.BernoulliRV.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BernoulliRV.sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate samples of the random variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) &#8211; The number of samples to generate.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) – The number of samples to generate.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The samples of the random variable. If <cite>size == 1</cite>, then
 the returned value will not be wrapped in an array.</td>
@@ -299,21 +300,21 @@ the returned value will not be wrapped in an array.</td>
 <div class="section" id="gaussianrv">
 <h2>GaussianRV<a class="headerlink" href="#gaussianrv" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.GaussianRV">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">GaussianRV</code><span class="sig-paren">(</span><em>mu</em>, <em>sigma</em><span class="sig-paren">)</span><a class="headerlink" href="#core.GaussianRV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">core.random_variables.RandomVariable</span></code></p>
+<dt id="autolab_core.GaussianRV">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">GaussianRV</code><span class="sig-paren">(</span><em>mu</em>, <em>sigma</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.GaussianRV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.random_variables.RandomVariable</span></code></p>
 <p>A Gaussian random variable.</p>
 <dl class="method">
-<dt id="core.GaussianRV.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>mu</em>, <em>sigma</em><span class="sig-paren">)</span><a class="headerlink" href="#core.GaussianRV.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.GaussianRV.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>mu</em>, <em>sigma</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.GaussianRV.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a Gaussian random variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>mu</strong> (<em>float</em>) &#8211; The mean of the Gaussian.</li>
-<li><strong>sigma</strong> (<em>float</em>) &#8211; The standard deviation of the Gaussian.</li>
+<li><strong>mu</strong> (<em>float</em>) – The mean of the Gaussian.</li>
+<li><strong>sigma</strong> (<em>float</em>) – The standard deviation of the Gaussian.</li>
 </ul>
 </td>
 </tr>
@@ -322,14 +323,14 @@ the returned value will not be wrapped in an array.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.GaussianRV.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.GaussianRV.sample" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.GaussianRV.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.GaussianRV.sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate samples of the random variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) &#8211; The number of samples to generate.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) – The number of samples to generate.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The samples of the random variable.</td>
 </tr>
@@ -345,21 +346,21 @@ the returned value will not be wrapped in an array.</td>
 <div class="section" id="artificialrv">
 <h2>ArtificialRV<a class="headerlink" href="#artificialrv" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.ArtificialRV">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">ArtificialRV</code><span class="sig-paren">(</span><em>obj</em>, <em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ArtificialRV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">core.random_variables.RandomVariable</span></code></p>
+<dt id="autolab_core.ArtificialRV">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">ArtificialRV</code><span class="sig-paren">(</span><em>obj</em>, <em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ArtificialRV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.random_variables.RandomVariable</span></code></p>
 <p>A fake RV that deterministically returns the given object.</p>
 <dl class="method">
-<dt id="core.ArtificialRV.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>obj</em>, <em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ArtificialRV.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ArtificialRV.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>obj</em>, <em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ArtificialRV.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize an artifical RV.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>obj</strong> (<em>item</em>) &#8211; The item to always return.</li>
-<li><strong>num_prealloc_samples</strong> (<em>int</em>) &#8211; The number of samples to pre-allocate.</li>
+<li><strong>obj</strong> (<em>item</em>) – The item to always return.</li>
+<li><strong>num_prealloc_samples</strong> (<em>int</em>) – The number of samples to pre-allocate.</li>
 </ul>
 </td>
 </tr>
@@ -368,14 +369,14 @@ the returned value will not be wrapped in an array.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.ArtificialRV.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ArtificialRV.sample" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ArtificialRV.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>size=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ArtificialRV.sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate copies of the artifical RV.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) &#8211; The number of samples to generate.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>size</strong> (<em>int</em>) – The number of samples to generate.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The copies of the fake RV.</td>
 </tr>
@@ -391,13 +392,13 @@ the returned value will not be wrapped in an array.</td>
 <div class="section" id="artificialsinglerv">
 <h2>ArtificialSingleRV<a class="headerlink" href="#artificialsinglerv" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="core.ArtificialSingleRV">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">ArtificialSingleRV</code><span class="sig-paren">(</span><em>obj</em>, <em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ArtificialSingleRV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">core.random_variables.ArtificialRV</span></code></p>
+<dt id="autolab_core.ArtificialSingleRV">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">ArtificialSingleRV</code><span class="sig-paren">(</span><em>obj</em>, <em>num_prealloc_samples=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ArtificialSingleRV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.random_variables.ArtificialRV</span></code></p>
 <p>A single ArtificialRV.</p>
 <dl class="method">
-<dt id="core.ArtificialSingleRV.sample">
-<code class="descname">sample</code><span class="sig-paren">(</span><em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.ArtificialSingleRV.sample" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.ArtificialSingleRV.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ArtificialSingleRV.sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a single copy of the artificial RV.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

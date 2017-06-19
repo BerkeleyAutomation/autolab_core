@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Utility Functions &mdash; core 0.1.0 documentation</title>
+  <title>Utility Functions &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="YAML Config Processor" href="yaml_config.html"/>
         <link rel="prev" title="Rigid Transformations" href="rigid_transform.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -124,7 +125,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -177,14 +178,14 @@
 <h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
 <p>General utility functions.</p>
 <dl class="function">
-<dt id="core.gen_experiment_id">
-<code class="descclassname">core.</code><code class="descname">gen_experiment_id</code><span class="sig-paren">(</span><em>n=10</em><span class="sig-paren">)</span><a class="headerlink" href="#core.gen_experiment_id" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.gen_experiment_id">
+<code class="descclassname">autolab_core.</code><code class="descname">gen_experiment_id</code><span class="sig-paren">(</span><em>n=10</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.gen_experiment_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a random string with n characters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) &#8211; The length of the string to be generated.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) – The length of the string to be generated.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string with only alphabetic characters.</td>
 </tr>
@@ -195,22 +196,22 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="core.histogram">
-<code class="descclassname">core.</code><code class="descname">histogram</code><span class="sig-paren">(</span><em>values</em>, <em>num_bins</em>, <em>bounds</em>, <em>normalized=True</em>, <em>plot=False</em>, <em>color='b'</em><span class="sig-paren">)</span><a class="headerlink" href="#core.histogram" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.histogram">
+<code class="descclassname">autolab_core.</code><code class="descname">histogram</code><span class="sig-paren">(</span><em>values</em>, <em>num_bins</em>, <em>bounds</em>, <em>normalized=True</em>, <em>plot=False</em>, <em>color=’b’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.histogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a histogram plot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>values</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>) &#8211; An array of values to put in the histogram.</li>
-<li><strong>num_bins</strong> (<em>int</em>) &#8211; The number equal-width bins in the histogram.</li>
-<li><strong>bounds</strong> (<code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of float) &#8211; Two floats - a min and a max - that define the lower and upper
+<li><strong>values</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>) – An array of values to put in the histogram.</li>
+<li><strong>num_bins</strong> (<em>int</em>) – The number equal-width bins in the histogram.</li>
+<li><strong>bounds</strong> (<code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of float) – Two floats - a min and a max - that define the lower and upper
 ranges of the histogram, respectively.</li>
-<li><strong>normalized</strong> (<em>bool</em>) &#8211; If True, the bins will show the percentage of elements they contain
+<li><strong>normalized</strong> (<em>bool</em>) – If True, the bins will show the percentage of elements they contain
 rather than raw counts.</li>
-<li><strong>plot</strong> (<em>bool</em>) &#8211; If True, this function uses pyplot to plot the histogram.</li>
-<li><strong>color</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The color identifier for the plotted bins.</li>
+<li><strong>plot</strong> (<em>bool</em>) – If True, this function uses pyplot to plot the histogram.</li>
+<li><strong>color</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The color identifier for the plotted bins.</li>
 </ul>
 </td>
 </tr>
@@ -225,8 +226,8 @@ rather than raw counts.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.skew">
-<code class="descclassname">core.</code><code class="descname">skew</code><span class="sig-paren">(</span><em>xi</em><span class="sig-paren">)</span><a class="headerlink" href="#core.skew" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.skew">
+<code class="descclassname">autolab_core.</code><code class="descname">skew</code><span class="sig-paren">(</span><em>xi</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.skew" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the skew-symmetric matrix that can be used to calculate
 cross-products with vector xi.</p>
 <p>Multiplying this matrix by a vector <cite>v</cite> gives the same result
@@ -235,7 +236,7 @@ as <cite>xi x v</cite>.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xi</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 3-entry vector.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xi</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 3-entry vector.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The 3x3 skew-symmetric cross product matrix for the vector.</td>
 </tr>
@@ -246,15 +247,15 @@ as <cite>xi x v</cite>.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.deskew">
-<code class="descclassname">core.</code><code class="descname">deskew</code><span class="sig-paren">(</span><em>S</em><span class="sig-paren">)</span><a class="headerlink" href="#core.deskew" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.deskew">
+<code class="descclassname">autolab_core.</code><code class="descname">deskew</code><span class="sig-paren">(</span><em>S</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.deskew" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a skew-symmetric cross-product matrix to its corresponding
 vector. Only works for 3x3 matrices.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>S</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) &#8211; A 3x3 skew-symmetric matrix.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>S</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – A 3x3 skew-symmetric matrix.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A 3-entry vector that corresponds to the given cross product matrix.</td>
 </tr>
@@ -265,34 +266,35 @@ vector. Only works for 3x3 matrices.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.pretty_str_time">
-<code class="descclassname">core.</code><code class="descname">pretty_str_time</code><span class="sig-paren">(</span><em>dt</em><span class="sig-paren">)</span><a class="headerlink" href="#core.pretty_str_time" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.pretty_str_time">
+<code class="descclassname">autolab_core.</code><code class="descname">pretty_str_time</code><span class="sig-paren">(</span><em>dt</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.pretty_str_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a pretty string for the given datetime object.</p>
-<p>:param <code class="xref py py-obj docutils literal"><span class="pre">datetime</span></code>: A datetime object to format.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <cite>datetime</cite> formatted as {year}_{month}_{day}_{hour}_{minute}.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dt</strong> (<code class="xref py py-obj docutils literal"><span class="pre">datetime</span></code>) – A datetime object to format.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The <cite>datetime</cite> formatted as {year}_{month}_{day}_{hour}_{minute}.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.filenames">
-<code class="descclassname">core.</code><code class="descname">filenames</code><span class="sig-paren">(</span><em>directory</em>, <em>tag=''</em>, <em>sorted=False</em><span class="sig-paren">)</span><a class="headerlink" href="#core.filenames" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.filenames">
+<code class="descclassname">autolab_core.</code><code class="descname">filenames</code><span class="sig-paren">(</span><em>directory</em>, <em>tag=”</em>, <em>sorted=False</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.filenames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads in all filenames from a directory that contain a specified substring.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>directory</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; the directory to read from</li>
-<li><strong>tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; optional tag to match in the filenames</li>
-<li><strong>sorted</strong> (<em>bool</em>) &#8211; whether or not to sort the filenames</li>
+<li><strong>directory</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – the directory to read from</li>
+<li><strong>tag</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – optional tag to match in the filenames</li>
+<li><strong>sorted</strong> (<em>bool</em>) – whether or not to sort the filenames</li>
 </ul>
 </td>
 </tr>
@@ -307,25 +309,25 @@ vector. Only works for 3x3 matrices.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.sph2cart">
-<code class="descclassname">core.</code><code class="descname">sph2cart</code><span class="sig-paren">(</span><em>r</em>, <em>az</em>, <em>elev</em><span class="sig-paren">)</span><a class="headerlink" href="#core.sph2cart" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.sph2cart">
+<code class="descclassname">autolab_core.</code><code class="descname">sph2cart</code><span class="sig-paren">(</span><em>r</em>, <em>az</em>, <em>elev</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.sph2cart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert spherical to cartesian coordinates.</p>
 <dl class="attribute">
 <dt id="r">
 <code class="descname">r</code><a class="headerlink" href="#r" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; radius</p>
+<dd><p><em>float</em> – radius</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="az">
 <code class="descname">az</code><a class="headerlink" href="#az" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; aziumth (angle about z axis)</p>
+<dd><p><em>float</em> – aziumth (angle about z axis)</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="elev">
 <code class="descname">elev</code><a class="headerlink" href="#elev" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; elevation from xy plane</p>
+<dd><p><em>float</em> – elevation from xy plane</p>
 </dd></dl>
 
 <table class="docutils field-list" frame="void" rules="none">
@@ -333,9 +335,9 @@ vector. Only works for 3x3 matrices.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
-<li><em>float</em> &#8211; x-coordinate</li>
-<li><em>float</em> &#8211; y-coordinate</li>
-<li><em>float</em> &#8211; z-coordinate</li>
+<li><em>float</em> – x-coordinate</li>
+<li><em>float</em> – y-coordinate</li>
+<li><em>float</em> – z-coordinate</li>
 </ul>
 </td>
 </tr>
@@ -344,25 +346,25 @@ vector. Only works for 3x3 matrices.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="core.cart2sph">
-<code class="descclassname">core.</code><code class="descname">cart2sph</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#core.cart2sph" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.cart2sph">
+<code class="descclassname">autolab_core.</code><code class="descname">cart2sph</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.cart2sph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert cartesian to spherical coordinates.</p>
 <dl class="attribute">
 <dt id="x">
 <code class="descname">x</code><a class="headerlink" href="#x" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; x-coordinate</p>
+<dd><p><em>float</em> – x-coordinate</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="y">
 <code class="descname">y</code><a class="headerlink" href="#y" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; y-coordinate</p>
+<dd><p><em>float</em> – y-coordinate</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="z">
 <code class="descname">z</code><a class="headerlink" href="#z" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> &#8211; z-coordinate</p>
+<dd><p><em>float</em> – z-coordinate</p>
 </dd></dl>
 
 <table class="docutils field-list" frame="void" rules="none">
@@ -370,9 +372,9 @@ vector. Only works for 3x3 matrices.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
-<li><em>float</em> &#8211; radius</li>
-<li><em>float</em> &#8211; aziumth</li>
-<li><em>float</em> &#8211; elevation</li>
+<li><em>float</em> – radius</li>
+<li><em>float</em> – aziumth</li>
+<li><em>float</em> – elevation</li>
 </ul>
 </td>
 </tr>

@@ -4,4 +4,4 @@ Classes for logging experimental data to files in a well-specified format.
 
 ExperimentLogger
 ~~~~~~~~~~~~~~~~
-.. autoclass:: core.ExperimentLogger
+.. autoclass:: autolab_core.ExperimentLogger

@@ -5,45 +5,45 @@ planes, point clouds, and normal clouds.
 
 BagOfPoints
 ~~~~~~~~~~~~~~
-.. autoclass:: core.BagOfPoints
+.. autoclass:: autolab_core.BagOfPoints
 
 BagOfVectors
 ~~~~~~~~~~~~~~
-.. autoclass:: core.BagOfVectors
+.. autoclass:: autolab_core.BagOfVectors
 
 Point
 ~~~~~~~~~~~~~~
-.. autoclass:: core.Point
+.. autoclass:: autolab_core.Point
 
 Direction
 ~~~~~~~~~~~~~~
-.. autoclass:: core.Direction
+.. autoclass:: autolab_core.Direction
 
 Plane3D
 ~~~~~~~~~~~~~~
-.. autoclass:: core.Plane3D
+.. autoclass:: autolab_core.Plane3D
 
 PointCloud
 ~~~~~~~~~~~~~~
-.. autoclass:: core.PointCloud
+.. autoclass:: autolab_core.PointCloud
 
 NormalCloud
 ~~~~~~~~~~~~~~
-.. autoclass:: core.NormalCloud
+.. autoclass:: autolab_core.NormalCloud
 
 ImageCoords
 ~~~~~~~~~~~~~~
-.. autoclass:: core.ImageCoords
+.. autoclass:: autolab_core.ImageCoords
 
 RgbCloud
 ~~~~~~~~~~~~~~
-.. autoclass:: core.RgbCloud
+.. autoclass:: autolab_core.RgbCloud
 
 RgbPointCloud
 ~~~~~~~~~~~~~~
-.. autoclass:: core.RgbPointCloud
+.. autoclass:: autolab_core.RgbPointCloud
 
 PointNormalCloud
 ~~~~~~~~~~~~~~~~
-.. autoclass:: core.PointNormalCloud
+.. autoclass:: autolab_core.PointNormalCloud
 

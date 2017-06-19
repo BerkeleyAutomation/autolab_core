@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CSV Processing &mdash; core 0.1.0 documentation</title>
+  <title>CSV Processing &mdash; autolab_core 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="Quaternions" href="dual_quaternion.html"/>
         <link rel="prev" title="Python Installation" href="../install/install.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> core
+            <a href="../index.html" class="icon icon-home"> autolab_core
           
 
           
@@ -94,6 +94,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
@@ -127,7 +128,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">core</a>
+          <a href="../index.html">autolab_core</a>
         
       </nav>
 
@@ -183,26 +184,26 @@
 <p>A model for processing CSV files, including reading, writing, and
 table structuring.</p>
 <dl class="class">
-<dt id="core.CSVModel">
-<em class="property">class </em><code class="descclassname">core.</code><code class="descname">CSVModel</code><span class="sig-paren">(</span><em>full_filename</em>, <em>headers_types_list</em>, <em>default_entry=''</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel">
+<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">CSVModel</code><span class="sig-paren">(</span><em>full_filename</em>, <em>headers_types_list</em>, <em>default_entry=”</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A generic model for CSV file reading and writing.</p>
 <dl class="method">
-<dt id="core.CSVModel.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>full_filename</em>, <em>headers_types_list</em>, <em>default_entry=''</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>full_filename</em>, <em>headers_types_list</em>, <em>default_entry=”</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instantiates a CSVModel object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>full_filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file path to a .csv file.</li>
-<li><strong>headers_types_list</strong> (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code> of two-tuples <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A list where each item is a tuple of string header for a column and
+<li><strong>full_filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file path to a .csv file.</li>
+<li><strong>headers_types_list</strong> (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code> of two-tuples <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A list where each item is a tuple of string header for a column and
 the correspoding data type as a string.</li>
-<li><strong>default_entry</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The default entry for cells in the CSV.</li>
+<li><strong>default_entry</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The default entry for cells in the CSV.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; If the types, headers, or default entry are not strings.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> – If the types, headers, or default entry are not strings.</p>
 </td>
 </tr>
 </tbody>
@@ -210,14 +211,14 @@ the correspoding data type as a string.</li>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="core.CSVModel.num_rows">
-<code class="descname">num_rows</code><a class="headerlink" href="#core.CSVModel.num_rows" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The number of rows in the table.</p>
+<dt id="autolab_core.CSVModel.num_rows">
+<code class="descname">num_rows</code><a class="headerlink" href="#autolab_core.CSVModel.num_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> – The number of rows in the table.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_cur_uid">
-<code class="descname">get_cur_uid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_cur_uid" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_cur_uid">
+<code class="descname">get_cur_uid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_cur_uid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the current UID associated with this object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -232,40 +233,40 @@ the correspoding data type as a string.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.insert">
-<code class="descname">insert</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.insert" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.insert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert a row into the .csv file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) &#8211; A dictionary mapping keys (header strings) to values.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) – A dictionary mapping keys (header strings) to values.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The UID for the new row.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; If the value for a given header is not of the appropriate type.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> – If the value for a given header is not of the appropriate type.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.update_by_uid">
-<code class="descname">update_by_uid</code><span class="sig-paren">(</span><em>uid</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.update_by_uid" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.update_by_uid">
+<code class="descname">update_by_uid</code><span class="sig-paren">(</span><em>uid</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.update_by_uid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update a row with the given data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>uid</strong> (<em>int</em>) &#8211; The UID of the row to update.</li>
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) &#8211; A dictionary mapping keys (header strings) to values.</li>
+<li><strong>uid</strong> (<em>int</em>) – The UID of the row to update.</li>
+<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) – A dictionary mapping keys (header strings) to values.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; If the value for a given header is not of the appropriate type.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> – If the value for a given header is not of the appropriate type.</p>
 </td>
 </tr>
 </tbody>
@@ -273,14 +274,14 @@ the correspoding data type as a string.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_by_uid">
-<code class="descname">get_by_uid</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_by_uid" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_by_uid">
+<code class="descname">get_by_uid</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_by_uid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a copy of a given row of the table.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uid</strong> (<em>int</em>) &#8211; The UID of the row to update.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uid</strong> (<em>int</em>) – The UID of the row to update.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary mapping keys (header strings) to values, which
 represents a row of the table.</td>
@@ -292,14 +293,14 @@ represents a row of the table.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_by_row">
-<code class="descname">get_by_row</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_by_row" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_by_row">
+<code class="descname">get_by_row</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_by_row" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a copy of a given row of the table.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>row</strong> (<em>int</em>) &#8211; The number of the row to update.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>row</strong> (<em>int</em>) – The number of the row to update.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary mapping keys (header strings) to values, which
 represents a row of the table.</td>
@@ -311,13 +312,13 @@ represents a row of the table.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_col">
-<code class="descname">get_col</code><span class="sig-paren">(</span><em>col_name</em>, <em>filter=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_col" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_col">
+<code class="descname">get_col</code><span class="sig-paren">(</span><em>col_name</em>, <em>filter=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_col" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all values in the column corresponding to col_name that satisfies filter, which is
-a function that takes in a value of the column&#8217;s type and returns True or False
+a function that takes in a value of the column’s type and returns True or False
 :param col_name: Name of desired column
-:type col_name: &#8216;str&#8217;
-:param filter: A function that takes in a value of the column&#8217;s type and returns True or False</p>
+:type col_name: ‘str’
+:param filter: A function that takes in a value of the column’s type and returns True or False</p>
 <blockquote>
 <div>Defaults to a function that always returns True</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
@@ -328,15 +329,15 @@ a function that takes in a value of the column&#8217;s type and returns True or 
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the desired column name is not found in the model</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the desired column name is not found in the model</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_by_cols">
-<code class="descname">get_by_cols</code><span class="sig-paren">(</span><em>cols</em>, <em>direction=1</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_by_cols" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_by_cols">
+<code class="descname">get_by_cols</code><span class="sig-paren">(</span><em>cols</em>, <em>direction=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_by_cols" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the first or last row that satisfies the given col value constraints,
 or None if no row contains the given value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -344,8 +345,8 @@ or None if no row contains the given value.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cols</strong> (<em>:obj:'dict'</em>) &#8211; Dictionary of col values for a specific row.</li>
-<li><strong>direction</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; Either 1 or -1. 1 means find the first row, -1 means find the last row.</li>
+<li><strong>cols</strong> (<em>:obj:'dict'</em>) – Dictionary of col values for a specific row.</li>
+<li><strong>direction</strong> (<em>int</em><em>, </em><em>optional</em>) – Either 1 or -1. 1 means find the first row, -1 means find the last row.</li>
 </ul>
 </td>
 </tr>
@@ -362,8 +363,8 @@ the specified column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_by_col">
-<code class="descname">get_by_col</code><span class="sig-paren">(</span><em>col</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_by_col" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_by_col">
+<code class="descname">get_by_col</code><span class="sig-paren">(</span><em>col</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_by_col" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the first row that contains the given value in the specified column,
 or None if no row contains the given value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -371,8 +372,8 @@ or None if no row contains the given value.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The header string for a column.</li>
-<li><strong>val</strong> (<em>value type</em>) &#8211; The value to match in the column.</li>
+<li><strong>col</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The header string for a column.</li>
+<li><strong>val</strong> (<em>value type</em>) – The value to match in the column.</li>
 </ul>
 </td>
 </tr>
@@ -389,8 +390,8 @@ the specified column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_by_col_last">
-<code class="descname">get_by_col_last</code><span class="sig-paren">(</span><em>col</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_by_col_last" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_by_col_last">
+<code class="descname">get_by_col_last</code><span class="sig-paren">(</span><em>col</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_by_col_last" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the last row that contains the given value in the specified column,
 or None if no row contains the given value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -398,8 +399,8 @@ or None if no row contains the given value.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The header string for a column.</li>
-<li><strong>val</strong> (<em>value type</em>) &#8211; The value to match in the column.</li>
+<li><strong>col</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The header string for a column.</li>
+<li><strong>val</strong> (<em>value type</em>) – The value to match in the column.</li>
 </ul>
 </td>
 </tr>
@@ -416,14 +417,14 @@ the specified column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.get_rows_by_cols">
-<code class="descname">get_rows_by_cols</code><span class="sig-paren">(</span><em>matching_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_rows_by_cols" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_rows_by_cols">
+<code class="descname">get_rows_by_cols</code><span class="sig-paren">(</span><em>matching_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_rows_by_cols" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all rows where the cols match the elements given in the matching_dict</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matching_dict</strong> (<em>:obj:'dict'</em>) &#8211; Desired dictionary of col values.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matching_dict</strong> (<em>:obj:'dict'</em>) – Desired dictionary of col values.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of rows that satisfy the matching_dict</td>
 </tr>
@@ -434,40 +435,40 @@ the specified column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.__iter__" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.__iter__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forms an iterator</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="core.CSVModel.next">
-<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.next" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.next" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the next row in the CSV, for iteration</p>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.CSVModel.load">
-<em class="property">static </em><code class="descname">load</code><span class="sig-paren">(</span><em>full_filename</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.load" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.load">
+<em class="property">static </em><code class="descname">load</code><span class="sig-paren">(</span><em>full_filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a .csv file into a CSVModel.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file path to a .csv file.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file path to a .csv file.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The CSVModel initialized with the data in the given file.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">CSVModel</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">Excetpion</span></code> &#8211; If the CSV file does not exist or is malformed.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">Excetpion</span></code> – If the CSV file does not exist or is malformed.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="core.CSVModel.get_or_create">
-<em class="property">static </em><code class="descname">get_or_create</code><span class="sig-paren">(</span><em>full_filename</em>, <em>headers_types=None</em>, <em>default_entry=''</em><span class="sig-paren">)</span><a class="headerlink" href="#core.CSVModel.get_or_create" title="Permalink to this definition">¶</a></dt>
+<dt id="autolab_core.CSVModel.get_or_create">
+<em class="property">static </em><code class="descname">get_or_create</code><span class="sig-paren">(</span><em>full_filename</em>, <em>headers_types=None</em>, <em>default_entry=”</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.CSVModel.get_or_create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a .csv file into a CSVModel if the file exists, or create
 a new CSVModel with the given filename if the file does not exist.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -475,16 +476,16 @@ a new CSVModel with the given filename if the file does not exist.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>full_filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The file path to a .csv file.</li>
-<li><strong>headers_types</strong> (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; A list of tuples, where the first element in each tuple is the
-string header for a column and the second element is that column&#8217;s
+<li><strong>full_filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file path to a .csv file.</li>
+<li><strong>headers_types</strong> (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – A list of tuples, where the first element in each tuple is the
+string header for a column and the second element is that column’s
 data type as a string.</li>
-<li><strong>default_entry</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) &#8211; The default entry for cells in the CSV.</li>
+<li><strong>default_entry</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The default entry for cells in the CSV.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The CSVModel initialized with the data in the given file, or a new
-CSVModel tied to the filename if the file doesn&#8217;t currently exist.</p>
+CSVModel tied to the filename if the file doesn’t currently exist.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">CSVModel</span></code></p>
