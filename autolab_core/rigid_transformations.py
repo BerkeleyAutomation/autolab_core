@@ -23,9 +23,9 @@ except ImportError:
     logging.warning("Failed to import ros dependencies in rigid_transforms.py")
     
 try:
-    from core.srv import *
+    from autolab_core.srv import *
 except ImportError:
-    logging.warning("core not installed as catkin package, RigidTransform ros methods will be unavailable")
+    logging.warning("autolab_core not installed as catkin package, RigidTransform ros methods will be unavailable")
     
 import subprocess
 
@@ -498,8 +498,8 @@ class RigidTransform(object):
         If a transform referencing the same frames already exists in the ROS publisher, it is updated instead.
         This checking is not order sensitive
         
-        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
-        this can be done with: roslaunch core rigid_transforms.launch
+        Requires ROS rigid_transform_publisher service to be running. Assuming autolab_core is installed as a catkin package,
+        this can be done with: roslaunch autolab_core rigid_transforms.launch
         
         Parameters
         ----------
@@ -536,8 +536,8 @@ class RigidTransform(object):
         
         Also, note that it may take quite a while for the transform to disappear from rigid_transform_publisher's cache 
         
-        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
-        this can be done with: roslaunch core rigid_transforms.launch
+        Requires ROS rigid_transform_publisher service to be running. Assuming autolab_core is installed as a catkin package,
+        this can be done with: roslaunch autolab_core rigid_transforms.launch
         
         Parameters
         ----------
@@ -576,8 +576,8 @@ class RigidTransform(object):
     def rigid_transform_from_ros(from_frame, to_frame, service_name='rigid_transforms/rigid_transform_listener', namespace=None):
         """Gets transform from ROS as a rigid transform
         
-        Requires ROS rigid_transform_publisher service to be running. Assuming core is installed as a catkin package,
-        this can be done with: roslaunch core rigid_transforms.launch
+        Requires ROS rigid_transform_publisher service to be running. Assuming autolab_core is installed as a catkin package,
+        this can be done with: roslaunch autolab_core rigid_transforms.launch
         
         Parameters
         ----------
@@ -802,7 +802,7 @@ class RigidTransform(object):
 
         Returns
         -------
-        :obj:`core.RigidTransformation`
+        :obj:`RigidTransformation`
             rigid transformation corresponding to rotation with no translation
         """
         # rotate about the z and y axes individually

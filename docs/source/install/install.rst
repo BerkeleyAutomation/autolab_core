@@ -1,19 +1,19 @@
 Python Installation
 ~~~~~~~~~~~~~~~~~~~
 
-Note that the `core` module is known to work for Python 2.7 and has not been tested for Python 3.
+Note that the `autolab_core` module is known to work for Python 2.7 and has not been tested for Python 3.
 
 1. Clone the repository
 """""""""""""""""""""""
 Clone or download our source code from `Github`_. ::
 
-    $ git clone https://github.com/BerkeleyAutomation/core.git
+    $ git clone https://github.com/BerkeleyAutomation/autolab_core.git
 
-.. _Github: https://github.com/BerkeleyAutomation/core
+.. _Github: https://github.com/BerkeleyAutomation/autolab_core
 
 2. Run installation script
 """"""""""""""""""""""""""
-Change directories into the `core` repository and run ::
+Change directories into the `autolab_core` repository and run ::
 
     $ python setup.py install
 
@@ -23,15 +23,15 @@ or ::
 
 Alternatively, you can run ::
 
-    $ pip install /path/to/core
+    $ pip install /path/to/autolab_core
 
-to install `core` from anywhere.
-This will install `core` in your current Python environment.
+to install `autolab_core` from anywhere.
+This will install `autolab_core` in your current Python environment.
 
 ROS Installation
 ~~~~~~~~~~~~~~~~
 
-The `core` library can also be used with ROS, as our `RigidTransform`_ class can be used to wrap rigid transformations accessed through `tf`_.
+The `autolab_core` library can also be used with ROS, as our `RigidTransform`_ class can be used to wrap rigid transformations accessed through `tf`_.
 This provides a convenient override of multiplication operator ::
 
     T_b_a = RigidTransform.rigid_transform_from_ros(from_frame='a', to_frame='b')
@@ -44,18 +44,18 @@ See the static methods `publish_to_ros`_, `delete_from_ros`_, and `rigid_transfo
 
 .. _RigidTransform: ../api/rigid_transform.html
 .. _tf: http://wiki.ros.org/tf
-.. _publish_to_ros: ../api/rigid_transform.html#core.RigidTransform.publish_to_ros
-.. _delete_from_ros: ../api/rigid_transform.html#core.RigidTransform.delete_from_ros
-.. _rigid_transform_from_ros: ../api/rigid_transform.html#core.RigidTransform.rigid_transform_from_ros
+.. _publish_to_ros: ../api/rigid_transform.html#autolab_core.RigidTransform.publish_to_ros
+.. _delete_from_ros: ../api/rigid_transform.html#autolab_core.RigidTransform.delete_from_ros
+.. _rigid_transform_from_ros: ../api/rigid_transform.html#autolab_core.RigidTransform.rigid_transform_from_ros
 
 1. Clone the repository
 """""""""""""""""""""""
 Clone or download our source code from `Github`_. ::
 
     $ cd {PATH_TO_YOUR_CATKIN_WORKSPACE}/src
-    $ git clone https://github.com/BerkeleyAutomation/core.git
+    $ git clone https://github.com/BerkeleyAutomation/autolab_core.git
 
-.. _Github: https://github.com/BerkeleyAutomation/core
+.. _Github: https://github.com/BerkeleyAutomation/autolab_core
 
 2. Build the catkin package
 """""""""""""""""""""""""""
@@ -79,7 +79,7 @@ We highly recommend testing before using the module.
 
 Dependencies
 ~~~~~~~~~~~~
-The `core` module's only dependencies are on `numpy`_, `scipy`_,
+The `autolab_core` module's only dependencies are on `numpy`_, `scipy`_,
 `matplotlib`_, and `pyyaml` and should be installed automatically.
 You can install these manually if you wish with
 pip. ::
@@ -100,7 +100,7 @@ Documentation
 
 Building
 """"""""
-Building `core`'s documentation requires a few extra dependencies --
+Building `autolab_core`'s documentation requires a few extra dependencies --
 specifically, `sphinx`_ and a few plugins.
 
 .. _sphinx: http://www.sphinx-doc.org/en/1.4.8/

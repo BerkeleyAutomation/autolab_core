@@ -11,7 +11,7 @@ import tf2_msgs
 import geometry_msgs
 
 try:
-    from core.srv import *
+    from autolab_core.srv import *
 except ImportError:
     raise RuntimeError("rigid_transform_ros_publisher service unavailable outside of catkin package")
 

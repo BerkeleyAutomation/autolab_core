@@ -9,8 +9,8 @@ import socket
 import time
 import unittest
 
-from core import Point, PointCloud, Direction
-from core import RigidTransform, SimilarityTransform
+from autolab_core import Point, PointCloud, Direction
+from autolab_core import RigidTransform, SimilarityTransform
 
 class RigidTransformTest(unittest.TestCase):
     def test_init(self):

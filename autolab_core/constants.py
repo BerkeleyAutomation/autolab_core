@@ -1,5 +1,5 @@
 """
-Global constants for core module
+Global constants for autolab_core module
 Author: Jeff Mahler
 """
 METERS_TO_MM = 1000.0

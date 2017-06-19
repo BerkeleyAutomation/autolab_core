@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>core</name>
+  <name>autolab_core</name>
   <version>0.1.0</version>
-  <description>The core package</description>
+  <description>The autolab_core package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->

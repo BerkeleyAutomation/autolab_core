@@ -5,8 +5,8 @@ A set of geometric primitives.
 Box
 ~~~
 
-.. autoclass:: core.Box
+.. autoclass:: autolab_core.Box
 
 Contour
 ~~~~~~~
-.. autoclass:: core.Contour
+.. autoclass:: autolab_core.Contour

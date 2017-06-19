@@ -6,4 +6,4 @@ CSVModel
 A model for processing CSV files, including reading, writing, and
 table structuring.
 
-.. autoclass:: core.CSVModel
+.. autoclass:: autolab_core.CSVModel

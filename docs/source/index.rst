@@ -5,7 +5,7 @@
 
 Berkeley AutoLab Core Documentation
 ===================================
-Welcome to the documentation for the Berkeley AutoLab's `core` module!
+Welcome to the documentation for the Berkeley AutoLab's `autolab_core` module!
 This module is designed to be useful in a broad set of robotics tasks.
 
 .. toctree::

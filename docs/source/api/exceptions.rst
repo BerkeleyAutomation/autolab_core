@@ -1,4 +1,4 @@
 Exceptions
 ==========
 
-.. autoclass:: core.TerminateException
+.. autoclass:: autolab_core.TerminateException
