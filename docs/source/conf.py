@@ -53,7 +53,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'core'
+project = u'autolab_core'
 copyright = u'2016, Jeff Mahler'
 author = u'Jeff Mahler'
 
@@ -230,7 +230,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'core.tex', u'core Documentation',
+    (master_doc, 'autolab_core.tex', u'autolab_core Documentation',
      u'Jeff Mahler', 'manual'),
 ]
 
@@ -260,7 +260,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'core', u'core Documentation',
+    (master_doc, 'autolab_core', u'autolab_core Documentation',
      [author], 1)
 ]
 
@@ -274,8 +274,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'core', u'core Documentation',
-     author, 'core', 'One line description of project.',
+    (master_doc, 'autolab_core', u'autolab_core Documentation',
+     author, 'autolab_core', 'One line description of project.',
      'Miscellaneous'),
 ]
 
