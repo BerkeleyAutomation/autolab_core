@@ -34,7 +34,7 @@ class Box(object):
         The frame in which this box is placed.
     """
 
-    def __init__(self, min_pt, max_pt, frame):
+    def __init__(self, min_pt, max_pt, frame='unspecified'):
         """Initialize a box.
 
         Parameters
