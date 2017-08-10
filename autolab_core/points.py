@@ -899,6 +899,16 @@ class NormalCloud(BagOfVectors):
         points_of_interest = np.where(np.linalg.norm(self._data, axis=0) != 0.0)[0]
         self._data = self._data[:, points_of_interest]
 
+    def remove_nan_normals(self):
+        """Removes normal vectors with nan magnitude.
+
+        Note
+        ----
+        This returns nothing and updates the NormalCloud in-place.
+        """
+        points_of_interest = np.where(np.isfinite(np.linalg.norm(self._data, axis=0)))[0]
+        self._data = self._data[:, points_of_interest]
+
     @staticmethod
     def open(filename, frame='unspecified'):
         """Create a NormalCloud from data saved in a file.
