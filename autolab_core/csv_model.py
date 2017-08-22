@@ -413,7 +413,10 @@ class CSVModel:
                         if types[column_name] == 'bool':
                             row[column_name] = CSVModel._str_to_bool(raw_row[column_name])
                         else:
-                            row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](raw_row[column_name])
+                            try:
+                                row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](raw_row[column_name])
+                            except:
+                                row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](bool(raw_row[column_name]))
                     else:
                         row[column_name] = default_entry
                 table.append(row)
