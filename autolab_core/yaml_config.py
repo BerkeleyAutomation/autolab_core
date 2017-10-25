@@ -37,6 +37,16 @@ class YamlConfig(object):
         """
         return self.config.keys()
 
+    def update(self, d):
+        """Update the config with a dictionary of parameters.
+
+        Parameters
+        ----------
+        d : :obj:`dict`
+            dictionary of parameters
+        """
+        self.config.update(d)
+
     def __contains__(self, key):
         """Overrides 'in' operator.
         """
@@ -56,6 +66,10 @@ class YamlConfig(object):
         """Returns iterator over config dict.
         """
         return self.config.iteritems()
+
+    def save(self, filename):
+        """ Save a YamlConfig to disk. """
+        yaml.dump(self, open(filename, 'w'))
 
     def _load_config(self, filename):
         """Loads a yaml configuration file from the given filename.

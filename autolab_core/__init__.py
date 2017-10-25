@@ -19,7 +19,6 @@ try:
 except Exception:
     print "Unable to import DataStreamSyncer and Recorder! Likely due to missing multiprocess"
 
-
 __all__ = ['CSVModel',
            'DualQuaternion',
            'TerminateException',
