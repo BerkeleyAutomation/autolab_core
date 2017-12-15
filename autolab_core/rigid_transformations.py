@@ -7,6 +7,7 @@ import os
 
 import numpy as np
 
+import utils
 from points import BagOfPoints, BagOfVectors, Point, PointCloud, Direction, NormalCloud
 from dual_quaternion import DualQuaternion
 import transformations
@@ -159,6 +160,14 @@ class RigidTransform(object):
         self.translation = position
 
     @property
+    def adjoint_tf(self):
+        A = np.zeros([6,6])
+        A[:3,:3] = self.rotation
+        A[3:,:3] = utils.skew(self.translation).dot(self.rotation)
+        A[3:,3:] = self.rotation
+        return A
+        
+    @property
     def from_frame(self):
         """:obj:`str`: The identifier for the 'from' frame of reference.
         """
@@ -209,6 +218,10 @@ class RigidTransform(object):
         e_xyz = transformations.euler_from_matrix(self.rotation, 'sxyz')
         return np.array([180.0 / np.pi * a for a in e_xyz])
 
+    @property
+    def vec(self):
+        return np.r_[self.translation, self.quaternion]
+        
     @property
     def matrix(self):
         """:obj:`numpy.ndarray` of float: The canonical 4x4 matrix
