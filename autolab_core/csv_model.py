@@ -210,19 +210,19 @@ class CSVModel:
         return self._table[row + 1].copy()
 
     def get_col(self, col_name, filter = lambda _ : True):
-        """
-        Return all values in the column corresponding to col_name that satisfies filter, which is
+        """Return all values in the column corresponding to col_name that satisfies filter, which is
         a function that takes in a value of the column's type and returns True or False
+
         Parameters
-        -------------
-        col_name: 'str'
+        ----------
+        col_name : str
             Name of desired column
-        filter: function, optional
+        filter : function, optional
             A function that takes in a value of the column's type and returns True or False
             Defaults to a function that always returns True
 
         Returns
-        ---------
+        -------
         list
             A list of values in the desired columns by order of their storage in the model
 
