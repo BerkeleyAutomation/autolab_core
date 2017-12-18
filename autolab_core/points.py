@@ -3,10 +3,11 @@ Common ops on lists / arrays of points
 Author: Jeff Mahler
 """
 from abc import ABCMeta, abstractmethod
-import numpy as np
 import numbers
 
-from primitives import Box
+import numpy as np
+
+from .primitives import Box
 
 class BagOfPoints(object):
     """The abstract base class for collections of 3D point clouds.

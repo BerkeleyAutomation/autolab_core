@@ -7,8 +7,8 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 import scipy.stats
 
-from autolab_core import RigidTransform
-from autolab_core.utils import skew
+from .rigid_transformations import RigidTransform
+from .utils import skew
 
 class RandomVariable(object):
     """Abstract base class for random variables.

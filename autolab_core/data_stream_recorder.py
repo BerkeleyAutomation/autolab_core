@@ -7,7 +7,6 @@ from multiprocess import Process, Queue
 from joblib import dump, load
 from time import sleep, time
 from setproctitle import setproctitle
-import IPython
 
 _NULL = lambda : None
 

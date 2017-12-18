@@ -6,7 +6,8 @@ Author: Jacky Liang
 """
 from numbers import Number
 import numpy as np
-from transformations import quaternion_multiply, quaternion_conjugate
+
+from .transformations import quaternion_multiply, quaternion_conjugate
 
 class DualQuaternion(object):
     """Class for handling dual quaternions and their interpolations.

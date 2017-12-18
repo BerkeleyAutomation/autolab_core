@@ -7,13 +7,13 @@ import os
 
 import numpy as np
 
-import utils
-from points import BagOfPoints, BagOfVectors, Point, PointCloud, Direction, NormalCloud
-from dual_quaternion import DualQuaternion
-import transformations
+from . import utils
+from . import transformations
+from .points import BagOfPoints, BagOfVectors, Point, PointCloud, Direction, NormalCloud
+from .dual_quaternion import DualQuaternion
 
 try:
-    from geometry_msgs import msg
+    from .geometry_msgs import msg
 except:
     logging.warning('Failed to import geometry msgs in rigid_transformations.py.')
     

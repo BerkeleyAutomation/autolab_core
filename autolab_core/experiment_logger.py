@@ -14,9 +14,9 @@ import logging
 import numpy as np
 import matplotlib.pyplot as plt
 
-from csv_model import CSVModel
-from yaml_config import YamlConfig
-from utils import gen_experiment_id
+from .csv_model import CSVModel
+from .yaml_config import YamlConfig
+from .utils import gen_experiment_id
 
 class ExperimentLogger:
     """Abstract class for experiment logging.

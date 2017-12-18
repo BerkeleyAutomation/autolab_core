@@ -4,7 +4,7 @@ Author: Jeff Mahler
 """
 import numpy as np
 
-from autolab_core import RigidTransform
+from .rigid_transformations import RigidTransform
 
 def abs_angle_diff(v_i, v_j):
     """ 

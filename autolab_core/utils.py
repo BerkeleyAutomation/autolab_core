@@ -3,9 +3,10 @@ Commonly used helper functions
 Author: Jeff Mahler
 """
 import logging
+import os
+
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
 def gen_experiment_id(n=10):
     """Generate a random string with n characters.
