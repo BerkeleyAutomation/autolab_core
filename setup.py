@@ -7,6 +7,7 @@ from setuptools import setup
 requirements = [
     'numpy',
     'scipy',
+    'pyyaml',
     'matplotlib',
     'multiprocess',
     'setproctitle',
