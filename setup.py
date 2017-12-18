@@ -8,20 +8,44 @@ requirements = [
     'numpy',
     'scipy',
     'matplotlib',
-    'pyyaml',
     'multiprocess',
     'setproctitle',
     'joblib'
 ]
 
-setup(name='autolab_core',
-      version='0.1.0',
-      description='AutoLab core utilites code',
-      author='Jeff Mahler',
-      author_email='jmahler@berkeley.edu',
-      package_dir = {'': '.'},
-      packages=['autolab_core'],
-      install_requires=requirements,
-      test_suite='test'
-     )
+exec(open('autolab_core/version.py').read())
+
+
+setup(
+    name='autolab_core',
+    version = __version__,
+    description = 'Core utilities for the Berkeley AutoLab',
+    long_description = 'Core utilities for the Berkeley AutoLab. Includes rigid transformations, loggers, and 3D data wrappers.',
+    author = 'Jeff Mahler',
+    author_email = 'jmahler@berkeley.edu',
+    license = 'Apache Software License',
+    url = 'https://github.com/BerkeleyAutomation/autolab_core',
+    keywords = 'robotics grasping transformations',
+    classifiers = [
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Natural Language :: English',
+        'Topic :: Scientific/Engineering'
+    ],
+    packages = ['autolab_core'],
+    setup_requres = requirements,
+    install_requires = requirements,
+    extras_require = { 'docs' : [
+            'sphinx',
+            'sphinxcontrib-napoleon',
+            'sphinx_rtd_theme'
+        ],
+    }
+)
 

@@ -209,16 +209,6 @@ class RigidTransformTest(unittest.TestCase):
         v_b = T_a_b * v_a
         v_b2 = R_a_b.dot(v_a.data)
         self.assertTrue(np.allclose(v_b.data, v_b2))
-        
+
 if __name__ == '__main__':
-    logging.getLogger().setLevel(logging.INFO)
-    test_suite = unittest.TestSuite()
-    test_suite.addTest(RigidTransformTest('test_init'))
-    test_suite.addTest(RigidTransformTest('test_bad_inits')) 
-    test_suite.addTest(RigidTransformTest('test_inverse'))
-    test_suite.addTest(RigidTransformTest('test_composition'))
-    test_suite.addTest(RigidTransformTest('test_point_transformation'))
-    test_suite.addTest(RigidTransformTest('test_point_cloud_transformation'))
-    test_suite.addTest(RigidTransformTest('test_bad_transformation'))
-    test_suite.addTest(RigidTransformTest('test_similarity_transformation'))
-    unittest.TextTestRunner(verbosity=2).run(test_suite)
+    unittest.main()

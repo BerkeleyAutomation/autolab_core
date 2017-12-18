@@ -105,7 +105,4 @@ class PointsTest(unittest.TestCase):
         self.assertTrue(caught_bad_init, msg='Failed to catch rgb cloud init with 4xN array')
         
 if __name__ == '__main__':
-    logging.getLogger().setLevel(logging.INFO)
-    test_suite = unittest.TestSuite()
-    test_suite.addTest(PointsTest('test_inits'))
-    unittest.TextTestRunner(verbosity=2).run(test_suite)
+    unittest.main()
