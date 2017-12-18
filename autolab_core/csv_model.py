@@ -416,7 +416,7 @@ class CSVModel:
                             try:
                                 row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](raw_row[column_name])
                             except:
-                                print column_name, types[column_name], raw_row[column_name]
+                                logging.error('{}, {}, {}'.format(column_name, types[column_name], raw_row[column_name]))
                                 row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](bool(raw_row[column_name]))
                     else:
                         row[column_name] = default_entry

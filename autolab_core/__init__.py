@@ -17,7 +17,7 @@ try:
     from data_stream_syncer import DataStreamSyncer
     from data_stream_recorder import DataStreamRecorder
 except Exception:
-    print "Unable to import DataStreamSyncer and Recorder! Likely due to missing multiprocess"
+    print("Unable to import DataStreamSyncer and Recorder! Likely due to missing multiprocess")
 
 __all__ = ['CSVModel',
            'DualQuaternion',
