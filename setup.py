@@ -38,7 +38,6 @@ setup(
         'Topic :: Scientific/Engineering'
     ],
     packages = ['autolab_core'],
-    setup_requires = requirements,
     install_requires = requirements,
     extras_require = { 'docs' : [
             'sphinx',
