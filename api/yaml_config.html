@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>YAML Config Processor &mdash; autolab_core 0.1.0 documentation</title>
+  <title>YAML Config Processor &mdash; autolab_core 0.0.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.0.1 documentation" href="../index.html"/>
         <link rel="prev" title="Utility Functions" href="utils.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.0.1
               </div>
             
           
@@ -92,9 +92,6 @@
               <p class="caption"><span class="caption-text">Installation Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
@@ -218,6 +215,20 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="autolab_core.YamlConfig.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the config with a dictionary of parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>d</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) – dictionary of parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="autolab_core.YamlConfig.__contains__">
 <code class="descname">__contains__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides ‘in’ operator.</p>
@@ -239,6 +250,12 @@
 <dt id="autolab_core.YamlConfig.iteritems">
 <code class="descname">iteritems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.iteritems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns iterator over config dict.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autolab_core.YamlConfig.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a YamlConfig to disk.</p>
 </dd></dl>
 
 </dd></dl>
@@ -287,7 +304,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.0',
+            VERSION:'0.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

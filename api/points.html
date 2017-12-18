@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Points and Point Clouds &mdash; autolab_core 0.1.0 documentation</title>
+  <title>Points and Point Clouds &mdash; autolab_core 0.0.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="autolab_core 0.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="autolab_core 0.0.1 documentation" href="../index.html"/>
         <link rel="next" title="Geometric Primitives" href="primitives.html"/>
         <link rel="prev" title="JSON Manipulation" href="json_serialization.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.0.1
               </div>
             
           
@@ -93,9 +93,6 @@
               <p class="caption"><span class="caption-text">Installation Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html">Python Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html#ros-installation">ROS Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html#testing">Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html#dependencies">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/install.html#documentation">Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
@@ -976,6 +973,16 @@ in the cloud.</p>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="autolab_core.NormalCloud.remove_nan_normals">
+<code class="descname">remove_nan_normals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.remove_nan_normals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes normal vectors with nan magnitude.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This returns nothing and updates the NormalCloud in-place.</p>
+</div>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="autolab_core.NormalCloud.open">
 <em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.open" title="Permalink to this definition">¶</a></dt>
@@ -1316,7 +1323,7 @@ in the cloud.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.0',
+            VERSION:'0.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
