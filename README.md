@@ -1,5 +1,7 @@
 ## Berkeley Autolab Core Modules
 
+[![Build Status](https://travis-ci.org/BerkeleyAutomation/autolab_core.svg?branch=master)](https://travis-ci.org/BerkeleyAutomation/autolab_core)
+
 This module contains a set of useful utilities for robotic tasks.
 View the install guide and API documentation
 [here](https://BerkeleyAutomation.github.io/autolab_core).
