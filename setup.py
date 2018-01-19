@@ -45,6 +45,7 @@ setup(
                             'sphinx_rtd_theme'
                         ],
                        'ros' : [
+                           'rospkg',
                            'catkin_pkg',
                            'empy'
                         ],
