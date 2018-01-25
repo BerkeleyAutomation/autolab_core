@@ -250,6 +250,11 @@ class Point(BagOfPoints):
         """
         return self.vector[2]
 
+    def __getitem__(self, dim):
+        """float: The point value at the given dimension.
+        """
+        return self.vector[dim]
+    
     def __add__(self, other_pt):
         """Add two Points together.
 

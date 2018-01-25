@@ -221,7 +221,7 @@ class RigidTransform(object):
     @property
     def vec(self):
         return np.r_[self.translation, self.quaternion]
-        
+   
     @property
     def matrix(self):
         """:obj:`numpy.ndarray` of float: The canonical 4x4 matrix
@@ -584,7 +584,14 @@ class RigidTransform(object):
         out = 'RigidTransform(rotation={0}, translation={1}, from_frame={2}, to_frame={3})'.format(self.rotation,
                 self.translation, self.from_frame, self.to_frame)
         return out
-    
+
+    @staticmethod
+    def from_vec(vec, from_frame='unassigned', to_frame='world'):
+        return RigidTransform(rotation=vec[3:],
+                              translation=vec[:3],
+                              from_frame=from_frame,
+                              to_frame=to_frame)
+
     @staticmethod
     def rigid_transform_from_ros(from_frame, to_frame, service_name='rigid_transforms/rigid_transform_listener', namespace=None):
         """Gets transform from ROS as a rigid transform
