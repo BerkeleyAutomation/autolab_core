@@ -988,6 +988,14 @@ class SimilarityTransform(RigidTransform):
     def scale(self, scale):
         self._scale = scale
 
+    @property
+    def matrix(self):
+        matrix = np.r_[np.c_[self._rotation, self._translation], [[0,0,0,1]]]
+        scale_mat = np.eye(4)
+        scale_mat[:3,:3] = np.diag(self.scale * np.ones(3))
+        matrix = matrix.dot(scale_mat)
+        return matrix
+
     def apply(self, points):
         """Applies the similarity transformation to a set of 3D objects.
 
