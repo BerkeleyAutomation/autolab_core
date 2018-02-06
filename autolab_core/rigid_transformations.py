@@ -131,7 +131,6 @@ class RigidTransform(object):
         self._check_valid_rotation(rotation)
         self._rotation = rotation * 1.
 
-
     @property
     def translation(self):
         """:obj:`numpy.ndarray` of float: A 3-ndarray that represents the
@@ -989,6 +988,17 @@ class SimilarityTransform(RigidTransform):
         self._scale = scale
 
     @property
+    def unscaled_matrix(self):
+        """:obj:`numpy.ndarray` of float: The canonical 4x4 matrix
+        representation of this transform.
+
+        The first three columns contain the columns of the rotation matrix
+        followed by a zero, and the last column contains the translation vector
+        followed by a one.
+        """
+        return np.r_[np.c_[self._rotation, self._translation], [[0,0,0,1]]]
+        
+    @property
     def matrix(self):
         matrix = np.r_[np.c_[self._rotation, self._translation], [[0,0,0,1]]]
         scale_mat = np.eye(4)
@@ -1091,7 +1101,7 @@ class SimilarityTransform(RigidTransform):
         :obj:`SimilarityTransform`
             The inverse of this SimilarityTransform.
         """
-        inv_pose = np.linalg.inv(self.matrix)
+        inv_pose = np.linalg.inv(self.unscaled_matrix)
         rotation, translation = RigidTransform.rotation_and_translation_from_matrix(inv_pose)
         scale = 1.0 / self.scale
         translation = self.scale * translation
