@@ -12,6 +12,7 @@ from .utils import gen_experiment_id, histogram, skew, deskew, pretty_str_time, 
 from .yaml_config import YamlConfig
 from .dist_metrics import abs_angle_diff, DistMetrics
 from .random_variables import RandomVariable, BernoulliRV, GaussianRV, ArtificialRV, ArtificialSingleRV, IsotropicGaussianRigidTransformRandomVariable
+from .completer import Completer
 
 try:
     from .data_stream_syncer import DataStreamSyncer
