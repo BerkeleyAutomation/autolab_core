@@ -987,6 +987,20 @@ class ImageCoords(BagOfPoints):
         (those in the first row of the data matrix).
         """
         return self._data[0,:]
+    
+    @property
+    def data(self):
+        return self._data
+
+    def __getitem__(self, i):
+        """Returns the ith set of coordinates.
+
+        Returns
+        -------
+        :obj:`tuple` of :obj:`numpy.ndarray` of float
+            The ith set of coordinates.
+        """
+        return np.array([self._data[1][i], self._data[0][i]])
 
     @staticmethod
     def open(filename, frame='unspecified'):
