@@ -7,7 +7,7 @@ from setuptools import setup
 requirements = [
     'numpy',
     'scipy',
-    'pyyaml',
+    'ruamel.yaml',
     'matplotlib',
     'multiprocess',
     'setproctitle',
@@ -51,4 +51,3 @@ setup(
                         ],
     }
 )
-
