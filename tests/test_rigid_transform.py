@@ -196,11 +196,11 @@ class RigidTransformTest(unittest.TestCase):
         self.assertTrue(np.allclose(p_a.data, p_a2.data))
 
         p_b = T_a_b * p_a
-        p_b2 = s_a_b * (R_a_b.dot(p_a.data) + t_a_b)
+        p_b2 = s_a_b * (R_a_b.dot(p_a.data)) + t_a_b
         self.assertTrue(np.allclose(p_b.data, p_b2))
 
         p_c = T_b_c * T_a_b * p_a
-        p_c2 = s_b_c * (R_b_c.dot(p_b2) + t_b_c)
+        p_c2 = s_b_c * (R_b_c.dot(p_b2)) + t_b_c
         self.assertTrue(np.allclose(p_c.data, p_c2))
 
         v_a = np.random.rand(3)
