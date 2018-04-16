@@ -988,17 +988,6 @@ class SimilarityTransform(RigidTransform):
         self._scale = scale
 
     @property
-    def unscaled_matrix(self):
-        """:obj:`numpy.ndarray` of float: The canonical 4x4 matrix
-        representation of this transform.
-
-        The first three columns contain the columns of the rotation matrix
-        followed by a zero, and the last column contains the translation vector
-        followed by a one.
-        """
-        return np.r_[np.c_[self._rotation, self._translation], [[0,0,0,1]]]
-        
-    @property
     def matrix(self):
         matrix = np.r_[np.c_[self._rotation, self._translation], [[0,0,0,1]]]
         scale_mat = np.eye(4)
@@ -1042,7 +1031,7 @@ class SimilarityTransform(RigidTransform):
             if len(x.shape) == 1:
                 x = x[:,np.newaxis]
             x_homog = np.r_[x, np.ones([1, points.num_points])]
-            x_homog_tf = self.scale * self.matrix.dot(x_homog)
+            x_homog_tf = self.matrix.dot(x_homog)
             x_tf = x_homog_tf[0:3,:]
 
         # output in BagOfPoints format
@@ -1087,7 +1076,7 @@ class SimilarityTransform(RigidTransform):
             other_scale = other_tf.scale
 
         rotation = self.rotation.dot(other_tf.rotation)
-        translation = self.rotation.dot(other_tf.translation) + (1.0 / other_scale) * self.translation
+        translation = self.translation + self.scale * self.rotation.dot(other_tf.translation)
         scale = self.scale * other_scale
         return SimilarityTransform(rotation, translation, scale,
                                    from_frame=other_tf.from_frame,
@@ -1101,11 +1090,10 @@ class SimilarityTransform(RigidTransform):
         :obj:`SimilarityTransform`
             The inverse of this SimilarityTransform.
         """
-        inv_pose = np.linalg.inv(self.unscaled_matrix)
-        rotation, translation = RigidTransform.rotation_and_translation_from_matrix(inv_pose)
-        scale = 1.0 / self.scale
-        translation = self.scale * translation
-        return SimilarityTransform(rotation, translation, scale,
+        inv_rot = np.linalg.inv(self.rotation)
+        inv_scale = 1.0 / self.scale
+        inv_trans = -inv_scale * inv_rot.dot(self.translation)
+        return SimilarityTransform(inv_rot, inv_trans, inv_scale,
                                    from_frame=self._to_frame,
                                    to_frame=self._from_frame)
 

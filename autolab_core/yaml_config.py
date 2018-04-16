@@ -3,7 +3,7 @@ YAML Configuration Parser
 Author : Jeff Mahler
 """
 import os
-import yaml
+import ruamel.yaml as yaml
 import re
 from collections import OrderedDict
 
@@ -127,4 +127,3 @@ class YamlConfig(object):
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             lambda loader, node: object_pairs_hook(loader.construct_pairs(node)))
         return yaml.load(stream, OrderedLoader)
-

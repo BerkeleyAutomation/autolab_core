@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>autolab_core</name>
-  <version>0.0.1</version>
+  <version>0.0.3</version>
   <description>The autolab_core package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
