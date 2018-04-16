@@ -13,6 +13,8 @@ from .yaml_config import YamlConfig
 from .dist_metrics import abs_angle_diff, DistMetrics
 from .random_variables import RandomVariable, BernoulliRV, GaussianRV, ArtificialRV, ArtificialSingleRV, IsotropicGaussianRigidTransformRandomVariable
 from .completer import Completer
+from .learning_analysis import ConfusionMatrix, ClassificationResult, BinaryClassificationResult, RegressionResult
+from .tensor_dataset import Tensor, TensorDatapoint, TensorDataset
 
 try:
     from .data_stream_syncer import DataStreamSyncer
