@@ -634,6 +634,8 @@ class PointCloud(BagOfPoints):
         -------
         :obj:`PointCloud`
             A filtered PointCloud whose points are all in the given box.
+        :obj:`numpy.ndarray`
+            Array of indices of the segmented points in the original cloud
 
         Raises
         ------
@@ -671,6 +673,17 @@ class PointCloud(BagOfPoints):
         x0 = self.mean()
         return n, x0
 
+    def nonzero_indices(self):
+        """ Returns the point indices corresponding to the zero points.
+        
+        Returns
+        -------
+        :obj:`numpy.ndarray`
+            array of the nonzero indices
+        """
+        points_of_interest = np.where(self.z_coords != 0.0)[0]
+        return points_of_interest
+        
     def remove_zero_points(self):
         """Removes points with a zero in the z-axis.
 
@@ -681,6 +694,16 @@ class PointCloud(BagOfPoints):
         points_of_interest = np.where(self.z_coords != 0.0)[0]
         self._data = self.data[:, points_of_interest]
 
+    def remove_infinite_points(self):
+        """Removes infinite points.
+
+        Note
+        ----
+        This returns nothing and updates the PointCloud in-place.
+        """
+        points_of_interest = np.where(np.all(np.isfinite(self.data), axis=0))[0]
+        self._data = self.data[:, points_of_interest]
+        
     def __add__(self, other_pc):
         """Add two PointClouds together element-wise.
 
