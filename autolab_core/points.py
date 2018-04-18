@@ -620,7 +620,7 @@ class PointCloud(BagOfPoints):
             np.random.shuffle(indices)
         subsample_inds = indices[::rate]
         subsampled_data = self._data[:,subsample_inds]
-        return PointCloud(subsampled_data, self._frame)
+        return PointCloud(subsampled_data, self._frame), subsample_inds
 
     def box_mask(self, box):
         """Return a PointCloud containing only points within the given Box.
