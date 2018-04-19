@@ -25,6 +25,42 @@ def gen_experiment_id(n=10):
     inds = np.random.randint(0,len(chrs), size=n)
     return ''.join([chrs[i] for i in inds])
 
+def get_elapsed_time(time_in_seconds):
+    """ Helper function to get elapsed time in human-readable format.
+
+    Parameters
+    ----------
+    time_in_seconds : float
+        runtime, in seconds
+
+    Returns
+    -------
+    str
+        formatted human-readable string describing the time
+    """
+    if time_in_seconds < 60:
+        return '%.1f seconds' % (time_in_seconds)
+    elif time_in_seconds < 3600:
+        return '%.1f minutes' % (time_in_seconds / 60)
+    else:
+        return '%.1f hours' % (time_in_seconds / 3600)
+
+def mkdir_safe(path):
+    """ Creates a directory if it does not already exist.
+
+    Parameters
+    ----------
+    path : str
+        path to the directory to create
+
+    Returns
+    -------
+    bool
+        True if the directory was created, False otherwise
+    """
+    if not os.path.exists(path):
+        os.mkdir(path)
+    
 def histogram(values, num_bins, bounds, normalized=True, plot=False, color='b'):
     """Generate a histogram plot.
 

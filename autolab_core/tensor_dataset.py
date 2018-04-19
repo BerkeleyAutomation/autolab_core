@@ -29,6 +29,7 @@ import json
 import logging
 import numpy as np
 import os
+import shutil
 import sys
 
 from .constants import *
@@ -240,6 +241,10 @@ class TensorDataset(object):
             if human_input.lower() == 'n':
                 raise ValueError('User opted not to overwrite dataset')
 
+            # delete the old dataset
+            shutil.rmtree(self._filename)
+            os.mkdir(self._filename)
+            
         # save config to location
         if access_mode == WRITE_ACCESS:
             config_filename = os.path.join(self._filename, 'config.json')
@@ -267,7 +272,8 @@ class TensorDataset(object):
             self._num_datapoints = 0
             if not os.path.exists(self.tensor_dir):
                 os.mkdir(self.tensor_dir)
-
+            if not os.path.exists(self.split_dir):
+                os.mkdir(self.split_dir)
         else:
             # read the metadata
             self._metadata = json.load(open(self.metadata_filename, 'r'))
@@ -376,6 +382,11 @@ class TensorDataset(object):
     def tensor_dir(self):
         """ Return the tensor directory. """
         return os.path.join(self._filename, 'tensors')
+
+    @property
+    def split_dir(self):
+        """ Return the tensor directory. """
+        return os.path.join(self._filename, 'splits')
     
     def datapoint_indices_for_tensor(self, tensor_index):
         """ Returns the indices for all datapoints in the given tensor. """
@@ -397,6 +408,30 @@ class TensorDataset(object):
         filename = os.path.join(self.filename, 'tensors', '%s_%05d%s' %(field_name, file_num, file_ext))
         return filename
 
+    def train_indices_filename(self, split_name):
+        """ Returns the filename for the training indices. """
+        return os.path.join(self.split_dir, split_name, 'train_indices.npz')
+
+    def val_indices_filename(self, split_name):
+        """ Returns the filename for the validation indices. """
+        return os.path.join(self.split_dir, split_name, 'val_indices.npz')
+
+    def split_metadata_filename(self, split_name):
+        """ Returns the filename for split metadata. """
+        return os.path.join(self.split_dir, split_name, 'metadata.json')
+
+    def has_split(self, split_name):
+        """ Checks whether or not the split with the given name exists.
+        
+        Parameters
+        ----------
+        split_name : str
+            name of the split
+        """
+        if os.path.exists(os.path.join(self.split_dir, split_name)):
+            return True
+        return False
+    
     def _allocate_tensors(self):
         """ Allocates the tensors in the dataset. """
         # init tensors dict
@@ -670,16 +705,47 @@ class TensorDataset(object):
         # open dataset
         dataset = TensorDataset(dataset_dir, config, access_mode=access_mode)
         return dataset
-        
-    def split(self, train_pct, attribute=None):
-        """ Splits the dataset into train and test according
-        to the given attribute.
+
+    def split(self, split_name):
+        """ Return the training and validation indices for the requested split.
 
         Parameters
         ----------
+        split_name : str
+            name of the split
+
+        Returns
+        -------
+        :obj:`numpy.ndarray`
+            array of training indices in the global dataset
+        :obj:`numpy.ndarray`
+            array of validation indices in the global dataset
+        dict
+            metadata about the split
+        """
+        if not self.has_split(split_name):
+            raise ValueError('Split %s does not exist!' %(split_name))
+        metadata_filename = self.split_metadata_filename(split_name)
+        train_filename = self.train_indices_filename(split_name)
+        val_filename = self.val_indices_filename(split_name)        
+
+        metadata = json.load(open(metadata_filename, 'r'))
+        train_indices = np.load(train_filename)['arr_0']
+        val_indices = np.load(val_filename)['arr_0']
+        return train_indices, val_indices, metadata
+        
+    def make_split(self, split_name, train_pct=0.8, field_name=None):
+        """ Splits the dataset into train and test according
+        to the given attribute.
+        The split is saved with the dataset for future access.
+
+        Parameters
+        ----------
+        split_name : str
+            name of the split (for future accesses)
         train_pct : float
             percent of data to use for training
-        attribute : str
+        field_name : str
             name of the field to use in splitting (None for raw indices)
 
         Returns
@@ -693,22 +759,97 @@ class TensorDataset(object):
         if train_pct < 0 or train_pct > 1:
             raise ValueError('Train pct must be a float between 0 and 1')
 
-        # determine valid values of attribute
-        candidates = np.arange(self.num_datapoints)
-        if attribute is not None:
-            raise NotImplementedError('Only splits on dataset indices are currently supported')
+        # check existence
+        if self.has_split(split_name):
+            raise ValueError('Cannot create split %s - it already exists! To overwrite, delete split with TensorDataset.delete_split(split_name)' %(split_name))
+        
+        # perform splitting
+        if field_name is None:
+            # split on indices
+            indices = np.arange(self.num_datapoints)
+            num_train = int(train_pct * self.num_datapoints)
+            np.random.shuffle(indices)
+            train_indices = indices[:num_train]
+            val_indices = indices[num_train:]
+            field_name = 'index'
+        elif field_name == 'split':
+            # split on binary values
+            train_indices = []
+            val_indices = []
+            for i in range(self.num_datapoints):
+                datapoint = self.datapoint(i, field_names=['split'])
+                split = datapoint['split']
+                if split == TRAIN_ID:
+                    train_indices.append(i)
+                else:
+                    val_indices.append(i)
+            train_indices = np.array(train_indices)
+            val_indices = np.array(val_indices)
+        else:
+            # split on field name
 
-        # split on values
-        num_train_candidates = int(train_pct * candidates.shape[0])
-        np.random.shuffle(candidates)
-        train_candidates = candidates[:num_train_candidates]
-        val_candidates = candidates[num_train_candidates:]
+            # check valid field
+            if field_name not in self.config['fields'].keys():
+                raise ValueError('Field %d not in dataset!' %(field_name))
+            if 'height' in self.config['fields'][field_name].keys():
+                raise ValueError('Can only split on scalar fields!')
 
-        # find indices corresponding to split values
-        train_indices = train_candidates
-        val_indices = val_candidates
+            # find unique values
+            values = []
+            for i in range(self.num_datapoints):
+                datapoint = self.datapoint(i, field_names=[field_name])
+                values.append(datapoint[field_name])
+            unique_values = np.unique(values)
+            num_unique = unique_values.shape[0]
+            num_train = int(train_pct * num_unique)
+
+            # split
+            np.random.shuffle(unique_values)
+            train_values = unique_values[:num_train]
+            val_values = unique_values[num_train:]
+
+            # aggregate indices
+            train_indices = []
+            val_indices = []
+            for i in range(self.num_datatpoints):
+                datapoint = self.datapoint(i, field_names=[field_name])
+                if datapoint[field_name] in train_values:
+                    train_indices.append(i)
+                else:
+                    val_indices.append(i)
+            train_indices = np.array(train_indices)
+            val_indices = np.array(val_indices)                    
+                
+        # sort indices
         train_indices.sort()
         val_indices.sort()
 
-        # TODO: set indices based on attribute
+        # save to disk
+        if not os.path.exists(self.split_dir):
+            os.mkdir(self.split_dir)
+        split_dir = os.path.join(self.split_dir, split_name)
+        os.mkdir(split_dir)
+        train_filename = self.train_indices_filename(split_name)
+        val_filename = self.val_indices_filename(split_name)        
+        np.savez_compressed(train_filename, train_indices)
+        np.savez_compressed(val_filename, val_indices)
+        metadata_filename = self.split_metadata_filename(split_name)
+        metadata = {
+            'field_name': field_name,
+            'train_pct': train_pct
+        }
+        json.dump(metadata, open(metadata_filename, 'w'),
+                  indent=JSON_INDENT,
+                  sort_keys=True)
         return train_indices, val_indices
+
+    def delete_split(self, split_name):
+        """ Delete a split of the dataset.
+
+        Parameters
+        ----------
+        split_name : str
+            name of the split to delete
+        """
+        if self.has_split(split_name):
+            shutil.rmtree(os.path.join(self.split_dir, split_name))
