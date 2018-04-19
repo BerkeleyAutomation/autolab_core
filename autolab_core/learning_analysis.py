@@ -56,13 +56,17 @@ class ClassificationResult(object):
         labels : :obj:`numpy.ndarray`
             array of integer class labels
         """
+        if not isinstance(pred_probs, np.ndarray):
+            pred_probs = np.array(pred_probs)
+        if not isinstance(labels, np.ndarray):
+            labels = np.array(labels)        
         self.pred_probs = pred_probs.astype(np.float32)
         self.labels = labels.astype(np.uint32)
 
     @property
     def error_rate(self):
-        return 1.0 - (
-            1.0 *
+        return 100.0 - (
+            100.0 *
             np.sum(self.predictions == self.labels) /
             self.num_datapoints)
 
@@ -76,8 +80,8 @@ class ClassificationResult(object):
         for i in range(k):
             labels_arr[:,i] = self.labels
 
-        return 1.0 - (
-            1.0 *
+        return 100.0 - (
+            100.0 *
             np.sum(predictions_arr == labels_arr) /
             self.num_datapoints)
 
