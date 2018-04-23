@@ -401,6 +401,22 @@ class BinaryClassificationResult(ClassificationResult):
         return sm.matthews_corrcoef(self.labels, self.predictions)
 
     @property
+    def true_positive_indices(self):
+        return np.where((self.labels == 1) & (self.predictions == 1))[0]
+
+    @property
+    def false_positive_indices(self):
+        return np.where((self.labels == 0) & (self.predictions == 1))[0]
+
+    @property
+    def true_negative_indices(self):
+        return np.where((self.labels == 0) & (self.predictions == 0))[0]
+
+    @property
+    def false_negative_indices(self):
+        return np.where((self.labels == 1) & (self.predictions == 0))[0]
+    
+    @property
     def num_true_pos(self):
         return np.sum(self.labels)
 
@@ -408,6 +424,14 @@ class BinaryClassificationResult(ClassificationResult):
     def num_true_neg(self):
         return self.num_datapoints - self.num_true_pos
 
+    @property
+    def num_false_pos(self):
+        return self.false_positive_indices.shape[0]
+
+    @property
+    def num_false_neg(self):
+        return self.false_negative_indices.shape[0]
+    
     @property
     def pct_true_pos(self):
         return np.mean(self.labels)
