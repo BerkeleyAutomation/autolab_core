@@ -32,7 +32,6 @@ import shutil
 import sys
 import time
 from unittest import TestCase, TestSuite, TextTestRunner
-import trimesh
 
 import autolab_core.utils as utils
 from autolab_core.constants import *
