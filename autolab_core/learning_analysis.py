@@ -23,11 +23,10 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Helper classes for analyzing machine learning output
 Author: Jeff Mahler
 """
-import IPython
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-import yaml
+import ruamel.yaml as yaml
 
 import sklearn.metrics as sm
 import scipy.stats as ss

@@ -7,11 +7,13 @@ from setuptools import setup
 requirements = [
     'numpy',
     'scipy',
+    'scikit-learn',
     'ruamel.yaml',
     'matplotlib',
     'multiprocess',
     'setproctitle',
-    'joblib'
+    'joblib',
+    'json'
 ]
 
 exec(open('autolab_core/version.py').read())

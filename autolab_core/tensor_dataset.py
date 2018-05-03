@@ -24,7 +24,6 @@ Classes for efficiently storing datasets containing several attributes of differ
 Designed for saving TensorFlow training datasets.
 Author: Jeff Mahler
 """
-import IPython
 import json
 import logging
 import numpy as np
