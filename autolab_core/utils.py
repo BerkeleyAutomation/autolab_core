@@ -156,7 +156,7 @@ def reverse_dictionary(d):
         dictionary with keys and values swapped
     """
     rev_d = {}
-    [rev_d.update({v:k}) for k, v in d.iteritems()]
+    [rev_d.update({v:k}) for k, v in d.items()]
     return rev_d
 
 def pretty_str_time(dt):

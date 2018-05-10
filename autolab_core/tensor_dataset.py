@@ -437,7 +437,7 @@ class TensorDataset(object):
         self._tensors = {}
 
         # allocate tensor for each data field
-        for field_name, field_spec in self._config['fields'].iteritems():
+        for field_name, field_spec in self._config['fields'].items():
             # parse attributes
             field_dtype = np.dtype(field_spec['dtype'])
             
