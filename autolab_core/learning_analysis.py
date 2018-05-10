@@ -233,7 +233,7 @@ class ClassificationResult(object):
 
     @staticmethod
     def make_summary_table(train_result, val_result, plot=True, save_dir=None, prepend="", save=False):
-	"""
+        """
         Makes a matplotlib table object with relevant data.
         Thanks to Lucas Manuelli for the contribution.
 
@@ -249,11 +249,11 @@ class ClassificationResult(object):
             path pointing to where to save results
 
         Returns
-        ----------
-        data_dict: dict
+        -------
+        dict
             dict with stored values, can be saved to a yaml file
 
-        fig: matplotlibt.pyplot.fig
+        :obj:`matplotlibt.pyplot.fig`
             a figure containing the table
         """
 	table_key_list = ['error_rate', 'recall_at_99_precision', 'average_precision', 'precision', 'recall']
