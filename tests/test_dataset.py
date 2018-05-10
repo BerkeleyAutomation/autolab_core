@@ -43,7 +43,7 @@ HEIGHT = 3
 WIDTH = 3
 CHANNELS = 3
 DATAPOINTS_PER_FILE = 10
-TEST_TENSOR_DATASET_NAME = 'tests/dataset'
+TEST_TENSOR_DATASET_NAME = 'test_dataset'
 TENSOR_CONFIG = {
     'datapoints_per_file': DATAPOINTS_PER_FILE,
     'fields': {
