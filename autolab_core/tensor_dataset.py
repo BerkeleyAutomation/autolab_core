@@ -207,7 +207,7 @@ class TensorDatapoint(dict):
 
     @property
     def field_names(self):
-        return self.keys()
+        return list(self.keys())
             
 class TensorDataset(object):
     """ A class for efficient storage and access of datasets containing datapoints
@@ -356,7 +356,7 @@ class TensorDataset(object):
 
     @property
     def field_names(self):
-        return self._tensors.keys()
+        return list(self._tensors.keys())
 
     @property
     def datapoint_template(self):
