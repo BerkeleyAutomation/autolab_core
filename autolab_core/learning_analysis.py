@@ -256,52 +256,50 @@ class ClassificationResult(object):
         :obj:`matplotlibt.pyplot.fig`
             a figure containing the table
         """
-	table_key_list = ['error_rate', 'recall_at_99_precision', 'average_precision', 'precision', 'recall']
-	num_fields = len(table_key_list)
-
-	ax = plt.subplot(111, frame_on=False)
-	ax.xaxis.set_visible(False)
-	ax.yaxis.set_visible(False)
+        table_key_list = ['error_rate', 'recall_at_99_precision', 'average_precision', 'precision', 'recall']
+        num_fields = len(table_key_list)
+        
+        ax = plt.subplot(111, frame_on=False)
+        ax.xaxis.set_visible(False)
+        ax.yaxis.set_visible(False)
         
         data = np.zeros([num_fields, 2])
         data_dict = dict()
 
-	names = ['train', 'validation']
-	for name, result in zip(names, [train_result, val_result]):
-	    data_dict[name] = {}
-	    data_dict[name]['error_rate'] = result.error_rate
-	    data_dict[name]['average_precision'] = result.ap_score * 100
-	    data_dict[name]['precision'] = result.precision * 100
-	    data_dict[name]['recall'] = result.recall * 100
+        names = ['train', 'validation']
+        for name, result in zip(names, [train_result, val_result]):
+            data_dict[name] = {}
+            data_dict[name]['error_rate'] = result.error_rate
+            data_dict[name]['average_precision'] = result.ap_score * 100
+            data_dict[name]['precision'] = result.precision * 100
+            data_dict[name]['recall'] = result.recall * 100
 
-
-	    precision_array, recall_array, _ = result.precision_recall_curve()
-	    recall_at_99_precision = recall_array[np.argmax(precision_array > 0.99)] * 100  # to put it in percentage terms
-	    data_dict[name]['recall_at_99_precision'] = recall_at_99_precision
+            precision_array, recall_array, _ = result.precision_recall_curve()
+            recall_at_99_precision = recall_array[np.argmax(precision_array > 0.99)] * 100  # to put it in percentage terms
+            data_dict[name]['recall_at_99_precision'] = recall_at_99_precision
                         
-	    for i, key in enumerate(table_key_list):
-		data_dict[name][key] = float("{0:.2f}".format(data_dict[name][key]))
-		j = names.index(name)
-		data[i, j] = data_dict[name][key]
+            for i, key in enumerate(table_key_list):
+                data_dict[name][key] = float("{0:.2f}".format(data_dict[name][key]))
+                j = names.index(name)
+                data[i, j] = data_dict[name][key]
 
+        table = plt.table(cellText=data, rowLabels=table_key_list, colLabels=names)
 
-	table = plt.table(cellText=data, rowLabels=table_key_list, colLabels=names)
-
-	fig = plt.gcf()
-	fig.subplots_adjust(bottom=0.15)
+        fig = plt.gcf()
+        fig.subplots_adjust(bottom=0.15)
         
-	if plot:
-	    plt.show()
+        if plot:
+            plt.show()
 
-	# save the results
-	if save_dir is not None and save:
-	    fig_filename = os.path.join(save_dir, prepend + 'summary.png')
-	    yaml_filename = os.path.join(save_dir, prepend + 'summary.yaml')
+        # save the results
+        if save_dir is not None and save:
+            fig_filename = os.path.join(save_dir, prepend + 'summary.png')
+            yaml_filename = os.path.join(save_dir, prepend + 'summary.yaml')
             
-	    yaml.dump(data_dict, open(yaml_filename, 'w'), default_flow_style=False)
-	    fig.savefig(fig_filename, bbox_inches="tight")
+            yaml.dump(data_dict, open(yaml_filename, 'w'), default_flow_style=False)
+            fig.savefig(fig_filename, bbox_inches="tight")
             
-	return data_dict, fig
+        return data_dict, fig
     
 class RegressionResult(object):
     def __init__(self, predictions, labels):
