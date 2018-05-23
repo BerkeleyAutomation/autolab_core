@@ -7,6 +7,7 @@ from setuptools import setup
 requirements = [
     'numpy',
     'scipy',
+    'scikit-learn',
     'ruamel.yaml',
     'matplotlib',
     'multiprocess',

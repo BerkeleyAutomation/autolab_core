@@ -5,7 +5,6 @@ Author: Jeff Mahler
 import logging
 import os
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 def gen_experiment_id(n=10):
@@ -25,6 +24,42 @@ def gen_experiment_id(n=10):
     inds = np.random.randint(0,len(chrs), size=n)
     return ''.join([chrs[i] for i in inds])
 
+def get_elapsed_time(time_in_seconds):
+    """ Helper function to get elapsed time in human-readable format.
+
+    Parameters
+    ----------
+    time_in_seconds : float
+        runtime, in seconds
+
+    Returns
+    -------
+    str
+        formatted human-readable string describing the time
+    """
+    if time_in_seconds < 60:
+        return '%.1f seconds' % (time_in_seconds)
+    elif time_in_seconds < 3600:
+        return '%.1f minutes' % (time_in_seconds / 60)
+    else:
+        return '%.1f hours' % (time_in_seconds / 3600)
+
+def mkdir_safe(path):
+    """ Creates a directory if it does not already exist.
+
+    Parameters
+    ----------
+    path : str
+        path to the directory to create
+
+    Returns
+    -------
+    bool
+        True if the directory was created, False otherwise
+    """
+    if not os.path.exists(path):
+        os.mkdir(path)
+    
 def histogram(values, num_bins, bounds, normalized=True, plot=False, color='b'):
     """Generate a histogram plot.
 
@@ -61,6 +96,7 @@ def histogram(values, num_bins, bounds, normalized=True, plot=False, color='b'):
         if np.sum(hist) > 0:
             hist = hist.astype(np.float32) / np.sum(hist)
     if plot:
+        import matplotlib.pyplot as plt
         plt.bar(bins[:-1], hist, width=width, color=color)    
     return hist, bins
 
@@ -120,7 +156,7 @@ def reverse_dictionary(d):
         dictionary with keys and values swapped
     """
     rev_d = {}
-    [rev_d.update({v:k}) for k, v in d.iteritems()]
+    [rev_d.update({v:k}) for k, v in d.items()]
     return rev_d
 
 def pretty_str_time(dt):

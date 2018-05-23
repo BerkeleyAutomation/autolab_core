@@ -463,7 +463,7 @@ class CSVModel:
         """
         # convert dictionaries to list
         if isinstance(headers_types, dict):
-            headers_types_list = [(k,v) for k,v in headers_types.iteritems()]
+            headers_types_list = [(k,v) for k,v in headers_types.items()]
             headers_types = headers_types_list
 
         if os.path.isfile(full_filename):
