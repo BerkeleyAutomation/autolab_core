@@ -105,11 +105,14 @@ class Tensor(object):
         self.iter_index = 0
         return self
 
-    def next(self):
+    def __next__(self):
         if self.iter_index >= self.size:
             raise StopIteration
         self.iter_index += 1
         return self.datapoint(self.iter_index-1)
+    
+    def next(self):
+        return self.__next__()
 
     def reset(self):
         """ Resets the current index. """
@@ -460,7 +463,7 @@ class TensorDataset(object):
             raise ValueError('Cannot add datapoints with read-only access')
 
         # read tensor datapoint ind
-        tensor_ind = self._num_datapoints / self._datapoints_per_file
+        tensor_ind = self._num_datapoints // self._datapoints_per_file
 
         # check datapoint fields
         for field_name in datapoint.keys():
@@ -569,7 +572,7 @@ class TensorDataset(object):
         self._count = 0
         return self
 
-    def next(self):
+    def __next__(self):
         """ Read the next datapoint.
         
         Returns
@@ -585,6 +588,9 @@ class TensorDataset(object):
         datapoint = self.datapoint(self._count)
         self._count += 1
         return datapoint
+
+    def next(self):
+        return self.__next__()
 
     def delete_last(self, num_to_delete=1):
         """ Deletes the last N datapoints from the dataset.
@@ -604,13 +610,13 @@ class TensorDataset(object):
 
         # compute indices
         last_datapoint_ind = self._num_datapoints - 1
-        last_tensor_ind = last_datapoint_ind / self._datapoints_per_file
+        last_tensor_ind = last_datapoint_ind // self._datapoints_per_file
         new_last_datapoint_ind = self._num_datapoints - 1 - num_to_delete
         new_num_datapoints = new_last_datapoint_ind + 1
 
         new_last_datapoint_ind = max(new_last_datapoint_ind, 0)
-        new_last_tensor_ind = new_last_datapoint_ind / self._datapoints_per_file
-        
+        new_last_tensor_ind = new_last_datapoint_ind // self._datapoints_per_file
+
         # delete all but the last tensor
         delete_tensor_ind = range(new_last_tensor_ind+1, last_tensor_ind+1) 
         for tensor_ind in delete_tensor_ind:

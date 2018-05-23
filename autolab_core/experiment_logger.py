@@ -12,7 +12,6 @@ from time import time
 import logging
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 from .csv_model import CSVModel
 from .yaml_config import YamlConfig

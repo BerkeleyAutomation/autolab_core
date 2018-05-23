@@ -5,7 +5,6 @@ Author: Jeff Mahler
 import logging
 import os
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 def gen_experiment_id(n=10):
@@ -97,6 +96,7 @@ def histogram(values, num_bins, bounds, normalized=True, plot=False, color='b'):
         if np.sum(hist) > 0:
             hist = hist.astype(np.float32) / np.sum(hist)
     if plot:
+        import matplotlib.pyplot as plt
         plt.bar(bins[:-1], hist, width=width, color=color)    
     return hist, bins
 

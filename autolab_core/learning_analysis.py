@@ -23,7 +23,6 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Helper classes for analyzing machine learning output
 Author: Jeff Mahler
 """
-import matplotlib.pyplot as plt
 import numpy as np
 import os
 import ruamel.yaml as yaml
@@ -153,6 +152,7 @@ class ClassificationResult(object):
         pred_probs_vec, labels_vec = self.label_vectors
         precision, recall, thresholds = sm.precision_recall_curve(labels_vec, pred_probs_vec)
         if plot:
+            import matplotlib.pyplot as plt
             plt.plot(recall, precision, linewidth=line_width, color=color, linestyle=style, label=label, marker=marker)
             plt.xlim(0,1)
             plt.ylim(0,1)
@@ -165,6 +165,7 @@ class ClassificationResult(object):
         fpr, tpr, thresholds = sm.roc_curve(labels_vec, pred_probs_vec)
 
         if plot:
+            import matplotlib.pyplot as plt
             plt.plot(fpr, tpr, linewidth=line_width, color=color, linestyle=style, label=label)
             plt.xlabel('FPR', fontsize=font_size)
             plt.ylabel('TPR', fontsize=font_size)
@@ -259,6 +260,7 @@ class ClassificationResult(object):
         table_key_list = ['error_rate', 'recall_at_99_precision', 'average_precision', 'precision', 'recall']
         num_fields = len(table_key_list)
         
+        import matplotlib.pyplot as plt
         ax = plt.subplot(111, frame_on=False)
         ax.xaxis.set_visible(False)
         ax.yaxis.set_visible(False)
@@ -485,6 +487,7 @@ class BinaryClassificationResult(ClassificationResult):
     def precision_recall_curve(self, plot=False, line_width=2, font_size=15, color='b', style='-', label='', marker=None):
         precision, recall, thresholds = sm.precision_recall_curve(self.labels, self.pred_probs)
         if plot:
+            import matplotlib.pyplot as plt
             plt.plot(recall, precision, linewidth=line_width, color=color, linestyle=style, label=label, marker=marker)
             plt.xlim(0,1)
             plt.ylim(0,1)
@@ -496,6 +499,7 @@ class BinaryClassificationResult(ClassificationResult):
         fpr, tpr, thresholds = sm.roc_curve(self.labels, self.pred_probs)
 
         if plot:
+            import matplotlib.pyplot as plt
             plt.plot(fpr, tpr, linewidth=line_width, color=color, linestyle=style, label=label)
             plt.xlabel('FPR', fontsize=font_size)
             plt.ylabel('TPR', fontsize=font_size)
