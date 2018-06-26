@@ -16,7 +16,7 @@ class YamlConfig(object):
         A dictionary that contains the contents of the configuration.
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename=None):
         """Initialize a YamlConfig by loading it from the given file.
 
         Parameters
@@ -24,8 +24,9 @@ class YamlConfig(object):
         filename : :obj:`str`
             The filename of the .yaml file that contains the configuration.
         """
-        self.config = None
-        self._load_config(filename)
+        self.config = {}
+        if filename:
+            self._load_config(filename)
 
     def keys(self):
         """Return the keys of the config dictionary.
