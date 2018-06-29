@@ -1,0 +1,10 @@
+input_datasets:
+  - /nfs/diskstation/projects/dex-net/bin_picking/datasets/phoxi_triton_01_13_18
+  - /nfs/diskstation/projects/dex-net/bin_picking/datasets/phoxi_triton_01_14_18
+
+output_dataset: /nfs/diskstation/projects/dex-net/bin_picking/datasets/phoxi_v1
+
+exclude_fields:
+  - color_ims
+
+display_rate: 1
