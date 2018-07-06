@@ -1,0 +1,21 @@
+analysis_fields:
+  - grasp_metrics
+
+num_percentiles: 10
+thresholds:
+  - 0.0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+log_rate: 100
+
+font_size: 15
+line_width: 5
+dpi: 100
+num_bins: 25

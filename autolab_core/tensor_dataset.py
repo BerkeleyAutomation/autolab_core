@@ -278,7 +278,9 @@ class TensorDataset(object):
                 os.mkdir(self.split_dir)
         else:
             # read the metadata
-            self._metadata = json.load(open(self.metadata_filename, 'r'))
+            self._metadata = {}
+            if os.path.exists(self.metadata_filename):
+                self._metadata = json.load(open(self.metadata_filename, 'r'))
             
             # read the number of tensor files
             tensor_dir = self.tensor_dir
