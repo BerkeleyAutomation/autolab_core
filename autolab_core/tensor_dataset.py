@@ -394,6 +394,13 @@ class TensorDataset(object):
     def split_dir(self):
         """ Return the tensor directory. """
         return os.path.join(self._filename, 'splits')
+
+    @property
+    def split_names(self):
+        """ Returns the list of all splits
+        """
+        split_names = os.listdir(self.split_dir)
+        return split_names
     
     def datapoint_indices_for_tensor(self, tensor_index):
         """ Returns the indices for all datapoints in the given tensor. """
