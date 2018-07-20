@@ -741,7 +741,7 @@ class TensorDataset(object):
         val_indices = np.load(val_filename)['arr_0']
         return train_indices, val_indices, metadata
         
-    def make_split(self, split_name, train_pct=0.8, field_name=None):
+    def make_split(self, split_name, val_indices=None, train_pct=0.8, field_name=None):
         """ Splits the dataset into train and test according
         to the given attribute.
         The split is saved with the dataset for future access.
@@ -750,6 +750,8 @@ class TensorDataset(object):
         ----------
         split_name : str
             name of the split (for future accesses)
+        val_indices : 
+            indices of the validation datapoints (overrides other variables if not None) 
         train_pct : float
             percent of data to use for training
         field_name : str
@@ -769,9 +771,12 @@ class TensorDataset(object):
         # check existence
         if self.has_split(split_name):
             raise ValueError('Cannot create split %s - it already exists! To overwrite, delete split with TensorDataset.delete_split(split_name)' %(split_name))
-        
+
         # perform splitting
-        if field_name is None:
+        if val_indices is not None:
+            all_indices = np.arange(self.num_datapoints)
+            train_indices = np.setdiff1d(all_indices, val_indices)
+        elif field_name is None:
             # split on indices
             indices = np.arange(self.num_datapoints)
             num_train = int(train_pct * self.num_datapoints)
