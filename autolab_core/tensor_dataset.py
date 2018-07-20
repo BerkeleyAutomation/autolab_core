@@ -300,10 +300,13 @@ class TensorDataset(object):
                 self._num_tensors = 0
 
             # compute the number of datapoints
-            last_tensor_ind = np.where(file_nums == self._num_tensors-1)[0][0]
-            last_tensor_data = np.load(tensor_filenames[last_tensor_ind])['arr_0']
-            self._num_datapoints_last_file = last_tensor_data.shape[0]
-            self._num_datapoints = self._datapoints_per_file * (self._num_tensors-1) + self._num_datapoints_last_file
+            self._num_datapoints_last_file = 0
+            self._num_datapoints = 0
+            if file_nums.shape[0] > 0:
+                last_tensor_ind = np.where(file_nums == self._num_tensors-1)[0][0]
+                last_tensor_data = np.load(tensor_filenames[last_tensor_ind])['arr_0']
+                self._num_datapoints_last_file = last_tensor_data.shape[0]
+                self._num_datapoints = self._datapoints_per_file * (self._num_tensors-1) + self._num_datapoints_last_file
 
             # set file index
             cur_file_num = 0
