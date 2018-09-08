@@ -66,9 +66,11 @@ if __name__ == '__main__':
     dataset = TensorDataset.open(all_input_dataset_names[0])
     tensor_config = copy.deepcopy(dataset.config)
     for field_name in cfg['exclude_fields']:
-        del tensor_config['fields'][field_name]    
+        if field_name in tensor_config['fields'].keys():
+            del tensor_config['fields'][field_name]
     field_names = tensor_config['fields'].keys()
-
+    alt_field_names = [f if f != 'rewards' else 'grasp_metrics' for f in field_names]
+    
     # init tensor dataset
     output_dataset = TensorDataset(output_dataset_name, tensor_config)
 
@@ -78,43 +80,41 @@ if __name__ == '__main__':
     
     # incrementally add points to the new dataset
     obj_id = 0
-    heap_id = 0
     obj_ids = {}
-    heap_indices = {}
     for dataset_name in all_input_dataset_names:
         j = 0
         dataset = TensorDataset.open(dataset_name)
-        dataset_obj_ids = dataset.metadata['obj_ids']
+        if 'obj_ids' in dataset.metadata.keys():
+            dataset_obj_ids = dataset.metadata['obj_ids']
         logging.info('Aggregating data from dataset %s' %(dataset_name))        
         for i in range(dataset.num_datapoints):
-            datapoint = dataset.datapoint(i, field_names=field_names)
-            
+            try:
+                datapoint = dataset.datapoint(i, field_names=field_names)
+            except:
+                datapoint = dataset.datapoint(i, field_names=alt_field_names)
+                datapoint['rewards'] = datapoint['grasp_metrics']
+                del datapoint['grasp_metrics']
+                
             if i % display_rate == 0:
                 logging.info('Datapoint: %d of %d' %(i+1, dataset.num_datapoints))
 
-            # update heap id
-            if j > 0 and datapoint['timesteps'] == 0:
-                heap_id += 1
-                heap_indices[heap_id] = output_dataset.num_datapoints
-                
-            # modify object ids
-            for k in range(datapoint['obj_ids'].shape[0]):
-                dataset_obj_id = datapoint['obj_ids'][k]
-                if dataset_obj_id != np.iinfo(np.uint32).max:
-                    dataset_obj_key = dataset_obj_ids[str(dataset_obj_id)]
-                    if dataset_obj_key not in obj_ids.keys():
-                        obj_ids[dataset_obj_key] = obj_id
-                        obj_id += 1
-                    datapoint['obj_ids'][k] = obj_ids[dataset_obj_key]
+            if 'obj_ids' in dataset.metadata.keys():
+                # modify object ids
+                dataset_obj_ids = dataset.metadata['obj_ids']
+                for k in range(datapoint['obj_ids'].shape[0]):
+                    dataset_obj_id = datapoint['obj_ids'][k]
+                    if dataset_obj_id != np.iinfo(np.uint32).max:
+                        dataset_obj_key = dataset_obj_ids[str(dataset_obj_id)]
+                        if dataset_obj_key not in obj_ids.keys():
+                            obj_ids[dataset_obj_key] = obj_id
+                            obj_id += 1
+                        datapoint['obj_ids'][k] = obj_ids[dataset_obj_key]
 
-            # modify grasped obj id
-            dataset_grasped_obj_id = datapoint['grasped_obj_ids']
-            grasped_obj_key = dataset_obj_ids[str(dataset_grasped_obj_id)]
-            datapoint['grasped_obj_ids'] = obj_ids[grasped_obj_key]
+                # modify grasped obj id
+                dataset_grasped_obj_id = datapoint['grasped_obj_ids']
+                grasped_obj_key = dataset_obj_ids[str(dataset_grasped_obj_id)]
+                datapoint['grasped_obj_ids'] = obj_ids[grasped_obj_key]
 
-            # modify heap id
-            datapoint['heap_ids'] = heap_id
-                
             # add datapoint    
             output_dataset.add(datapoint)
             j += 1
@@ -122,8 +122,9 @@ if __name__ == '__main__':
     # set metadata
     obj_ids = utils.reverse_dictionary(obj_ids)
     output_dataset.add_metadata('obj_ids', obj_ids)
-    output_dataset.add_metadata('action_ids', dataset.metadata['action_ids'])
-    output_dataset.add_metadata('heap_indices', heap_indices)
-            
+    for field_name, field_data in dataset.metadata.iteritems():
+        if field_name not in ['obj_ids']:
+            output_dataset.add_metadata(field_name, field_data)
+    
     # flush to disk
-    output_dataset.flush()
+    output_dataset.flush()    

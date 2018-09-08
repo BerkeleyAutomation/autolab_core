@@ -36,7 +36,7 @@ import sys
 import time
 import traceback
 
-from autolab_core import BinaryClassificationResult, CSVModel, TensorDataset, YamlConfig
+from autolab_core import BinaryClassificationResult, TensorDataset, YamlConfig
 import autolab_core.utils as utils
 
 from dexnet.visualization import DexNetVisualizer2D as vis2d
@@ -102,22 +102,22 @@ def compute_dataset_statistics(dataset_path,
     for t in thresholds:
         field = 'pct_above_%.3f' %(t)
         stats_headers[field] = 'float'
-    csv_filename = os.path.join(output_path, 'dataset_stats.csv')
-    if os.path.exists(csv_filename):
-        logging.warning('CSV file %s exists!' %(csv_filename))
-    csv_file = CSVModel.get_or_create(csv_filename,
-                                      stats_headers)
     
     # analyze statistics
     for field, data in analysis_data.iteritems():
-        # np array
+        # init arrays
         data = np.array(data)
 
+        # init filename
+        stats_filename = os.path.join(output_path, '%s_stats.json' %(field))
+        if os.path.exists(stats_filename):
+            logging.warning('Statistics file %s exists!' %(stats_filename))
+        
         # stats
         mean = np.mean(data)
         median = np.median(data)
         std = np.std(data)
-        row = {
+        stats = {
             'name': str(field),
             'mean': float(mean),
             'median': float(median),
@@ -126,12 +126,15 @@ def compute_dataset_statistics(dataset_path,
         for i in range(num_percentiles):
             pctile = int((100.0 / num_percentiles) * i)
             pctile_field = '%d_pctile' %(pctile)
-            row[pctile_field] = float(np.percentile(data, pctile))
+            stats[pctile_field] = float(np.percentile(data, pctile))
         for t in thresholds:
             t_field = 'pct_above_%.3f' %(t)
-            row[t_field] = float(np.mean(1 * (data > t)))
-        csv_file.insert(row)
-        
+            stats[t_field] = float(np.mean(1 * (data > t)))
+        json.dump(stats,
+                  open(stats_filename, 'w'),
+                  indent=2,
+                  sort_keys=True)
+                  
         # histogram
         num_unique = np.unique(data).shape[0]
         nb = min(num_bins, data.shape[0], num_unique)
@@ -154,7 +157,7 @@ if __name__ == '__main__':
     # parse args
     parser = argparse.ArgumentParser(description='Compute statistics of select fields of a tensor dataset')
     parser.add_argument('dataset_path', type=str, default=None, help='path to an experiment dataset')
-    parser.add_argument('--output_path', type=str, default='./', help='path to save dataset statistics')
+    parser.add_argument('--output_path', type=str, default=None, help='path to save dataset statistics')
     parser.add_argument('--debug', type=bool, default=True, help='whether to set the random seed')
     parser.add_argument('--config_filename', type=str, default=None, help='configuration file to use')
     args = parser.parse_args()
@@ -163,10 +166,14 @@ if __name__ == '__main__':
     debug = args.debug
     config_filename = args.config_filename
 
+    # auto-save in dataset
+    if output_path is None:
+        output_path = os.path.join(dataset_path, 'stats')
+    
     # create output dir
     if not os.path.exists(output_path):
         os.mkdir(output_path)
-
+        
     # set random seed
     if debug:
         np.random.seed(SEED)

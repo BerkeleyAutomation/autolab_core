@@ -1,8 +1,8 @@
 input_datasets:
-  - /nfs/diskstation/projects/dex-net/bin_picking/datasets/phoxi_triton_01_13_18
-  - /nfs/diskstation/projects/dex-net/bin_picking/datasets/phoxi_triton_01_14_18
+  - /nfs/diskstation/projects/dex-net/bin_picking/datasets/dex-net_4.0_empirical_training_v2/parallel_jaw
+  - /mnt/data/diskstation/dexnet_4/parallel_jaw_subsampled_385800
 
-output_dataset: /nfs/diskstation/projects/dex-net/bin_picking/datasets/phoxi_v1
+output_dataset: /nfs/diskstation/projects/dex-net/bin_picking/datasets/dex-net_4.0_empirical_training_v2/parallel_jaw_1_to_100
 
 exclude_fields:
   - color_ims

@@ -448,6 +448,13 @@ class BinaryClassificationResult(ClassificationResult):
         return 1.0 - self.pct_pred_pos
 
     @property
+    def cross_entropy_loss(self):
+        probs = self.pred_probs.copy()
+        probs[probs == 1.0] = 0.99999
+        probs[probs == 0.0] = 0.00001
+        return -np.mean(self.labels * np.log(probs) + (1.0 - self.labels) * np.log(1.0 - probs))
+    
+    @property
     def sorted_values(self):
         # sort by prob
         labels_and_probs = zip(self.labels, self.pred_probs)
