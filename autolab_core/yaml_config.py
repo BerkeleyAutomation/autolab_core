@@ -86,11 +86,18 @@ class YamlConfig(object):
 
         # Replace !include directives with content
         config_dir = os.path.split(filename)[0]
-        include_re = re.compile('^!include\s+(.*)$', re.MULTILINE)
+        include_re = re.compile('^(.*)!include\s+(.*)$', re.MULTILINE)
         def include_repl(matchobj):
-            fname = os.path.join(config_dir, matchobj.group(1))
+            first_spacing = matchobj.group(1)
+            other_spacing = first_spacing.replace('-', ' ')
+            fname = os.path.join(config_dir, matchobj.group(2))
+            text = ''
             with open(fname) as f:
-                return f.read()
+                text = f.read()
+            text = first_spacing + text
+            text = text.replace('\n', '\n{}'.format(other_spacing), text.count('\n') - 1)
+            return text
+
         while re.search(include_re, self.file_contents): # for recursive !include
             self.file_contents = re.sub(include_re, include_repl, self.file_contents)
 
