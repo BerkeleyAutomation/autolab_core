@@ -6,6 +6,7 @@ import logging
 import os
 
 import numpy as np
+import scipy.linalg
 
 from . import utils
 from . import transformations
@@ -211,6 +212,18 @@ class RigidTransform(object):
         qd = np.append([0], self.translation / 2.)
         return DualQuaternion(qr, qd)
 
+    @property
+    def axis_angle(self):
+        """:obj:`numpy.ndarray` of float: The axis-angle representation for the rotation.
+        """
+        theta = np.arccos((np.trace(self.rotation) - 1.0) / 2.0)
+        omega = (1.0 / (2 * np.sin(theta))) * np.array([
+            self.rotation[2,1] - self.rotation[1,2],
+            self.rotation[0,2] - self.rotation[2,0],
+            self.rotation[1,0] - self.rotation[0,1],            
+        ])
+        return theta * omega
+    
     @property
     def euler(self):
         """TODO DEPRECATE THIS?"""
@@ -585,6 +598,42 @@ class RigidTransform(object):
         return out
 
     @staticmethod
+    def ros_q_to_core_q(q_ros):
+        """Converts a ROS quaternion vector to an autolab_core quaternion vector."""
+        q_core = np.array([q_ros[3], q_ros[0], q_ros[1], q_ros[2]])
+        return q_core
+
+    @staticmethod
+    def core_q_to_ros_q(q_core):
+        """Converts a ROS quaternion vector to an autolab_core quaternion vector."""
+        q_ros = np.array([q_core[1], q_core[2], q_core[2], q_core[0]])
+        return q_ros
+
+    @staticmethod
+    def from_ros_pose_msg(pose_msg,
+                          from_frame='unassigned',
+                          to_frame='world'):
+        """Creates a RigidTransform from a ROS pose msg. 
+        
+        Parameters
+        ----------
+        pose_msg : :obj:`geometry_msgs.msg.Pose`
+            ROS pose message
+        """
+        quaternion = np.array([pose_msg.orientation.w,
+                               pose_msg.orientation.x,
+                               pose_msg.orientation.y,
+                               pose_msg.orientation.z])
+        position = np.array([pose_msg.position.x,
+                             pose_msg.position.y,
+                             pose_msg.position.z])
+        pose = RigidTransform(rotation=quaternion,
+                              translation=position,
+                              from_frame=from_frame,
+                              to_frame=to_frame)
+        return pose        
+        
+    @staticmethod
     def from_vec(vec, from_frame='unassigned', to_frame='world'):
         return RigidTransform(rotation=vec[3:],
                               translation=vec[:3],
@@ -648,6 +697,28 @@ class RigidTransform(object):
         R = transformations.quaternion_matrix(q_xyzw)[:3,:3]
         return R
 
+    @staticmethod
+    def rotation_from_axis_angle(v):
+        """Convert axis-angle representation to rotation matrix.
+
+        Parameters
+        ----------
+        v : :obj:`numpy.ndarray` of float
+            An axis-angle representation.
+
+        Returns
+        -------
+        :obj:`numpy.ndarray` of float
+            A 3x3 rotation matrix made from the quaternion.
+        """
+        if np.linalg.norm(v) == 0:
+            return np.eye(3)
+        theta = np.linalg.norm(v)
+        omega = v / np.linalg.norm(v)
+        K = utils.skew(omega)
+        R = scipy.linalg.expm(theta * K)
+        return R
+        
     @staticmethod
     def transform_from_dual_quaternion(dq, from_frame='unassigned', to_frame='world'):
         """Create a RigidTransform from a DualQuaternion.
