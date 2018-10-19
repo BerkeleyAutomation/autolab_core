@@ -1,25 +1,20 @@
 language: python
 sudo: required
 dist: trusty
-
 python:
-  - '2.7'
-  - '3.5'
-  - '3.6'
-
+- '2.7'
+- '3.5'
+- '3.6'
 before_install:
-  - pip install --upgrade pip setuptools wheel
-  - pip install --only-binary=numpy,scipy numpy scipy
-
+- pip install --upgrade pip setuptools wheel
+- pip install --only-binary=numpy,scipy numpy scipy
 install:
-  - pip install .
-  - pip install nose2
-
+- pip install .
+- pip install nose2
 script:
-  - cd tests
-  - nose2
-  - cd ..
-
+- cd tests
+- nose2
+- cd ..
 deploy:
   provider: pypi
   skip_existing: true
@@ -28,8 +23,7 @@ deploy:
     tags: true
     branch: master
   password:
-    secure: mhx4h9pUewT3Wl61mfcIco9Ja3sV6MMGShBBSSA7XquuJi70e90/Qpkfk+izE+IuO7MgXnPABz1XMLsCmIXmUJO3WSpD8N7aJIyCfGiLeV93YvS5ElXbc5IdQ7b05sFM4iNKglfJNTEQmwIXT09VODZhbWlgkjgW9OwvGF+QDTZgzPZBNQJx1d3+b7PbsnPwGdiPqVPTvaNmEj/KXhwvXSKS2Jg1X1d9Vz/oy3vUO+jJLhNyCvnUfX3awKch5PhSOomhv6Idz5eucEDVN7CjJ2zD2Z9TVh1RNP5t2/rgkMZr7YFzCp6Joc2+qhaymVn745+ZPA1okL2B8WDULMQUoT5varffhnfQtli7uj6QJvAd6ASF4zBcM5JYR+RNCix2qHbvPjGyKP5sY6vrcYb8qmUCHURR43pzYCYNPUWVbO2rNayWzbgkMJE1FuW9M6V6ivUyfpBNqsgz7+P3h1bnCaZ07ErFU3DhScrodOMikcRubBnDM7bkFRu7C/p0eMRk+neXQJuYBjQBIbLuTBrSzrrOJo9RAwGCkZYPvbtrqWuLhOohAUGqkCqAWbyrGMDxVX464ZUORdJWTH7yWErw/Lcnuq9EFbbOaiNrhk1YfgvCoFkHiRhaWL1KEajLWbJHdmlQOVAj0H53ILn3i7imN7lS+GhetlaIeU2tH0KuOn8=
+    secure: P8R0VnqJ3v8qy/FrprQRMvcmDR/3Az9Fd7SvmhJQ07e9AnQOeAbaTaxfuqh/eAu/Q5PEwxuIK7ZMHlaVEU3GqZgJHRvPE/obibmSbgRuGIjsUzbUTVuUv3w38g5VRoPT5v/TFeCbHdLBg8E70t8MkLE57vU8w9PUOcobMGT2I0y3YxX3e3rRznCxzpqBKLnjZEZMRUa5LnoF9vOnZkra+zsyc0UvEUlPF5Oqt52aQM2V1u+ORhzeGeq3NSk6qolt2utyaf0Omtt2V3KFC9rV71f6RT4Bm4eprL33INhokiU8LPUNovB65begnkpbxXTTfezgAD1zfkel275Sb/aTtMtSMnulEiLB+KsO0/NqSwTDn3BgWnKetLC+9r2/SAfszyLmbHX3rFpzS4Jt8l7l41fSF7FRK9L1JExhN9/JwfYk6QHYAgftuoRi3QxxbeQw5Vhug1vMOPVQYpwtjUIjrIfjext59PybMqMR0R29VPnvIp3SIjOdddN8oRDoHYvR7trOwUXU5+cXalsQy74TMdzNSB2Yy52gSKiw2KJx/FJqhWKTR/bE98fTKpZGSRH10vyafORrodBg0AqJGgQEe25QP26EgvrLsdG531QnJR56KVXjvxRx4rKeN+5UN6te21NO+DMjNnc2Mo/bZNwERtrXnWH7m2tZGZDRWRLr+tI=
   distributions: sdist bdist_wheel
-
 notifications:
   email: false
