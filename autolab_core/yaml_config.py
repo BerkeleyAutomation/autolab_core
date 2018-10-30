@@ -87,20 +87,32 @@ class YamlConfig(object):
         # Replace !include directives with content
         config_dir = os.path.split(filename)[0]
         include_re = re.compile('^(.*)!include\s+(.*)$', re.MULTILINE)
-        def include_repl(matchobj):
+
+        def recursive_load(matchobj, path):
             first_spacing = matchobj.group(1)
             other_spacing = first_spacing.replace('-', ' ')
-            fname = os.path.join(config_dir, matchobj.group(2))
+            fname = os.path.join(path, matchobj.group(2))
+            new_path, _ = os.path.split(fname)
+            new_path = os.path.realpath(new_path)
             text = ''
             with open(fname) as f:
                 text = f.read()
             text = first_spacing + text
             text = text.replace('\n', '\n{}'.format(other_spacing), text.count('\n') - 1)
-            return text
+            return re.sub(include_re, lambda m : recursive_load(m, new_path), text)
 
-        while re.search(include_re, self.file_contents): # for recursive !include
-            self.file_contents = re.sub(include_re, include_repl, self.file_contents)
+#        def include_repl(matchobj):
+#            first_spacing = matchobj.group(1)
+#            other_spacing = first_spacing.replace('-', ' ')
+#            fname = os.path.join(config_dir, matchobj.group(2))
+#            text = ''
+#            with open(fname) as f:
+#                text = f.read()
+#            text = first_spacing + text
+#            text = text.replace('\n', '\n{}'.format(other_spacing), text.count('\n') - 1)
+#            return text
 
+        self.file_contents = re.sub(include_re, lambda m : recursive_load(m, config_dir), self.file_contents)
         # Read in dictionary
         self.config = self.__ordered_load(self.file_contents)
 
