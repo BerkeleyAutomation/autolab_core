@@ -216,12 +216,14 @@ class RigidTransform(object):
     def axis_angle(self):
         """:obj:`numpy.ndarray` of float: The axis-angle representation for the rotation.
         """
-        theta = np.arccos((np.trace(self.rotation) - 1.0) / 2.0)
-        omega = (1.0 / (2 * np.sin(theta))) * np.array([
-            self.rotation[2,1] - self.rotation[1,2],
-            self.rotation[0,2] - self.rotation[2,0],
-            self.rotation[1,0] - self.rotation[0,1],            
-        ])
+        qw, qx, qy, qz = self.quaternion
+        theta = 2 * np.arccos(qw)
+        omega = np.array([1,0,0])
+        if theta > 0:
+            rx = qx / np.sqrt(1.0 - qw**2)
+            ry = qy / np.sqrt(1.0 - qw**2)
+            rz = qz / np.sqrt(1.0 - qw**2)
+            omega = np.array([rx, ry, rz])
         return theta * omega
     
     @property
@@ -697,6 +699,32 @@ class RigidTransform(object):
         R = transformations.quaternion_matrix(q_xyzw)[:3,:3]
         return R
 
+
+    @staticmethod
+    def quaternion_from_axis_angle(v):
+        """Convert axis-angle representation to a quaternion vector.
+
+        Parameters
+        ----------
+        v : :obj:`numpy.ndarray` of float
+            An axis-angle representation.
+
+        Returns
+        -------
+        :obj:`numpy.ndarray` of float
+            A quaternion vector from the axis-angle vector.
+        """
+        theta = np.linalg.norm(v)
+        if theta > 0:
+            v = v / np.linalg.norm(v)
+        ax, ay, az = v    
+        qx = ax * np.sin(0.5 * theta)
+        qy = ay * np.sin(0.5 * theta)
+        qz = az * np.sin(0.5 * theta)        
+        qw = np.cos(0.5 * theta)
+        q = np.array([qw, qx, qy, qz])
+        return q
+        
     @staticmethod
     def rotation_from_axis_angle(v):
         """Convert axis-angle representation to rotation matrix.
@@ -709,15 +737,9 @@ class RigidTransform(object):
         Returns
         -------
         :obj:`numpy.ndarray` of float
-            A 3x3 rotation matrix made from the quaternion.
+            A 3x3 rotation matrix made from the axis-angle vector.
         """
-        if np.linalg.norm(v) == 0:
-            return np.eye(3)
-        theta = np.linalg.norm(v)
-        omega = v / np.linalg.norm(v)
-        K = utils.skew(omega)
-        R = scipy.linalg.expm(theta * K)
-        return R
+        return RigidTransform.rotation_from_quaternion(RigidTransform.quaternion_from_axis_angle(v))
         
     @staticmethod
     def transform_from_dual_quaternion(dq, from_frame='unassigned', to_frame='world'):
