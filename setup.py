@@ -12,7 +12,8 @@ requirements = [
     'matplotlib',
     'multiprocess',
     'setproctitle',
-    'joblib'
+    'joblib',
+    'colorlog'
 ]
 
 exec(open('autolab_core/version.py').read())
