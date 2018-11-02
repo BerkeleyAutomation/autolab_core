@@ -82,6 +82,14 @@ class Logger(object):
         :obj:`logging.Logger`
             A custom logger.
         """
+        no_op = False
+        # some checks for silencing/no-op logging
+        if silence and global_log_file:
+            raise ValueError("You can't silence a logger and log to a global log file!")
+        if silence and log_file is None:
+            logging.warning('You are creating a no-op logger!')
+            no_op = True
+
         # configure the root logger if it hasn't been already
         if not Logger.ROOT_CONFIGURED:
             configure_root()
@@ -93,8 +101,6 @@ class Logger(object):
 
         # silence the logger by preventing it from propagating upwards to the root
         logger.propagate = not silence
-        if silence and global_log_file:
-            logging.warning('You have created a logger with no method of logging!')
 
         # configure the log file stream 
         if log_file is not None:
@@ -107,4 +113,8 @@ class Logger(object):
                 formatter = logging.Formatter('%(asctime)s %(name)-10s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
                 hdlr.setFormatter(formatter)
                 logger.addHandler(hdlr)
+
+        # add a no-op handler to suppress warnings about there being no handlers
+        if no_op:
+            logger.addHandler(logging.NullHandler())
         return logger
