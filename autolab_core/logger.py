@@ -60,9 +60,9 @@ class Logger(object):
     ROOT_CONFIGURED = False
 
     @staticmethod
-    def get_logger(name, log_level=logging.INFO, log_file=None, global_log_file=False):
+    def get_logger(name, log_level=logging.INFO, log_file=None, global_log_file=False, silence=False):
         """
-        Build a logger. All logs will be propagated up to the root logger. If log_file is provided, logs will be written out to that file. If global_log_file is true, log_file will be used by the root logger, otherwise it will only be used by this particular logger.
+        Build a logger. All logs will be propagated up to the root logger if not silenced. If log_file is provided, logs will be written out to that file. If global_log_file is true, log_file will be handed the root logger, otherwise it will only be used by this particular logger.
     
         Parameters
         ----------
@@ -74,6 +74,8 @@ class Logger(object):
             The path to the log file to log to.
         global_log_file :obj:`bool`
             Whether or not to use the given log_file for this particular logger or for the root logger.
+        silence :obj:`bool`
+            Whether or not to silence this logger. If it is silenced, the only way to get output from this logger is through a non-global log file.
 
         Returns
         -------
@@ -88,6 +90,11 @@ class Logger(object):
         # build a logger
         logger = logging.getLogger(name)
         logger.setLevel(log_level)
+
+        # silence the logger by preventing it from propagating upwards to the root
+        logger.propagate = not silence
+        if silence and global_log_file:
+            logging.warning('You have created a logger with no method of logging!')
 
         # configure the log file stream 
         if log_file is not None:
