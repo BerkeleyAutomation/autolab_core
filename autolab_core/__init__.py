@@ -15,6 +15,7 @@ from .random_variables import RandomVariable, BernoulliRV, GaussianRV, Artificia
 from .completer import Completer
 from .learning_analysis import ConfusionMatrix, ClassificationResult, BinaryClassificationResult, RegressionResult
 from .tensor_dataset import Tensor, TensorDatapoint, TensorDataset
+from .logger import Logger
 
 try:
     from .data_stream_syncer import DataStreamSyncer
