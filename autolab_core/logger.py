@@ -118,3 +118,26 @@ class Logger(object):
         if no_op:
             logger.addHandler(logging.NullHandler())
         return logger
+
+    @staticmethod
+    def add_log_file(logger, log_file, global_log_file=False):
+        """
+        Add a log file to this logger. If global_log_file is true, log_file will be handed the root logger, otherwise it will only be used by this particular logger.
+
+        Parameters
+        ----------
+        logger :obj:`logging.Logger`
+            The logger.
+        log_file :obj:`str`
+            The path to the log file to log to.
+        global_log_file :obj:`bool`
+            Whether or not to use the given log_file for this particular logger or for the root logger.
+        """
+
+        if global_log_file:
+            add_root_log_file(log_file)
+        else:
+            hdlr = logging.FileHandler(log_file)
+            formatter = logging.Formatter('%(asctime)s %(name)-10s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
+            hdlr.setFormatter(formatter)
+            logger.addHandler(hdlr)
