@@ -5,68 +5,7 @@ Author: Jeff Mahler
 import logging
 import os
 
-import colorlog
 import numpy as np
-
-def clear_root_logger():
-    """Clear the root logger's handlers, allowing for full control over logging."""
-    for hdlr in logging.getLogger().handlers:
-        logging.getLogger().removeHandler(hdlr)
-
-def get_logger(name, log_file=None, log_stream=None, log_level=logging.INFO):
-    """Build a custom logger. If neither a log file nor log stream is provided, a no-op logger will be returned.
-
-    Parameters
-    ----------
-    name :obj:`str`
-        The name of the logger to be built.
-    log_file :obj:`str`
-        The path to the log file to log to.
-    log_stream :obj:`file`
-        The file stream to log to.
-
-    Returns
-    -------
-    :obj:`logging.Logger`
-        A custom logger. 
-    """
-
-    # clear the root logger's handlers
-    clear_root_logger()
-
-    # create the logger and set the logging level
-    logger = logging.getLogger(name)
-    logger.setLevel(log_level)
-
-    # set up handlers    
-    if log_file is not None:
-        # set up log file handler
-        hdlr = logging.FileHandler(log_file)
-        formatter = logging.Formatter('%(asctime)s %(name)-10s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M:%S')
-        hdlr.setFormatter(formatter)
-        logger.addHandler(hdlr)
-    if log_stream is not None:
-        # set up log stream handler with colorful logging
-        hdlr = logging.StreamHandler(log_stream)
-        formatter = colorlog.ColoredFormatter(
-                            '%(purple)s%(name)-10s %(log_color)s%(levelname)-8s%(reset)s %(white)s%(message)s',
-                            reset=True,
-                            log_colors={
-                                'DEBUG': 'cyan',
-                                'INFO': 'green',
-                                'WARNING': 'yellow',
-                                'ERROR': 'red',
-                                'CRITICAL': 'red,bg_white',
-                            },
-                                            )
-        hdlr.setFormatter(formatter)
-        logger.addHandler(hdlr)
-
-    if len(logger.handlers) == 0:
-        # if no handlers were added, add the NullHandler to squelch output complaining about no handlers
-        logger.addHandler(logging.NullHandler())
-
-    return logger
 
 def gen_experiment_id(n=10):
     """Generate a random string with n characters.
