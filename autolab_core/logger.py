@@ -60,6 +60,11 @@ class Logger(object):
     ROOT_CONFIGURED = False
 
     @staticmethod
+    def reconfigure_root():
+        """Reconfigure the root logger."""
+        configure_root()
+
+    @staticmethod
     def get_logger(name, log_level=logging.INFO, log_file=None, global_log_file=False, silence=False):
         """
         Build a logger. All logs will be propagated up to the root logger if not silenced. If log_file is provided, logs will be written out to that file. If global_log_file is true, log_file will be handed the root logger, otherwise it will only be used by this particular logger.
