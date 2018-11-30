@@ -643,6 +643,21 @@ class RigidTransform(object):
                               to_frame=to_frame)
 
     @staticmethod
+    def from_pose_msg(pose_msg, from_frame='unassigned', to_frame='world'):
+        translation = np.array([pose_msg.position.x,
+                                pose_msg.position.y,
+                                pose_msg.position.z])
+        rotation = np.array([pose_msg.orientation.w,
+                             pose_msg.orientation.x,
+                             pose_msg.orientation.y,
+                             pose_msg.orientation.z])
+        return RigidTransform(rotation=rotation,
+                              translation=translation,
+                              from_frame=from_frame,
+                              to_frame=to_frame)
+
+    
+    @staticmethod
     def rigid_transform_from_ros(from_frame, to_frame, service_name='rigid_transforms/rigid_transform_listener', namespace=None):
         """Gets transform from ROS as a rigid transform
         

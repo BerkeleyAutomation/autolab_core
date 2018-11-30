@@ -1,8 +1,8 @@
 input_datasets:
-  - /nfs/diskstation/projects/dex-net/bin_picking/datasets/dex-net_4.0_empirical_training_v2/parallel_jaw
-  - /mnt/data/diskstation/dexnet_4/parallel_jaw_subsampled_385800
+  - /mnt/data/datasets/knapp/large_suction/grasps
+  - /mnt/data/datasets/knapp/large_suction_no_segmask/grasps
 
-output_dataset: /nfs/diskstation/projects/dex-net/bin_picking/datasets/dex-net_4.0_empirical_training_v2/parallel_jaw_1_to_100
+output_dataset: /mnt/data/datasets/knapp/large_suction_big
 
 exclude_fields:
   - color_ims

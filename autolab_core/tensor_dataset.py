@@ -304,10 +304,19 @@ class TensorDataset(object):
             self._num_datapoints = 0
             if file_nums.shape[0] > 0:
                 last_tensor_ind = np.where(file_nums == self._num_tensors-1)[0][0]
-                last_tensor_data = np.load(tensor_filenames[last_tensor_ind])['arr_0']
+                found_last_file = False
+                while self._num_tensors >= 0 and not found_last_file:
+                    try:
+                        last_tensor_data = np.load(tensor_filenames[last_tensor_ind])['arr_0']
+                        found_last_file = True
+                    except:
+                        found_last_file = False
+                        self._num_tensors -= 1
+                        last_tensor_ind = np.where(file_nums == self._num_tensors-1)[0][0]
+                        
                 self._num_datapoints_last_file = last_tensor_data.shape[0]
                 self._num_datapoints = self._datapoints_per_file * (self._num_tensors-1) + self._num_datapoints_last_file
-
+                
             # set file index
             cur_file_num = 0
             start_datapoint_index = 0

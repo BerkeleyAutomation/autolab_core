@@ -82,7 +82,6 @@ if __name__ == '__main__':
     obj_id = 0
     obj_ids = {}
     for dataset_name in all_input_dataset_names:
-        j = 0
         dataset = TensorDataset.open(dataset_name)
         if 'obj_ids' in dataset.metadata.keys():
             dataset_obj_ids = dataset.metadata['obj_ids']
@@ -117,7 +116,7 @@ if __name__ == '__main__':
 
             # add datapoint    
             output_dataset.add(datapoint)
-            j += 1
+                
 
     # set metadata
     obj_ids = utils.reverse_dictionary(obj_ids)
