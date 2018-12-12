@@ -75,8 +75,8 @@ class RigidTransform(object):
 
         self.rotation = rotation
         self.translation = translation
-        self._from_frame = from_frame
-        self._to_frame = to_frame
+        self._from_frame = str(from_frame)
+        self._to_frame = str(to_frame)
 
     def copy(self):
         """Returns a copy of the RigidTransform.
@@ -175,7 +175,7 @@ class RigidTransform(object):
 
     @from_frame.setter
     def from_frame(self, from_frame):
-        self._from_frame = from_frame
+        self._from_frame = str(from_frame)
 
     @property
     def to_frame(self):
@@ -185,7 +185,7 @@ class RigidTransform(object):
 
     @to_frame.setter
     def to_frame(self, to_frame):
-        self._to_frame = to_frame
+        self._to_frame = str(to_frame)
 
     @property
     def euler_angles(self):
