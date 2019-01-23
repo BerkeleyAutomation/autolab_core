@@ -16,9 +16,5 @@ from .completer import Completer
 from .learning_analysis import ConfusionMatrix, ClassificationResult, BinaryClassificationResult, RegressionResult
 from .tensor_dataset import Tensor, TensorDatapoint, TensorDataset
 from .logger import Logger
-
-try:
-    from .data_stream_syncer import DataStreamSyncer
-    from .data_stream_recorder import DataStreamRecorder
-except Exception:
-    print("Unable to import DataStreamSyncer and Recorder! Likely due to missing multiprocess")
+from .data_stream_syncer import DataStreamSyncer
+from .data_stream_recorder import DataStreamRecorder

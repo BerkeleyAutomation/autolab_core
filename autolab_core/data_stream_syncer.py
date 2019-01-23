@@ -4,7 +4,10 @@ Author: Jacky Liang
 """
 from multiprocess import Process, Queue
 from time import time
-from Queue import Empty
+try:
+    from Queue import Empty
+except:
+    from queue import Empty
 import logging, sys
 from setproctitle import setproctitle
 
