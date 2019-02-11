@@ -595,8 +595,8 @@ class RigidTransform(object):
         return out
 
     def __repr__(self):
-        out = 'RigidTransform(rotation={0}, translation={1}, from_frame={2}, to_frame={3})'.format(self.rotation,
-                self.translation, self.from_frame, self.to_frame)
+        out = 'RigidTransform(rotation=np.{0}, translation=np.{1}, from_frame={2}, to_frame={3})'.format(repr(self.rotation),
+                repr(self.translation), repr(self.from_frame), repr(self.to_frame))
         return out
 
     @staticmethod
@@ -1315,6 +1315,6 @@ class SimilarityTransform(RigidTransform):
         return out
 
     def __repr__(self):
-        out = "SimilarityTransform(rotation={0}, translation={1}, scale={2}, from_frame={3}, to_frame={4})".format(
+        out = "SimilarityTransform(rotation=np.{0}, translation=np.{1}, scale={2}, from_frame={3}, to_frame={4})".format(
                                     repr(self.rotation), repr(self.translation), repr(self.scale), repr(self.from_frame), repr(self.to_frame))
         return out
