@@ -608,7 +608,7 @@ class RigidTransform(object):
     @staticmethod
     def core_q_to_ros_q(q_core):
         """Converts a ROS quaternion vector to an autolab_core quaternion vector."""
-        q_ros = np.array([q_core[1], q_core[2], q_core[2], q_core[0]])
+        q_ros = np.array([q_core[1], q_core[2], q_core[3], q_core[0]])
         return q_ros
 
     @staticmethod
