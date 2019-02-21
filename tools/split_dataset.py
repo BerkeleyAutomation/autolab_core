@@ -57,4 +57,4 @@ if __name__ == '__main__':
 
     # create split
     dataset = TensorDataset.open(dataset_dir)
-    train_indices, val_indices = dataset.make_split(split_name, train_pct, field_name)
+    train_indices, val_indices = dataset.make_split(split_name, train_pct=train_pct, field_name=field_name)
