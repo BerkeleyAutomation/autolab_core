@@ -4,6 +4,7 @@ Author: Jeff Mahler
 """
 import logging
 import os
+from six.moves import input
 
 import numpy as np
 
@@ -287,11 +288,11 @@ def keyboard_input(message, yesno=False):
         message += '[y/n] '
 
     # ask human
-    human_input = raw_input(message)
+    human_input = input(message)
     if yesno:
         while human_input.lower() != 'n' and human_input.lower() != 'y':
             logging.info('Did not understand input. Please answer \'y\' or \'n\'')
-            human_input = raw_input(message)
+            human_input = input(message)
     return human_input
 
 def sqrt_ceil(n):
