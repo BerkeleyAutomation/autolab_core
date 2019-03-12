@@ -452,7 +452,7 @@ class RigidTransform(object):
         if isinstance(rigid_object, BagOfPoints):
             return self.apply(rigid_object)
         raise ValueError('Cannot multiply rigid transform with object of type %s' %(type(rigid_object)))
-
+                              
     def inverse(self):
         """Take the inverse of the rigid transform.
 
@@ -461,9 +461,9 @@ class RigidTransform(object):
         :obj:`RigidTransform`
             The inverse of this RigidTransform.
         """
-        inv_pose = np.linalg.inv(self.matrix)
-        rotation, translation = RigidTransform.rotation_and_translation_from_matrix(inv_pose)
-        return RigidTransform(rotation, translation,
+        inv_rotation = self.rotation.T
+        inv_translation = np.dot(-self.rotation.T, self.translation)
+        return RigidTransform(inv_rotation, inv_translation,
                               from_frame=self._to_frame,
                               to_frame=self._from_frame)
 
