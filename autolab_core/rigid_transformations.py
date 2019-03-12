@@ -809,6 +809,37 @@ class RigidTransform(object):
         return rotation, translation
 
     @staticmethod
+    def rotation_from_axis_and_origin(axis, origin, angle, to_frame='world'):
+        """
+        Returns a rotation matrix around some arbitrary axis, about the point origin, using Rodrigues Formula
+
+        Parameters
+        ----------
+        axis : :obj:`numpy.ndarray` of float
+            3x1 vector representing which axis we should be rotating about
+        origin : :obj:`numpy.ndarray` of float
+            3x1 vector representing where the rotation should be centered around
+        angle : float
+            how much to rotate (in radians)
+        to_frame : :obj:`str`
+            A name for the frame of reference to which this transform
+            moves objects.
+        """
+        axis_hat = np.array([[0, -axis[2], axis[1]],
+                             [axis[2], 0, -axis[0]],
+                             [-axis[1], axis[0], 0]])
+        # Rodrigues Formula
+        R = RigidTransform(
+            np.eye(3) + np.sin(angle) * axis_hat + (1 - np.cos(angle)) * axis_hat.dot(axis_hat),
+            from_frame=to_frame,
+            to_frame=to_frame
+        )
+
+        return RigidTransform(translation=origin, from_frame=to_frame, to_frame=to_frame) \
+            .dot(R) \
+            .dot(RigidTransform(translation=-origin, from_frame=to_frame, to_frame=to_frame))
+
+    @staticmethod
     def x_axis_rotation(theta):
         """Generates a 3x3 rotation matrix for a rotation of angle
         theta about the x axis.
