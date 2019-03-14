@@ -70,7 +70,8 @@ class YamlConfig(object):
 
     def save(self, filename):
         """ Save a YamlConfig to disk. """
-        yaml.dump(self, open(filename, 'w'))
+        y = yaml.YAML()
+        y.dump(self.config, open(filename, 'w'))
 
     def _load_config(self, filename):
         """Loads a yaml configuration file from the given filename.
