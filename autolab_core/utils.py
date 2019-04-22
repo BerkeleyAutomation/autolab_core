@@ -175,7 +175,7 @@ def pretty_str_time(dt):
     """
     return "{0}_{1}_{2}_{3}:{4}".format(dt.year, dt.month, dt.day, dt.hour, dt.minute)
 
-def filenames(directory, tag='', sorted=False):
+def filenames(directory, tag='', sorted=False, recursive=False):
     """ Reads in all filenames from a directory that contain a specified substring.
 
     Parameters
@@ -186,13 +186,18 @@ def filenames(directory, tag='', sorted=False):
         optional tag to match in the filenames
     sorted : bool
         whether or not to sort the filenames
+    recursive : bool
+        whether or not to search for the files recursively
 
     Returns
     -------
     :obj:`list` of :obj:`str`
         filenames to read from
     """
-    f = [os.path.join(directory, f) for f in os.listdir(directory) if f.find(tag) > -1]
+    if recursive:
+        f = [os.path.join(directory, f) for directory, _, filename in os.walk(directory) for f in filename if f.find(tag) > -1] 
+    else:
+        f = [os.path.join(directory, f) for f in os.listdir(directory) if f.find(tag) > -1]
     if sorted:
         f.sort()
     return f
