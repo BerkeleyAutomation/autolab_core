@@ -9,7 +9,7 @@ requirements = [
     'scipy',
     'scikit-learn',
     'ruamel.yaml',
-    'matplotlib',
+    'matplotlib<=2.2.0',
     'multiprocess',
     'setproctitle',
     'joblib',
