@@ -222,7 +222,7 @@ class TensorDataset(object):
     Thus, reads are most efficient when performed in order rather than randomly, to prevent
     expensive I/O to read a single datapoint.
     """
-    def __init__(self, filename, config, access_mode=WRITE_ACCESS):
+    def __init__(self, filename, config, access_mode=WRITE_ACCESS, force_overwrite=False):
         # read params
         self._filename = filename
         self._config = config
@@ -239,10 +239,11 @@ class TensorDataset(object):
             raise ValueError('Dataset %s does not exist!' %(self._filename))
         # check dataset empty
         elif access_mode == WRITE_ACCESS and os.path.exists(self._filename) and len(os.listdir(self._filename)) > 0:
-            human_input = keyboard_input('Dataset %s exists. Overwrite?' %(self._filename), yesno=True)
-            if human_input.lower() == 'n':
-                raise ValueError('User opted not to overwrite dataset')
-
+            if not force_overwrite:
+                human_input = keyboard_input('Dataset %s exists. Overwrite?' %(self._filename), yesno=True)
+                if human_input.lower() == 'n':
+                    raise ValueError('User opted not to overwrite dataset')
+                
             # delete the old dataset
             shutil.rmtree(self._filename)
             os.mkdir(self._filename)
