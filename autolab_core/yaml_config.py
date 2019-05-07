@@ -92,7 +92,7 @@ class YamlConfig(object):
         def recursive_load(matchobj, path):
             first_spacing = matchobj.group(1)
             other_spacing = first_spacing.replace('-', ' ')
-            fname = os.path.join(path, matchobj.group(2))
+            fname = os.path.join(path, matchobj.group(2).rstrip())
             new_path, _ = os.path.split(fname)
             new_path = os.path.realpath(new_path)
             text = ''
