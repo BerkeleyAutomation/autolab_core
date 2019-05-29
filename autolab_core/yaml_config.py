@@ -147,3 +147,17 @@ class YamlConfig(object):
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             lambda loader, node: object_pairs_hook(loader.construct_pairs(node)))
         return yaml.load(stream, OrderedLoader)
+
+    def __iter__(self):
+        # Converting to a `list` will have a higher memory overhead, but realistically there
+        # should not be *that* many keys.
+        self._keys = list(self.config.keys())
+        return self
+
+    def __next__(self):
+        try:
+            return self._keys.pop(0)
+        except IndexError:
+            raise StopIteration
+
+    next = __next__  # For Python 2.
