@@ -303,7 +303,7 @@ class IsotropicGaussianRigidTransformRandomVariable(GaussianRigidTransformRandom
     """
     def __init__(self, sigma_trans, sigma_rot,
                  from_frame='world', to_frame='world',
-                 *args, allow_singular=False, **kwargs):
+                 *args, **kwargs):
         super(IsotropicGaussianRigidTransformRandomVariable, self).__init__(
             sigma_tra=max(1e-10, sigma_trans) * np.eye(3), 
             sigma_rot=max(1e-10, sigma_rot) * np.eye(3),
