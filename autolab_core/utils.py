@@ -308,3 +308,42 @@ def sqrt_ceil(n):
         the sqrt rounded up to the nearest integer
     """
     return int(np.ceil(np.sqrt(n)))
+
+def is_positive_definite(A):
+    """ Checks if a given matrix is positive definite.
+
+    See https://stackoverflow.com/a/16266736 for details.
+
+    Parameters
+    ----------
+    A : :obj:`numpy.ndarray` of float or int
+        The square matrix of interest
+
+    Returns
+    -------
+    bool
+        whether or not A is positive definite
+    """
+    is_pd = True
+    
+    try:
+        np.linalg.cholesky(A)
+    except np.linalg.LinAlgError:
+        is_pd = False
+
+    return is_pd
+
+def is_positive_semi_definite(A):
+    """ Checks if a given matrix is positive semi definite.
+
+    Parameters
+    ----------
+    A : :obj:`numpy.ndarray` of float or int
+        The square matrix of interest
+
+    Returns
+    -------
+    bool
+        whether or not A is positive semi-definite
+    """
+    return is_positive_definite(A + np.eye(len(A)) * 1e-20)
