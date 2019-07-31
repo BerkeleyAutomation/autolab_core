@@ -346,6 +346,10 @@ class Point(BagOfPoints):
         return self.__mul__(mult)
 
     def __div__(self, div):
+        """A python2 compatibility wrapper."""
+        return self.__truediv__(div)
+
+    def __truediv__(self, div):
         """Divide the point by a scalar.
 
         Parameters
@@ -792,6 +796,10 @@ class PointCloud(BagOfPoints):
         return self.__mul__(mult)
 
     def __div__(self, div):
+        """A python2 compatibility wrapper."""
+        return self.__truediv__(div)
+
+    def __truediv__(self, div):
         """Divide each point in the cloud by a scalar.
 
         Parameters
