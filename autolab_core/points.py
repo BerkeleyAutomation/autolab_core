@@ -2,6 +2,7 @@
 Common ops on lists / arrays of points
 Author: Jeff Mahler
 """
+
 from abc import ABCMeta, abstractmethod
 import numbers
 
@@ -345,7 +346,7 @@ class Point(BagOfPoints):
         """
         return self.__mul__(mult)
 
-    def __div__(self, div):
+    def __truediv__(self, div):
         """Divide the point by a scalar.
 
         Parameters
@@ -356,7 +357,7 @@ class Point(BagOfPoints):
         Returns
         -------
         :obj:`Point3D`
-            A 3D point created by the division. 
+            A 3D point created by the division.
 
         Raises
         ------
@@ -791,7 +792,7 @@ class PointCloud(BagOfPoints):
 
         return self.__mul__(mult)
 
-    def __div__(self, div):
+    def __truediv__(self, div):
         """Divide each point in the cloud by a scalar.
 
         Parameters
