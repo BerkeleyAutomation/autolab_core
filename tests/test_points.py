@@ -103,6 +103,31 @@ class PointsTest(unittest.TestCase):
         except ValueError as e:
             caught_bad_init = True
         self.assertTrue(caught_bad_init, msg='Failed to catch rgb cloud init with 4xN array')
+    
+    def test_divs(self, num_points=10):
+        data = np.random.rand(3, num_points)
+        p_a = PointCloud(data, 'a')
+        p_b = Point(np.random.rand(3), 'b')
+
+        # div on left
+        p_a_int = p_a / 5
+        assert np.allclose(p_a_int._data, p_a._data / 5)
+        p_a_float = p_a / 2.5
+        assert np.allclose(p_a_float._data, p_a._data / 2.5)
+        p_b_int = p_b / 5
+        assert np.allclose(p_b_int._data, p_b._data / 5)
+        p_b_float = p_b / 2.5
+        assert np.allclose(p_b_float._data, p_b._data / 2.5)
+
+        # div on right
+        p_a_int = 5 / p_a
+        assert np.allclose(p_a_int._data, 5 / p_a._data)
+        p_a_float = 2.5 / p_a
+        assert np.allclose(p_a_float._data, 2.5 / p_a._data)
+        p_b_int = 5 / p_b
+        assert np.allclose(p_b_int._data, 5 / p_b._data)
+        p_b_float = 2.5 / p_b
+        assert np.allclose(p_b_float._data, 2.5 / p_b._data)
         
 if __name__ == '__main__':
     unittest.main()
