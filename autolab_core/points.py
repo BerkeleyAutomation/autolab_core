@@ -349,6 +349,10 @@ class Point(BagOfPoints):
         """A python2 compatibility wrapper."""
         return self.__truediv__(div)
 
+    def __rdiv__(self, div):
+        """A python2 compatibility wrapper."""
+        return self.__rtruediv__(div)
+
     def __truediv__(self, div):
         """Divide the point by a scalar.
 
@@ -370,6 +374,28 @@ class Point(BagOfPoints):
         if not isinstance(div, numbers.Number):
             raise ValueError('Type %s not supported. Only scalar division is supported' %(type(div)))
         return self.__mul__(1.0 / div)
+
+    def __rtruediv__(self, div):
+        """Divide the scalar by a point.
+
+        Parameters
+        ----------
+        div : float
+            The number by which the Point is divided.
+
+        Returns
+        -------
+        :obj:`Point3D`
+            A 3D point created by the division. 
+
+        Raises
+        ------
+        ValueError
+            If div is not a scalar value.
+        """
+        if isinstance(div, numbers.Number):
+            return Point(div / self._data, self._frame)
+        raise ValueError('Type %s not supported. Only scalar division is supported' %(type(div)))
 
     @staticmethod
     def open(filename, frame='unspecified'):
@@ -798,6 +824,10 @@ class PointCloud(BagOfPoints):
     def __div__(self, div):
         """A python2 compatibility wrapper."""
         return self.__truediv__(div)
+    
+    def __rdiv__(self, div):
+        """A python2 compatibility wrapper."""
+        return self.__rtruediv__(div)
 
     def __truediv__(self, div):
         """Divide each point in the cloud by a scalar.
@@ -820,6 +850,28 @@ class PointCloud(BagOfPoints):
         if not isinstance(div, numbers.Number):
             raise ValueError('Type %s not supported. Only scalar division is supported' %(type(div)))
         return self.__mul__(1.0 / div)
+
+    def __rtruediv__(self, div):
+        """Divide a scalar by each point in the cloud.
+
+        Parameters
+        ----------
+        div : float
+            The number by which the PointCloud is divided.
+
+        Returns
+        -------
+        :obj:`PointCloud`
+            A PointCloud created by the division.
+
+        Raises
+        ------
+        ValueError
+            If div is not a scalar value.
+        """
+        if isinstance(div, numbers.Number):
+            return PointCloud(div / self._data, self._frame)
+        raise ValueError('Type %s not supported. Only scalar division is supported' %(type(div)))
 
     @staticmethod
     def open(filename, frame='unspecified'):
@@ -1218,4 +1270,3 @@ class PointNormalCloud(object):
                                       (np.isfinite(self.normal_cloud.data[0,:])))[0]
         self.point_cloud._data = self.point_cloud.data[:, points_of_interest]
         self.normal_cloud._data = self.normal_cloud.data[:, points_of_interest]
-
