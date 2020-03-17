@@ -80,7 +80,7 @@ if __name__ == '__main__':
     
     # incrementally add points to the new dataset
     obj_id = 0
-    obj_ids = {}
+    obj_ids = {'unknown': 0}
     for dataset_name in all_input_dataset_names:
         dataset = TensorDataset.open(dataset_name)
         if 'obj_ids' in dataset.metadata.keys():

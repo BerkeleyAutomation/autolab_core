@@ -222,13 +222,14 @@ class TensorDataset(object):
     Thus, reads are most efficient when performed in order rather than randomly, to prevent
     expensive I/O to read a single datapoint.
     """
-    def __init__(self, filename, config, access_mode=WRITE_ACCESS):
+    def __init__(self, filename, config, access_mode=WRITE_ACCESS, force_overwrite=False):
         # read params
         self._filename = filename
         self._config = config
         self._metadata = {}
         self._datapoints_per_file = config['datapoints_per_file']
         self._access_mode = access_mode
+        self._filename_numeric_label_place = 5
 
         # open dataset folder
         # create dataset if necessary
@@ -239,10 +240,11 @@ class TensorDataset(object):
             raise ValueError('Dataset %s does not exist!' %(self._filename))
         # check dataset empty
         elif access_mode == WRITE_ACCESS and os.path.exists(self._filename) and len(os.listdir(self._filename)) > 0:
-            human_input = keyboard_input('Dataset %s exists. Overwrite?' %(self._filename), yesno=True)
-            if human_input.lower() == 'n':
-                raise ValueError('User opted not to overwrite dataset')
-
+            if not force_overwrite:
+                human_input = keyboard_input('Dataset %s exists. Overwrite?' %(self._filename), yesno=True)
+                if human_input.lower() == 'n':
+                    raise ValueError('User opted not to overwrite dataset')
+                
             # delete the old dataset
             shutil.rmtree(self._filename)
             os.mkdir(self._filename)
@@ -282,18 +284,22 @@ class TensorDataset(object):
             if os.path.exists(self.metadata_filename):
                 self._metadata = json.load(open(self.metadata_filename, 'r'))
             
+            # get the filename numeric label place
+            sample_fname = os.listdir(self.tensor_dir)[0]
+            self._filename_numeric_label_place = len(sample_fname[sample_fname.rindex('_') + 1:-4])
+
             # read the number of tensor files
             tensor_dir = self.tensor_dir
             tensor_filenames = filenames(tensor_dir, tag=COMPRESSED_TENSOR_EXT, sorted=True)
             pruned_tensor_filenames = []
             for filename in tensor_filenames:
                 try:
-                    file_num = int(filename[-9:-4])
+                    file_num = int(filename[-4 - self._filename_numeric_label_place:-4])
                     pruned_tensor_filenames.append(filename)
                 except:
                     pass
             tensor_filenames = pruned_tensor_filenames    
-            file_nums = np.array([int(filename[-9:-4]) for filename in tensor_filenames])
+            file_nums = np.array([int(filename[-4 - self._filename_numeric_label_place:-4]) for filename in tensor_filenames])
             if len(file_nums) > 0:
                 self._num_tensors = np.max(file_nums)+1
             else:
@@ -338,6 +344,10 @@ class TensorDataset(object):
 
                 # set mapping from index to file num
                 self._index_to_file_num[ind] = cur_file_num
+
+    @property
+    def filename_numeric_label_place(self):
+        return self._filename_numeric_label_place
 
     @property
     def filename(self):
@@ -428,7 +438,7 @@ class TensorDataset(object):
         file_ext = TENSOR_EXT
         if compressed:
             file_ext = COMPRESSED_TENSOR_EXT
-        filename = os.path.join(self.filename, 'tensors', '%s_%05d%s' %(field_name, file_num, file_ext))
+        filename = os.path.join(self.filename, 'tensors', ('%s_%0' + str(self._filename_numeric_label_place) + 'd%s') %(field_name, file_num, file_ext))
         return filename
 
     def train_indices_filename(self, split_name):

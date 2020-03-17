@@ -354,6 +354,10 @@ class BinaryClassificationResult(ClassificationResult):
         ClassificationResult.__init__(self, pred_probs, labels)
 
     @property
+    def cross_entropy_loss(self):
+        return np.mean((-1 * self.labels * np.log(self.pred_probs)) + (-1 * (1 - self.labels) * np.log(1 - self.pred_probs)))
+
+    @property
     def num_categories(self):
         return 2
 

@@ -452,7 +452,7 @@ class RigidTransform(object):
         if isinstance(rigid_object, BagOfPoints):
             return self.apply(rigid_object)
         raise ValueError('Cannot multiply rigid transform with object of type %s' %(type(rigid_object)))
-
+                              
     def inverse(self):
         """Take the inverse of the rigid transform.
 
@@ -461,9 +461,9 @@ class RigidTransform(object):
         :obj:`RigidTransform`
             The inverse of this RigidTransform.
         """
-        inv_pose = np.linalg.inv(self.matrix)
-        rotation, translation = RigidTransform.rotation_and_translation_from_matrix(inv_pose)
-        return RigidTransform(rotation, translation,
+        inv_rotation = self.rotation.T
+        inv_translation = np.dot(-self.rotation.T, self.translation)
+        return RigidTransform(inv_rotation, inv_translation,
                               from_frame=self._to_frame,
                               to_frame=self._from_frame)
 
@@ -595,8 +595,8 @@ class RigidTransform(object):
         return out
 
     def __repr__(self):
-        out = 'RigidTransform(rotation={0}, translation={1}, from_frame={2}, to_frame={3})'.format(self.rotation,
-                self.translation, self.from_frame, self.to_frame)
+        out = 'RigidTransform(rotation=np.{0}, translation=np.{1}, from_frame={2}, to_frame={3})'.format(repr(self.rotation),
+                repr(self.translation), repr(self.from_frame), repr(self.to_frame))
         return out
 
     @staticmethod
@@ -608,7 +608,7 @@ class RigidTransform(object):
     @staticmethod
     def core_q_to_ros_q(q_core):
         """Converts a ROS quaternion vector to an autolab_core quaternion vector."""
-        q_ros = np.array([q_core[1], q_core[2], q_core[2], q_core[0]])
+        q_ros = np.array([q_core[1], q_core[2], q_core[3], q_core[0]])
         return q_ros
 
     @staticmethod
@@ -807,6 +807,37 @@ class RigidTransform(object):
         rotation = matrix[:3,:3]
         translation = matrix[:3,3]
         return rotation, translation
+
+    @staticmethod
+    def rotation_from_axis_and_origin(axis, origin, angle, to_frame='world'):
+        """
+        Returns a rotation matrix around some arbitrary axis, about the point origin, using Rodrigues Formula
+
+        Parameters
+        ----------
+        axis : :obj:`numpy.ndarray` of float
+            3x1 vector representing which axis we should be rotating about
+        origin : :obj:`numpy.ndarray` of float
+            3x1 vector representing where the rotation should be centered around
+        angle : float
+            how much to rotate (in radians)
+        to_frame : :obj:`str`
+            A name for the frame of reference to which this transform
+            moves objects.
+        """
+        axis_hat = np.array([[0, -axis[2], axis[1]],
+                             [axis[2], 0, -axis[0]],
+                             [-axis[1], axis[0], 0]])
+        # Rodrigues Formula
+        R = RigidTransform(
+            np.eye(3) + np.sin(angle) * axis_hat + (1 - np.cos(angle)) * axis_hat.dot(axis_hat),
+            from_frame=to_frame,
+            to_frame=to_frame
+        )
+
+        return RigidTransform(translation=origin, from_frame=to_frame, to_frame=to_frame) \
+            .dot(R) \
+            .dot(RigidTransform(translation=-origin, from_frame=to_frame, to_frame=to_frame))
 
     @staticmethod
     def x_axis_rotation(theta):
@@ -1315,6 +1346,6 @@ class SimilarityTransform(RigidTransform):
         return out
 
     def __repr__(self):
-        out = "SimilarityTransform(rotation={0}, translation={1}, scale={2}, from_frame={3}, to_frame={4})".format(
+        out = "SimilarityTransform(rotation=np.{0}, translation=np.{1}, scale={2}, from_frame={3}, to_frame={4})".format(
                                     repr(self.rotation), repr(self.translation), repr(self.scale), repr(self.from_frame), repr(self.to_frame))
         return out

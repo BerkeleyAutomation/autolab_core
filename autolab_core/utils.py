@@ -4,6 +4,7 @@ Author: Jeff Mahler
 """
 import logging
 import os
+from six.moves import input
 
 import numpy as np
 
@@ -174,7 +175,7 @@ def pretty_str_time(dt):
     """
     return "{0}_{1}_{2}_{3}:{4}".format(dt.year, dt.month, dt.day, dt.hour, dt.minute)
 
-def filenames(directory, tag='', sorted=False):
+def filenames(directory, tag='', sorted=False, recursive=False):
     """ Reads in all filenames from a directory that contain a specified substring.
 
     Parameters
@@ -185,13 +186,18 @@ def filenames(directory, tag='', sorted=False):
         optional tag to match in the filenames
     sorted : bool
         whether or not to sort the filenames
+    recursive : bool
+        whether or not to search for the files recursively
 
     Returns
     -------
     :obj:`list` of :obj:`str`
         filenames to read from
     """
-    f = [os.path.join(directory, f) for f in os.listdir(directory) if f.find(tag) > -1]
+    if recursive:
+        f = [os.path.join(directory, f) for directory, _, filename in os.walk(directory) for f in filename if f.find(tag) > -1] 
+    else:
+        f = [os.path.join(directory, f) for f in os.listdir(directory) if f.find(tag) > -1]
     if sorted:
         f.sort()
     return f
@@ -287,11 +293,11 @@ def keyboard_input(message, yesno=False):
         message += '[y/n] '
 
     # ask human
-    human_input = raw_input(message)
+    human_input = input(message)
     if yesno:
         while human_input.lower() != 'n' and human_input.lower() != 'y':
             logging.info('Did not understand input. Please answer \'y\' or \'n\'')
-            human_input = raw_input(message)
+            human_input = input(message)
     return human_input
 
 def sqrt_ceil(n):
@@ -308,3 +314,42 @@ def sqrt_ceil(n):
         the sqrt rounded up to the nearest integer
     """
     return int(np.ceil(np.sqrt(n)))
+
+def is_positive_definite(A):
+    """ Checks if a given matrix is positive definite.
+
+    See https://stackoverflow.com/a/16266736 for details.
+
+    Parameters
+    ----------
+    A : :obj:`numpy.ndarray` of float or int
+        The square matrix of interest
+
+    Returns
+    -------
+    bool
+        whether or not A is positive definite
+    """
+    is_pd = True
+    
+    try:
+        np.linalg.cholesky(A)
+    except np.linalg.LinAlgError:
+        is_pd = False
+
+    return is_pd
+
+def is_positive_semi_definite(A):
+    """ Checks if a given matrix is positive semi definite.
+
+    Parameters
+    ----------
+    A : :obj:`numpy.ndarray` of float or int
+        The square matrix of interest
+
+    Returns
+    -------
+    bool
+        whether or not A is positive semi-definite
+    """
+    return is_positive_definite(A + np.eye(len(A)) * 1e-20)
