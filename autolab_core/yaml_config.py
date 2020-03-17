@@ -48,6 +48,11 @@ class YamlConfig(object):
         """
         self.config.update(d)
 
+    def get(self, key, default=None):
+        """Allows for get method like python dict.
+        """
+        return self.config.get(key, default)
+
     def __contains__(self, key):
         """Overrides 'in' operator.
         """
