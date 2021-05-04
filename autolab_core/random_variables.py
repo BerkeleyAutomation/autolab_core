@@ -1,5 +1,5 @@
 """
-Generic Random Variable wrapper classes 
+Generic Random Variable wrapper classes
 Author: Jeff Mahler
 """
 from abc import ABCMeta, abstractmethod
@@ -10,9 +10,10 @@ import scipy.stats
 from .rigid_transformations import RigidTransform
 from .utils import skew, is_positive_semi_definite
 
+
 class RandomVariable(object):
-    """Abstract base class for random variables.
-    """
+    """Abstract base class for random variables."""
+
     __metaclass__ = ABCMeta
 
     def __init__(self, num_prealloc_samples=0):
@@ -28,8 +29,7 @@ class RandomVariable(object):
             self._preallocate_samples()
 
     def _preallocate_samples(self):
-        """Preallocate samples for faster adaptive sampling.
-        """
+        """Preallocate samples for faster adaptive sampling."""
         self.prealloc_samples_ = []
         for _ in range(self.num_prealloc_samples_):
             self.prealloc_samples_.append(self.sample())
@@ -73,16 +73,20 @@ class RandomVariable(object):
         if self.num_prealloc_samples_ > 0:
             samples = []
             for i in range(size):
-                samples.append(self.prealloc_samples_[(iteration + i) % self.num_prealloc_samples_])
+                samples.append(
+                    self.prealloc_samples_[
+                        (iteration + i) % self.num_prealloc_samples_
+                    ]
+                )
             if size == 1:
                 return samples[0]
             return samples
         # generate a new sample
         return self.sample(size=size)
 
+
 class BernoulliRV(RandomVariable):
-    """A Bernoulli random variable.
-    """
+    """A Bernoulli random variable."""
 
     def __init__(self, p, *args, **kwargs):
         """Initialize a Bernoulli random variable with probability p.
@@ -114,9 +118,9 @@ class BernoulliRV(RandomVariable):
             return samples[0]
         return samples
 
+
 class GaussianRV(RandomVariable):
-    """A Gaussian random variable.
-    """
+    """A Gaussian random variable."""
 
     def __init__(self, mu, sigma, *args, **kwargs):
         """Initialize a Gaussian random variable.
@@ -147,12 +151,14 @@ class GaussianRV(RandomVariable):
         :obj:`numpy.ndarray` of float
             The samples of the random variable.
         """
-        samples = scipy.stats.multivariate_normal.rvs(self.mu, self.sigma, size=size)
+        samples = scipy.stats.multivariate_normal.rvs(
+            self.mu, self.sigma, size=size
+        )
         return samples
 
+
 class ArtificialRV(RandomVariable):
-    """A fake RV that deterministically returns the given object.
-    """
+    """A fake RV that deterministically returns the given object."""
 
     def __init__(self, obj, *args, **kwargs):
         """Initialize an artifical RV.
@@ -183,9 +189,10 @@ class ArtificialRV(RandomVariable):
         """
         return np.array([self.obj_] * size)
 
+
 class ArtificialSingleRV(ArtificialRV):
-    """A single ArtificialRV.
-    """
+    """A single ArtificialRV."""
+
     def sample(self, size=None):
         """Generate a single copy of the artificial RV.
 
@@ -196,11 +203,12 @@ class ArtificialSingleRV(ArtificialRV):
         """
         return self.obj_
 
+
 class GaussianRigidTransformRandomVariable(RandomVariable):
-    """ Random variable for sampling RigidTransformations with
+    """Random variable for sampling RigidTransformations with
     a Gaussian distribution over pose variables.
 
-    We assume no correlation between translation and rotation, so 
+    We assume no correlation between translation and rotation, so
     their values are sampled independently.
 
     To sample rotations, we use the method described on page 7 here:
@@ -213,7 +221,7 @@ class GaussianRigidTransformRandomVariable(RandomVariable):
     mu_rot : :obj:`numpy.ndarray` of float or int
         Mean rotation
     sigma_tra : :obj:`numpy.ndarray` of float or int
-        Covariance of translation. 
+        Covariance of translation.
     sigma_rot: :obj:`numpy.ndarray` of float or int
         Covariance of rotation
     from_frame : str
@@ -222,19 +230,31 @@ class GaussianRigidTransformRandomVariable(RandomVariable):
     Raises
     ------
     ValueError
-        If mu_rot is not a valid rotation, or if either sigma_tra or sigma_rot 
+        If mu_rot is not a valid rotation, or if either sigma_tra or sigma_rot
         is not positive semi-definite.
     """
-    def __init__(self, mu_tra=np.zeros(3), mu_rot=np.eye(3), 
-                 sigma_tra=np.eye(3), sigma_rot=np.eye(3),
-                 from_frame='world', to_frame='world',
-                 *args, **kwargs):
+
+    def __init__(
+        self,
+        mu_tra=np.zeros(3),
+        mu_rot=np.eye(3),
+        sigma_tra=np.eye(3),
+        sigma_rot=np.eye(3),
+        from_frame="world",
+        to_frame="world",
+        *args,
+        **kwargs
+    ):
         if np.abs(np.linalg.det(mu_rot) - 1.0) > 1e-3:
-            raise ValueError('Illegal rotation. Must have determinant == 1.0')
+            raise ValueError("Illegal rotation. Must have determinant == 1.0")
         if not is_positive_semi_definite(sigma_tra):
-            raise ValueError('Translation covariance is not positive semi-definite!')
+            raise ValueError(
+                "Translation covariance is not positive semi-definite!"
+            )
         if not is_positive_semi_definite(sigma_rot):
-            raise ValueError('Rotation covariance is not positive semi-definite!')
+            raise ValueError(
+                "Rotation covariance is not positive semi-definite!"
+            )
 
         # read params
         self._mu_tra = mu_tra.copy()
@@ -243,25 +263,35 @@ class GaussianRigidTransformRandomVariable(RandomVariable):
         self._sigma_rot = sigma_rot.copy()
 
         diag_idx = np.diag_indices(3)
-        self._sigma_tra[diag_idx] = np.clip(np.diag(self._sigma_tra), 1e-10, np.inf)
-        self._sigma_rot[diag_idx] = np.clip(np.diag(self._sigma_rot), 1e-10, np.inf)
-        
+        self._sigma_tra[diag_idx] = np.clip(
+            np.diag(self._sigma_tra), 1e-10, np.inf
+        )
+        self._sigma_rot[diag_idx] = np.clip(
+            np.diag(self._sigma_rot), 1e-10, np.inf
+        )
+
         self._from_frame = from_frame
         self._to_frame = to_frame
 
         # setup random variables
-        self._t_rv = scipy.stats.multivariate_normal(self._mu_tra, self._sigma_tra)
-        self._r_xi_rv = scipy.stats.multivariate_normal(np.zeros(3), self._sigma_rot)
-        super(GaussianRigidTransformRandomVariable, self).__init__(*args, **kwargs)
+        self._t_rv = scipy.stats.multivariate_normal(
+            self._mu_tra, self._sigma_tra
+        )
+        self._r_xi_rv = scipy.stats.multivariate_normal(
+            np.zeros(3), self._sigma_rot
+        )
+        super(GaussianRigidTransformRandomVariable, self).__init__(
+            *args, **kwargs
+        )
 
     def sample(self, size=1):
-        """ Sample rigid transform random variables.
+        """Sample rigid transform random variables.
 
         Parameters
         ----------
         size : int
             number of sample to take
-        
+
         Returns
         -------
         :obj:`list` of :obj:`RigidTransform`
@@ -276,18 +306,25 @@ class GaussianRigidTransformRandomVariable(RandomVariable):
 
             t_sample = self._t_rv.rvs(size=1)
 
-            samples.append(RigidTransform(rotation=R_sample,
-                                          translation=t_sample,
-                                          from_frame=self._from_frame,
-                                          to_frame=self._to_frame))
+            samples.append(
+                RigidTransform(
+                    rotation=R_sample,
+                    translation=t_sample,
+                    from_frame=self._from_frame,
+                    to_frame=self._to_frame,
+                )
+            )
 
         # not a list if only 1 sample
         if size == 1 and len(samples) > 0:
             return samples[0]
         return samples
 
-class IsotropicGaussianRigidTransformRandomVariable(GaussianRigidTransformRandomVariable):
-    """ Random variable for sampling RigidTransformations with
+
+class IsotropicGaussianRigidTransformRandomVariable(
+    GaussianRigidTransformRandomVariable
+):
+    """Random variable for sampling RigidTransformations with
     a zero-mean isotropic Gaussian distribution over pose variables.
 
     Attributes
@@ -300,11 +337,21 @@ class IsotropicGaussianRigidTransformRandomVariable(GaussianRigidTransformRandom
     to_frame : str
 
     """
-    def __init__(self, sigma_trans, sigma_rot,
-                 from_frame='world', to_frame='world',
-                 *args, **kwargs):
+
+    def __init__(
+        self,
+        sigma_trans,
+        sigma_rot,
+        from_frame="world",
+        to_frame="world",
+        *args,
+        **kwargs
+    ):
         super(IsotropicGaussianRigidTransformRandomVariable, self).__init__(
-            sigma_tra=max(1e-10, sigma_trans) * np.eye(3), 
+            sigma_tra=max(1e-10, sigma_trans) * np.eye(3),
             sigma_rot=max(1e-10, sigma_rot) * np.eye(3),
-            from_frame=from_frame, to_frame=to_frame,
-            *args, **kwargs)
+            from_frame=from_frame,
+            to_frame=to_frame,
+            *args,
+            **kwargs
+        )

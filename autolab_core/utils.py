@@ -4,9 +4,8 @@ Author: Jeff Mahler
 """
 import logging
 import os
-from six.moves import input
-
 import numpy as np
+
 
 def gen_experiment_id(n=10):
     """Generate a random string with n characters.
@@ -19,14 +18,15 @@ def gen_experiment_id(n=10):
     Returns
     -------
     :obj:`str`
-        A string with only alphabetic characters. 
+        A string with only alphabetic characters.
     """
-    chrs = 'abcdefghijklmnopqrstuvwxyz'
-    inds = np.random.randint(0,len(chrs), size=n)
-    return ''.join([chrs[i] for i in inds])
+    chrs = "abcdefghijklmnopqrstuvwxyz"
+    inds = np.random.randint(0, len(chrs), size=n)
+    return "".join([chrs[i] for i in inds])
+
 
 def get_elapsed_time(time_in_seconds):
-    """ Helper function to get elapsed time in human-readable format.
+    """Helper function to get elapsed time in human-readable format.
 
     Parameters
     ----------
@@ -39,14 +39,15 @@ def get_elapsed_time(time_in_seconds):
         formatted human-readable string describing the time
     """
     if time_in_seconds < 60:
-        return '%.1f seconds' % (time_in_seconds)
+        return "%.1f seconds" % (time_in_seconds)
     elif time_in_seconds < 3600:
-        return '%.1f minutes' % (time_in_seconds / 60)
+        return "%.1f minutes" % (time_in_seconds / 60)
     else:
-        return '%.1f hours' % (time_in_seconds / 3600)
+        return "%.1f hours" % (time_in_seconds / 3600)
+
 
 def mkdir_safe(path):
-    """ Creates a directory if it does not already exist.
+    """Creates a directory if it does not already exist.
 
     Parameters
     ----------
@@ -60,8 +61,11 @@ def mkdir_safe(path):
     """
     if not os.path.exists(path):
         os.mkdir(path)
-    
-def histogram(values, num_bins, bounds, normalized=True, plot=False, color='b'):
+
+
+def histogram(
+    values, num_bins, bounds, normalized=True, plot=False, color="b"
+):
     """Generate a histogram plot.
 
     Parameters
@@ -92,14 +96,16 @@ def histogram(values, num_bins, bounds, normalized=True, plot=False, color='b'):
         The values of the histogram and the bin edges as ndarrays.
     """
     hist, bins = np.histogram(values, bins=num_bins, range=bounds)
-    width = (bins[1] - bins[0])
+    width = bins[1] - bins[0]
     if normalized:
         if np.sum(hist) > 0:
             hist = hist.astype(np.float32) / np.sum(hist)
     if plot:
         import matplotlib.pyplot as plt
-        plt.bar(bins[:-1], hist, width=width, color=color)    
+
+        plt.bar(bins[:-1], hist, width=width, color=color)
     return hist, bins
+
 
 def skew(xi):
     """Return the skew-symmetric matrix that can be used to calculate
@@ -118,10 +124,9 @@ def skew(xi):
     :obj:`numpy.ndarray` of float
         The 3x3 skew-symmetric cross product matrix for the vector.
     """
-    S = np.array([[0, -xi[2], xi[1]],
-                  [xi[2], 0, -xi[0]],
-                  [-xi[1], xi[0], 0]])
+    S = np.array([[0, -xi[2], xi[1]], [xi[2], 0, -xi[0]], [-xi[1], xi[0], 0]])
     return S
+
 
 def deskew(S):
     """Converts a skew-symmetric cross-product matrix to its corresponding
@@ -138,13 +143,14 @@ def deskew(S):
         A 3-entry vector that corresponds to the given cross product matrix.
     """
     x = np.zeros(3)
-    x[0] = S[2,1]
-    x[1] = S[0,2]
-    x[2] = S[1,0]
+    x[0] = S[2, 1]
+    x[1] = S[0, 2]
+    x[2] = S[1, 0]
     return x
 
+
 def reverse_dictionary(d):
-    """ Reverses the key value pairs for a given dictionary.
+    """Reverses the key value pairs for a given dictionary.
 
     Parameters
     ----------
@@ -157,26 +163,30 @@ def reverse_dictionary(d):
         dictionary with keys and values swapped
     """
     rev_d = {}
-    [rev_d.update({v:k}) for k, v in d.items()]
+    [rev_d.update({v: k}) for k, v in d.items()]
     return rev_d
+
 
 def pretty_str_time(dt):
     """Get a pretty string for the given datetime object.
-    
+
     Parameters
     ----------
     dt : :obj:`datetime`
         A datetime object to format.
-    
+
     Returns
     -------
     :obj:`str`
         The `datetime` formatted as {year}_{month}_{day}_{hour}_{minute}.
     """
-    return "{0}_{1}_{2}_{3}:{4}".format(dt.year, dt.month, dt.day, dt.hour, dt.minute)
+    return "{0}_{1}_{2}_{3}:{4}".format(
+        dt.year, dt.month, dt.day, dt.hour, dt.minute
+    )
 
-def filenames(directory, tag='', sorted=False, recursive=False):
-    """ Reads in all filenames from a directory that contain a specified substring.
+
+def filenames(directory, tag="", sorted=False, recursive=False):
+    """Reads in all filenames from a directory that contain a specified substring.
 
     Parameters
     ----------
@@ -195,15 +205,25 @@ def filenames(directory, tag='', sorted=False, recursive=False):
         filenames to read from
     """
     if recursive:
-        f = [os.path.join(directory, f) for directory, _, filename in os.walk(directory) for f in filename if f.find(tag) > -1] 
+        f = [
+            os.path.join(directory, f)
+            for directory, _, filename in os.walk(directory)
+            for f in filename
+            if f.find(tag) > -1
+        ]
     else:
-        f = [os.path.join(directory, f) for f in os.listdir(directory) if f.find(tag) > -1]
+        f = [
+            os.path.join(directory, f)
+            for f in os.listdir(directory)
+            if f.find(tag) > -1
+        ]
     if sorted:
         f.sort()
     return f
 
+
 def sph2cart(r, az, elev):
-    """ Convert spherical to cartesian coordinates.
+    """Convert spherical to cartesian coordinates.
 
     Attributes
     ----------
@@ -228,8 +248,9 @@ def sph2cart(r, az, elev):
     z = r * np.cos(elev)
     return x, y, z
 
+
 def cart2sph(x, y, z):
-    """ Convert cartesian to spherical coordinates.
+    """Convert cartesian to spherical coordinates.
 
     Attributes
     ----------
@@ -249,15 +270,15 @@ def cart2sph(x, y, z):
     float
         elevation
     """
-    r = np.sqrt(x**2 + y**2 + z**2)
+    r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
     if x > 0 and y > 0:
         az = np.arctan(y / x)
     elif x > 0 and y < 0:
-        az = 2*np.pi - np.arctan(-y / x)
+        az = 2 * np.pi - np.arctan(-y / x)
     elif x < 0 and y > 0:
-        az = np.pi - np.arctan(-y / x)    
+        az = np.pi - np.arctan(-y / x)
     elif x < 0 and y < 0:
-        az = np.pi + np.arctan(y / x)    
+        az = np.pi + np.arctan(y / x)
     elif x == 0 and y > 0:
         az = np.pi / 2
     elif x == 0 and y < 0:
@@ -269,8 +290,9 @@ def cart2sph(x, y, z):
     elev = np.arccos(z / r)
     return r, az, elev
 
+
 def keyboard_input(message, yesno=False):
-    """ Get keyboard input from a human, optionally reasking for valid
+    """Get keyboard input from a human, optionally reasking for valid
     yes or no input.
 
     Parameters
@@ -279,29 +301,31 @@ def keyboard_input(message, yesno=False):
         the message to display to the user
     yesno : :obj:`bool`
         whether or not to enforce yes or no inputs
-    
+
     Returns
     -------
     :obj:`str`
         string input by the human
     """
     # add space for readability
-    message += ' '
+    message += " "
 
     # add yes or no to message
     if yesno:
-        message += '[y/n] '
+        message += "[y/n] "
 
     # ask human
     human_input = input(message)
     if yesno:
-        while human_input.lower() != 'n' and human_input.lower() != 'y':
-            logging.info('Did not understand input. Please answer \'y\' or \'n\'')
+        while human_input.lower() != "n" and human_input.lower() != "y":
+            logging.info("Did not understand input. Please answer 'y' or 'n'")
             human_input = input(message)
     return human_input
 
+
 def sqrt_ceil(n):
-    """ Computes the square root of an number rounded up to the nearest integer. Very useful for plotting.
+    """Computes the square root of an number rounded up to the nearest
+    integer. Very useful for plotting.
 
     Parameters
     ----------
@@ -315,8 +339,9 @@ def sqrt_ceil(n):
     """
     return int(np.ceil(np.sqrt(n)))
 
+
 def is_positive_definite(A):
-    """ Checks if a given matrix is positive definite.
+    """Checks if a given matrix is positive definite.
 
     See https://stackoverflow.com/a/16266736 for details.
 
@@ -331,7 +356,7 @@ def is_positive_definite(A):
         whether or not A is positive definite
     """
     is_pd = True
-    
+
     try:
         np.linalg.cholesky(A)
     except np.linalg.LinAlgError:
@@ -339,8 +364,9 @@ def is_positive_definite(A):
 
     return is_pd
 
+
 def is_positive_semi_definite(A):
-    """ Checks if a given matrix is positive semi definite.
+    """Checks if a given matrix is positive semi definite.
 
     Parameters
     ----------
