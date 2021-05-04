@@ -8,11 +8,13 @@ from setuptools import setup
 requirements = [
     "numpy",
     "scipy",
+    "scikit-image",
     "scikit-learn",
     "ruamel.yaml",
     "matplotlib",
     "multiprocess",
     "setproctitle",
+    "Pillow",
     "joblib",
     "colorlog",
     "pyreadline; platform_system=='Windows'",

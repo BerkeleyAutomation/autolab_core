@@ -32,3 +32,12 @@ JSON_INDENT = 2
 # Train / Test
 TRAIN_ID = 0
 TEST_ID = 1
+
+# Extensions
+COLOR_IMAGE_EXTS = [".png", ".jpg"]
+INTR_EXTENSION = ".intr"
+
+# Image constants
+MIN_DEPTH = 0.25
+MAX_DEPTH = 1.25
+MAX_IR = 65535

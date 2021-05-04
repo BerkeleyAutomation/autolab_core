@@ -124,7 +124,10 @@ def skew(xi):
     :obj:`numpy.ndarray` of float
         The 3x3 skew-symmetric cross product matrix for the vector.
     """
-    S = np.array([[0, -xi[2], xi[1]], [xi[2], 0, -xi[0]], [-xi[1], xi[0], 0]])
+    S = np.array(
+        [[0, -xi[2], xi[1]], [xi[2], 0, -xi[0]], [-xi[1], xi[0], 0]],
+        dtype=np.float,
+    )
     return S
 
 

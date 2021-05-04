@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <name>autolab_core</name>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <description>The autolab_core package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="jmahler@berkeley.edu">todo</maintainer>
+  <maintainer email="mdanielczuk@berkeley.edu">Mike Danielczuk</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -25,7 +25,7 @@
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
   <!-- Authors do not have to be maintianers, but could be -->
   <!-- Example: -->
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <author email="jmahler@berkeley.edu">Jeff Mahler</author>
 
 
   <!-- The *_depend tags are used to specify dependencies -->

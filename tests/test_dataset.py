@@ -24,12 +24,11 @@ MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Tests tensor dataset basic functionality
 Author: Jeff Mahler
 """
-import logging
+import unittest
 import numpy as np
 import os
 import random
 import shutil
-from unittest import TestCase, TestSuite, TextTestRunner
 
 import autolab_core.utils as utils
 from autolab_core.constants import READ_WRITE_ACCESS
@@ -59,7 +58,7 @@ TENSOR_CONFIG = {
 }
 
 
-class TensorDatasetTest(TestCase):
+class TensorDatasetTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         if os.path.exists(TEST_TENSOR_DATASET_NAME):
@@ -380,8 +379,4 @@ class TensorDatasetTest(TestCase):
 
 
 if __name__ == "__main__":
-    logging.getLogger().setLevel(logging.INFO)
-    test_suite = TestSuite()
-    test_suite.addTest(TensorDatasetTest("test_single_read_write"))
-    test_suite.addTest(TensorDatasetTest("test_multi_tensor_read_write"))
-    TextTestRunner(verbosity=2).run(test_suite)
+    unittest.main()
