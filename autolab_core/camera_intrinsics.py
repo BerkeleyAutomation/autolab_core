@@ -7,10 +7,9 @@ import numpy as np
 import json
 import os
 
-from .points import Point, PointCloud, ImageCoords
-
 from .constants import INTR_EXTENSION
 from .image import DepthImage, PointCloudImage
+from .points import Point, PointCloud, ImageCoords
 
 
 class CameraIntrinsics(object):
@@ -52,16 +51,12 @@ class CameraIntrinsics(object):
         """
         self._frame = frame
         self._fx = float(fx)
-        self._fy = float(fy)
+        self._fy = float(fy) if fy is not None else float(fx)
         self._cx = float(cx)
         self._cy = float(cy)
         self._skew = float(skew)
-        self._height = int(height)
-        self._width = int(width)
-
-        # set focal, camera center automatically if under specified
-        if fy is None:
-            self._fy = fx
+        self._height = int(height) if height is not None else None
+        self._width = int(width) if width is not None else None
 
         # set camera projection matrix
         self._K = np.array(

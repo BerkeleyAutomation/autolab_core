@@ -3,9 +3,7 @@ Tests the image class.
 Author: Jeff Mahler
 """
 import unittest
-from unittest import TestCase
 
-import logging
 import numpy as np
 
 from .constants import NUM_POINTS, NUM_ITERS
@@ -18,7 +16,7 @@ from autolab_core import (
 )
 
 
-class TestRegistration(TestCase):
+class TestRegistration(unittest.TestCase):
     def test_registration(self):
         np.random.seed(101)
 
@@ -90,7 +88,4 @@ class TestRegistration(TestCase):
 
 
 if __name__ == "__main__":
-    logging.getLogger().setLevel(logging.INFO)
-    test_suite = unittest.TestSuite()
-    test_suite.addTest(TestRegistration("test_registration"))
-    unittest.TextTestRunner(verbosity=2).run(test_suite)
+    unittest.main()
