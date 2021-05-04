@@ -4,6 +4,7 @@ Author: Jeff Mahler
 """
 import numpy as np
 
+
 class Box(object):
     """A 2D box or 3D rectangular prism.
 
@@ -34,7 +35,7 @@ class Box(object):
         The frame in which this box is placed.
     """
 
-    def __init__(self, min_pt, max_pt, frame='unspecified'):
+    def __init__(self, min_pt, max_pt, frame="unspecified"):
         """Initialize a box.
 
         Parameters
@@ -54,51 +55,48 @@ class Box(object):
             If max_pt is not strictly larger than min_pt in all dims.
         """
         if np.any((max_pt - min_pt) < 0):
-            raise ValueError('Min point must be smaller than max point')
+            raise ValueError("Min point must be smaller than max point")
         self._min_pt = min_pt
         self._max_pt = max_pt
         self._frame = frame
 
     @property
     def dims(self):
-        """:obj:`numpy.ndarray` of float: Maximal extent in x, y, and (optionally) z
-        """
+        """:obj:`numpy.ndarray` of float: Maximal extent in x, y,
+        and (optionally) z"""
         return self._max_pt - self._min_pt
 
     @property
     def width(self):
-        """float: Maximal extent in x.
-        """
+        """float: Maximal extent in x."""
         return int(np.round(self.dims[1]))
 
     @property
     def height(self):
-        """float: Maximal extent in y.
-        """
+        """float: Maximal extent in y."""
         return int(np.round(self.dims[0]))
 
     @property
     def area(self):
-        """float: Area of projection onto xy plane.
-        """
+        """float: Area of projection onto xy plane."""
         return self.width * self.height
 
     @property
     def min_pt(self):
-        """:obj:`numpy.ndarray` of float: The minimum x, y, and (optionally) z points.
-        """
+        """:obj:`numpy.ndarray` of float: The minimum x, y, and
+        (optionally) z points."""
         return self._min_pt
 
     @property
     def max_pt(self):
-        """:obj:`numpy.ndarray` of float: The maximum x, y, and (optionally) z points.
-        """
+        """:obj:`numpy.ndarray` of float: The maximum x, y, and
+        (optionally) z points."""
         return self._max_pt
 
     @property
     def center(self):
-        """:obj:`numpy.ndarray` of float: The center of the box in 2 or 3D coords.
-        """
+        """:obj:`numpy.ndarray` of float: The center of the box in 2D or
+        3D coords."""
         return self.min_pt + self.dims / 2.0
 
     @property
@@ -113,12 +111,12 @@ class Box(object):
 
     @property
     def frame(self):
-        """:obj:`str`: The frame in which this box is placed.
-        """
+        """:obj:`str`: The frame in which this box is placed."""
         return self._frame
 
+
 class Contour(object):
-    """ A set of pixels forming the boundary of an object of interest in an image.
+    """A set of pixels forming the boundary of an object of interest in an image.
 
     Attributes
     ----------
@@ -131,14 +129,16 @@ class Contour(object):
     num_pixels : int
         number of pixels along the boundary
     """
-    def __init__(self, boundary_pixels, area=0.0, frame='unspecified'):
+
+    def __init__(self, boundary_pixels, area=0.0, frame="unspecified"):
         self.boundary_pixels = boundary_pixels.squeeze()
-        self.bounding_box = Box(np.min(self.boundary_pixels, axis=0),
-                                np.max(self.boundary_pixels, axis=0),
-                                frame)
+        self.bounding_box = Box(
+            np.min(self.boundary_pixels, axis=0),
+            np.max(self.boundary_pixels, axis=0),
+            frame,
+        )
         self.area = area
-        
+
     @property
     def num_pixels(self):
         return self.boundary_pixels.shape[0]
-

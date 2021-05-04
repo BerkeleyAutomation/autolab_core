@@ -4,12 +4,11 @@ Author: Jeff Mahler
 """
 import numpy as np
 
-from .rigid_transformations import RigidTransform
 
 def abs_angle_diff(v_i, v_j):
-    """ 
+    """
     Returns the absolute value of the angle between two 3D vectors.
-    
+
     Parameters
     ----------
     v_i : :obj:`numpy.ndarray`
@@ -22,7 +21,6 @@ def abs_angle_diff(v_i, v_j):
     angle_diff = np.arccos(dot_prod)
     return np.abs(angle_diff)
 
+
 # dictionary of distance functions
-DistMetrics = {
-    'abs_angle_diff': abs_angle_diff
-}
+DistMetrics = {"abs_angle_diff": abs_angle_diff}

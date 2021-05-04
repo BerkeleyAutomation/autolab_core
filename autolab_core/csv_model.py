@@ -2,20 +2,18 @@
 CSV file wrapper.
 Authors: Jacky Liang, Jeff Mahler
 """
-import os, shutil, logging, csv
+import os
+import shutil
+import logging
+import csv
+
 
 class CSVModel:
-    """A generic model for CSV file reading and writing.
-    """
+    """A generic model for CSV file reading and writing."""
 
-    _KNOWN_TYPES_MAP = {
-        'str': str,
-        'int': int,
-        'float': float,
-        'bool': bool
-    }
+    _KNOWN_TYPES_MAP = {"str": str, "int": int, "float": float, "bool": bool}
 
-    def __init__(self, full_filename, headers_types_list, default_entry=''):
+    def __init__(self, full_filename, headers_types_list, default_entry=""):
         """Instantiates a CSVModel object.
 
         Parameters
@@ -36,39 +34,53 @@ class CSVModel:
             If the types, headers, or default entry are not strings.
         """
         headers, types = zip(*headers_types_list)
-        headers_types = {headers[i]:types[i] for i in range(len(headers))}
+        headers_types = {headers[i]: types[i] for i in range(len(headers))}
         for key, val in headers_types.items():
             if type(val) != str:
-                raise Exception("Types must be passed in as strings! For header {0}, type {1}".format(key, val))
+                raise Exception(
+                    "Types must be passed in as strings! "
+                    f"For header {key}, type {val}"
+                )
             if val not in CSVModel._KNOWN_TYPES_MAP:
-                raise Exception("Invalid type for header {0}. Got: {1}. Can only accept: {2}".format(key, val, CSVModel._KNOWN_TYPES_MAP.keys()))
-            if key == '_uid' or key == '_default':
-                raise Exception("Cannot create reserved columns _uid or _default!")
+                raise ValueError(
+                    f"Invalid type for header {key}. Got: {val}. "
+                    f"Can only accept: {CSVModel._KNOWN_TYPES_MAP.keys()}"
+                )
+            if key == "_uid" or key == "_default":
+                raise Exception(
+                    "Cannot create reserved columns _uid or _default!"
+                )
         if type(default_entry) != str:
-            raise Exception('Default entry must be a string! Got: {0}'.format(default_entry))
+            raise Exception(
+                "Default entry must be a string! Got: {0}".format(
+                    default_entry
+                )
+            )
 
         self._headers_types = headers_types.copy()
-        self._headers = ('_uid',) + tuple(headers) + ('_default',)
+        self._headers = ("_uid",) + tuple(headers) + ("_default",)
 
-        if not full_filename.endswith('.csv'):
-            full_filename = '{0}.csv'.format(full_filename)
+        if not full_filename.endswith(".csv"):
+            full_filename = "{0}.csv".format(full_filename)
 
         self._full_filename = full_filename
         filename = os.path.basename(full_filename)
         file_path = os.path.dirname(full_filename)
-        self._full_backup_filename = os.path.join(file_path, '.backup_{0}'.format(filename))
+        self._full_backup_filename = os.path.join(
+            file_path, ".backup_{0}".format(filename)
+        )
 
         self._uid = 0
         self._default_entry = default_entry
 
         self._table = []
 
-        if not os.path.exists(file_path) and file_path != '':
+        if not os.path.exists(file_path) and file_path != "":
             os.makedirs(file_path)
 
         types_row = self._headers_types.copy()
-        types_row['_uid'] = 'int'
-        types_row['_default'] = self._default_entry
+        types_row["_uid"] = "int"
+        types_row["_default"] = self._default_entry
         self._table.append(types_row)
         self._save()
 
@@ -86,8 +98,7 @@ class CSVModel:
 
     @property
     def num_rows(self):
-        """int : The number of rows in the table.
-        """
+        """int : The number of rows in the table."""
         return len(self._table) - 1
 
     def get_cur_uid(self):
@@ -101,14 +112,13 @@ class CSVModel:
         return self._uid
 
     def _save(self):
-        """Save the model to a .csv file
-        """
+        """Save the model to a .csv file"""
         # if not first time saving, copy .csv to a backup
         if os.path.isfile(self._full_filename):
             shutil.copyfile(self._full_filename, self._full_backup_filename)
 
         # write to csv
-        with open(self._full_filename, 'w') as file:
+        with open(self._full_filename, "w") as file:
             writer = csv.DictWriter(file, fieldnames=self._headers)
             writer.writeheader()
             for row in self._table:
@@ -132,21 +142,29 @@ class CSVModel:
         Exception
             If the value for a given header is not of the appropriate type.
         """
-        row = {key:self._default_entry for key in self._headers}
-        row['_uid'] = self._get_new_uid()
+        row = {key: self._default_entry for key in self._headers}
+        row["_uid"] = self._get_new_uid()
 
         for key, val in data.items():
-            if key in ('_uid', '_default'):
-                logging.warn("Cannot manually set columns _uid or _default of a row! Given data: {0}".format(data))
+            if key in ("_uid", "_default"):
+                logging.warn(
+                    "Cannot manually set columns _uid or _default of a row! "
+                    f"Given data: {data}"
+                )
                 continue
-            if not isinstance(val, CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]):
-                raise Exception('Data type mismatch for column {0}. Expected: {1}, got: {2}'.format(key,
-                                                        CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]], type(val)))
+            if not isinstance(
+                val, CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]
+            ):
+                raise ValueError(
+                    f"Data type mismatch for column {key}. Expected: "
+                    f"{CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]}, "
+                    f"got: {type(val)}"
+                )
             row[key] = val
 
         self._table.append(row)
         self._save()
-        return row['_uid']
+        return row["_uid"]
 
     def update_by_uid(self, uid, data):
         """Update a row with the given data.
@@ -164,16 +182,21 @@ class CSVModel:
         Exception
             If the value for a given header is not of the appropriate type.
         """
-        row = self._table[uid+1]
+        row = self._table[uid + 1]
         for key, val in data.items():
-            if key == '_uid' or key == '_default':
+            if key == "_uid" or key == "_default":
                 continue
             if key not in self._headers:
                 logging.warn("Unknown column name: {0}".format(key))
                 continue
-            if not isinstance(val, CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]):
-                raise Exception('Data type mismatch for column {0}. Expected: {1}, got: {2}'.format(key,
-                                                        CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]], type(val)))
+            if not isinstance(
+                val, CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]
+            ):
+                raise ValueError(
+                    f"Data type mismatch for column {key}. Expected: "
+                    f"{CSVModel._KNOWN_TYPES_MAP[self._headers_types[key]]}, "
+                    f"got: {type(val)}"
+                )
             row[key] = val
         self._save()
 
@@ -191,7 +214,7 @@ class CSVModel:
             A dictionary mapping keys (header strings) to values, which
             represents a row of the table.
         """
-        return self._table[uid+1].copy()
+        return self._table[uid + 1].copy()
 
     def get_by_row(self, row):
         """Get a copy of a given row of the table.
@@ -209,22 +232,24 @@ class CSVModel:
         """
         return self._table[row + 1].copy()
 
-    def get_col(self, col_name, filter = lambda _ : True):
-        """Return all values in the column corresponding to col_name that satisfies filter, which is
-        a function that takes in a value of the column's type and returns True or False
+    def get_col(self, col_name, filter=lambda _: True):
+        """Return all values in the column corresponding to col_name that
+        satisfies filter, which is a function that takes in a value of the
+        column's type and returns True or False
 
         Parameters
         ----------
         col_name : str
             Name of desired column
         filter : function, optional
-            A function that takes in a value of the column's type and returns True or False
-            Defaults to a function that always returns True
+            A function that takes in a value of the column's type and returns
+            True or False. Defaults to a function that always returns True
 
         Returns
         -------
         list
-            A list of values in the desired columns by order of their storage in the model
+            A list of values in the desired columns by order of their storage
+            in the model
 
         Raises
         ------
@@ -232,7 +257,11 @@ class CSVModel:
             If the desired column name is not found in the model
         """
         if col_name not in self._headers:
-            raise ValueError("{} not found! Model has headers: {}".format(col_name, self._headers))
+            raise ValueError(
+                "{} not found! Model has headers: {}".format(
+                    col_name, self._headers
+                )
+            )
         col = []
         for i in range(self.num_rows):
             row = self._table[i + 1]
@@ -243,15 +272,16 @@ class CSVModel:
         return col
 
     def get_by_cols(self, cols, direction=1):
-        """Return the first or last row that satisfies the given col value constraints,
-        or None if no row contains the given value.
+        """Return the first or last row that satisfies the given col value
+        constraints, or None if no row contains the given value.
 
         Parameters
         ----------
         cols: :obj:'dict'
             Dictionary of col values for a specific row.
         direction: int, optional
-            Either 1 or -1. 1 means find the first row, -1 means find the last row.
+            Either 1 or -1. 1 means find the first row, -1 means find the
+            last row.
 
         Returns
         -------
@@ -263,12 +293,15 @@ class CSVModel:
         if direction == 1:
             iterator = range(self.num_rows)
         elif direction == -1:
-            iterator = range(self.num_rows-1, -1, -1)
+            iterator = range(self.num_rows - 1, -1, -1)
         else:
-            raise ValueError("Direction can only be 1 (first) or -1 (last). Got: {0}".format(direction))
+            raise ValueError(
+                "Direction can only be 1 (first) or -1 (last). "
+                f"Got: {direction}"
+            )
 
         for i in iterator:
-            row = self._table[i+1]
+            row = self._table[i + 1]
 
             all_sat = True
             for key, val in cols.items():
@@ -300,7 +333,7 @@ class CSVModel:
             represents a row of the table. This row contains the given value in
             the specified column.
         """
-        return self.get_by_cols({col:val}, direction=1)
+        return self.get_by_cols({col: val}, direction=1)
 
     def get_by_col_last(self, col, val):
         """Return the last row that contains the given value in the specified column,
@@ -321,7 +354,7 @@ class CSVModel:
             represents a row of the table. This row contains the given value in
             the specified column.
         """
-        return self.get_by_cols({col:val}, direction=-1)
+        return self.get_by_cols({col: val}, direction=-1)
 
     def get_rows_by_cols(self, matching_dict):
         """Return all rows where the cols match the elements given in the matching_dict
@@ -338,7 +371,7 @@ class CSVModel:
         """
         result = []
         for i in range(self.num_rows):
-            row = self._table[i+1]
+            row = self._table[i + 1]
             matching = True
             for key, val in matching_dict.items():
                 if row[key] != val:
@@ -351,12 +384,12 @@ class CSVModel:
         return result
 
     def __iter__(self):
-        """ Forms an iterator """
+        """Forms an iterator"""
         self._cur_row = 1
         return self
 
     def next(self):
-        """ Returns the next row in the CSV, for iteration """
+        """Returns the next row in the CSV, for iteration"""
         if self._cur_row >= len(self._table):
             raise StopIteration
         data = self._table[self._cur_row].copy()
@@ -365,15 +398,18 @@ class CSVModel:
 
     @staticmethod
     def _str_to_bool(s):
-        truthy = {'T', 'True', 't', 'true', 'TRUE'}
-        falsy = {'F', 'False', 'f', 'false', 'FALSE'}
+        truthy = {"T", "True", "t", "true", "TRUE"}
+        falsy = {"F", "False", "f", "false", "FALSE"}
 
         if s in truthy:
             return True
         elif s in falsy:
             return False
         else:
-            raise ValueError('Cannot convert {} to a boolean value! Accepted values are {} and {}'.format(s, truthy, falsy))
+            raise ValueError(
+                f"Cannot convert {s} to a boolean value! "
+                f"Accepted values are {truthy} and {falsy}"
+            )
 
     @staticmethod
     def load(full_filename):
@@ -394,30 +430,45 @@ class CSVModel:
         Excetpion
             If the CSV file does not exist or is malformed.
         """
-        with open(full_filename, 'r') as file:
+        with open(full_filename, "r") as file:
             reader = csv.DictReader(file)
             headers = reader.fieldnames
-            if '_uid' not in headers or '_default' not in headers:
+            if "_uid" not in headers or "_default" not in headers:
                 raise Exception("Malformed CSVModel file!")
 
             all_rows = [row for row in reader]
             types = all_rows[0]
             table = [types]
-            default_entry = table[0]['_default']
+            default_entry = table[0]["_default"]
 
             for i in range(1, len(all_rows)):
                 raw_row = all_rows[i]
                 row = {}
                 for column_name in headers:
-                    if raw_row[column_name] != default_entry and column_name != '':
-                        if types[column_name] == 'bool':
-                            row[column_name] = CSVModel._str_to_bool(raw_row[column_name])
+                    if (
+                        raw_row[column_name] != default_entry
+                        and column_name != ""
+                    ):
+                        if types[column_name] == "bool":
+                            row[column_name] = CSVModel._str_to_bool(
+                                raw_row[column_name]
+                            )
                         else:
                             try:
-                                row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](raw_row[column_name])
-                            except:
-                                logging.error('{}, {}, {}'.format(column_name, types[column_name], raw_row[column_name]))
-                                row[column_name] = CSVModel._KNOWN_TYPES_MAP[types[column_name]](bool(raw_row[column_name]))
+                                row[column_name] = CSVModel._KNOWN_TYPES_MAP[
+                                    types[column_name]
+                                ](raw_row[column_name])
+                            except ValueError:
+                                logging.error(
+                                    "{}, {}, {}".format(
+                                        column_name,
+                                        types[column_name],
+                                        raw_row[column_name],
+                                    )
+                                )
+                                row[column_name] = CSVModel._KNOWN_TYPES_MAP[
+                                    types[column_name]
+                                ](bool(raw_row[column_name]))
                     else:
                         row[column_name] = default_entry
                 table.append(row)
@@ -425,20 +476,22 @@ class CSVModel:
         if len(table) == 1:
             next_valid_uid = 0
         else:
-            next_valid_uid = int(table[-1]['_uid']) + 1
+            next_valid_uid = int(table[-1]["_uid"]) + 1
 
         headers_init = headers[1:-1]
         types_init = [types[column_name] for column_name in headers_init]
         headers_types_list = zip(headers_init, types_init)
 
-        csv_model = CSVModel(full_filename, headers_types_list, default_entry=default_entry)
+        csv_model = CSVModel(
+            full_filename, headers_types_list, default_entry=default_entry
+        )
         csv_model._uid = next_valid_uid
         csv_model._table = table
         csv_model._save()
         return csv_model
 
     @staticmethod
-    def get_or_create(full_filename, headers_types=None, default_entry=''):
+    def get_or_create(full_filename, headers_types=None, default_entry=""):
         """Load a .csv file into a CSVModel if the file exists, or create
         a new CSVModel with the given filename if the file does not exist.
 
@@ -463,10 +516,12 @@ class CSVModel:
         """
         # convert dictionaries to list
         if isinstance(headers_types, dict):
-            headers_types_list = [(k,v) for k,v in headers_types.items()]
+            headers_types_list = [(k, v) for k, v in headers_types.items()]
             headers_types = headers_types_list
 
         if os.path.isfile(full_filename):
             return CSVModel.load(full_filename)
         else:
-            return CSVModel(full_filename, headers_types, default_entry=default_entry)
+            return CSVModel(
+                full_filename, headers_types, default_entry=default_entry
+            )

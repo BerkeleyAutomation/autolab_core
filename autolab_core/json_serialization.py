@@ -8,9 +8,9 @@ Author: Brian Hou
 import json as _json
 import numpy as np
 
+
 class NumpyEncoder(_json.JSONEncoder):
-    """A numpy array to json encoder.
-    """
+    """A numpy array to json encoder."""
 
     def default(self, obj):
         """Converts an ndarray into a dictionary for efficient serialization.
@@ -29,18 +29,19 @@ class NumpyEncoder(_json.JSONEncoder):
         -------
         :obj:`dict`
             The dictionary serialization of obj.
-        
+
         Raises
         ------
         TypeError
             If obj isn't an ndarray.
         """
         if isinstance(obj, np.ndarray):
-            return dict(__ndarray__=obj.tolist(),
-                        dtype=str(obj.dtype),
-                        shape=obj.shape)
+            return dict(
+                __ndarray__=obj.tolist(), dtype=str(obj.dtype), shape=obj.shape
+            )
         # Let the base class default method raise the TypeError
         return _json.JSONEncoder(self, obj)
+
 
 def json_numpy_obj_hook(dct):
     """Decodes a previously encoded numpy ndarray with proper shape and dtype.
@@ -55,10 +56,11 @@ def json_numpy_obj_hook(dct):
     :obj:`numpy.ndarray`
         The ndarray that `dct` was encoding.
     """
-    if isinstance(dct, dict) and '__ndarray__' in dct:
-        data = np.asarray(dct['__ndarray__'], dtype=dct['dtype'])
-        return data.reshape(dct['shape'])
+    if isinstance(dct, dict) and "__ndarray__" in dct:
+        data = np.asarray(dct["__ndarray__"], dtype=dct["dtype"])
+        return data.reshape(dct["shape"])
     return dct
+
 
 def dump(*args, **kwargs):
     """Dump a numpy.ndarray to file stream.
@@ -66,11 +68,13 @@ def dump(*args, **kwargs):
     This works exactly like the usual `json.dump()` function,
     but it uses our custom serializer.
     """
-    kwargs.update(dict(cls=NumpyEncoder,
-                       sort_keys=True,
-                       indent=4,
-                       separators=(',', ': ')))
+    kwargs.update(
+        dict(
+            cls=NumpyEncoder, sort_keys=True, indent=4, separators=(",", ": ")
+        )
+    )
     return _json.dump(*args, **kwargs)
+
 
 def load(*args, **kwargs):
     """Load an numpy.ndarray from a file stream.
