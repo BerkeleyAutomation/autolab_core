@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 79
+ignore = W503, E203, E231 # conflicts with `black` formatting
+per-file-ignores = __init__.py: F401, setup.py: F821
+exclude = .git, docs/, srv/, launch/, cfg/, .eggs/
