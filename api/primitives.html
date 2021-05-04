@@ -1,58 +1,55 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Geometric Primitives &mdash; autolab_core 0.0.1 documentation</title>
+  <title>Geometric Primitives &mdash; autolab_core 1.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
 
   
   
-  
-  
 
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="autolab_core 0.0.1 documentation" href="../index.html"/>
-        <link rel="next" title="Random Variables" href="random_variables.html"/>
-        <link rel="prev" title="Points and Point Clouds" href="points.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Random Variables" href="random_variables.html" />
+    <link rel="prev" title="Points and Point Clouds" href="points.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1
+                1.1.0
               </div>
             
           
@@ -83,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -117,13 +115,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">autolab_core</a>
@@ -131,10 +130,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -154,14 +156,14 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Geometric Primitives</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/api/primitives.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -180,139 +182,96 @@
 <p>A set of geometric primitives.</p>
 <div class="section" id="box">
 <h2>Box<a class="headerlink" href="#box" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.Box">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">Box</code><span class="sig-paren">(</span><em>min_pt</em>, <em>max_pt</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A 2D box or 3D rectangular prism.</p>
-<dl class="attribute">
-<dt id="Box.dims">
-<code class="descname">dims</code><a class="headerlink" href="#Box.dims" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – Maximal extent in x, y, and (optionally) z.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.width">
-<code class="descname">width</code><a class="headerlink" href="#Box.width" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – Maximal extent in x.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.height">
-<code class="descname">height</code><a class="headerlink" href="#Box.height" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – Maximal extent in y.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.area">
-<code class="descname">area</code><a class="headerlink" href="#Box.area" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – Area of projection onto xy plane.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.min_pt">
-<code class="descname">min_pt</code><a class="headerlink" href="#Box.min_pt" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The minimum x, y, and (optionally) z points.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.max_pt">
-<code class="descname">max_pt</code><a class="headerlink" href="#Box.max_pt" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The maximum x, y, and (optionally) z points.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.center">
-<code class="descname">center</code><a class="headerlink" href="#Box.center" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The center of the box in 2 or 3D coords.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Box.frame">
-<code class="descname">frame</code><a class="headerlink" href="#Box.frame" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – The frame in which this box is placed.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Box.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>min_pt</em>, <em>max_pt</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Box.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a box.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>min_pt</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – The minimum x, y, and (optionally) z points.</li>
-<li><strong>max_pt</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – The maximum x, y, and (optionally) z points.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame in which this box is placed.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If max_pt is not strictly larger than min_pt in all dims.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">Box</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_pt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unspecified'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Box" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 2D box or 3D rectangular prism.</p>
+<dl class="py attribute">
 <dt id="autolab_core.Box.dims">
-<code class="descname">dims</code><a class="headerlink" href="#autolab_core.Box.dims" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – Maximal extent in x, y, and (optionally) z</p>
+<code class="sig-name descname"><span class="pre">dims</span></code><a class="headerlink" href="#autolab_core.Box.dims" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximal extent in x, y, and (optionally) z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.width">
-<code class="descname">width</code><a class="headerlink" href="#autolab_core.Box.width" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – Maximal extent in x.</p>
+<code class="sig-name descname"><span class="pre">width</span></code><a class="headerlink" href="#autolab_core.Box.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximal extent in x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.height">
-<code class="descname">height</code><a class="headerlink" href="#autolab_core.Box.height" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – Maximal extent in y.</p>
+<code class="sig-name descname"><span class="pre">height</span></code><a class="headerlink" href="#autolab_core.Box.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximal extent in y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.area">
-<code class="descname">area</code><a class="headerlink" href="#autolab_core.Box.area" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – Area of projection onto xy plane.</p>
+<code class="sig-name descname"><span class="pre">area</span></code><a class="headerlink" href="#autolab_core.Box.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Area of projection onto xy plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.min_pt">
-<code class="descname">min_pt</code><a class="headerlink" href="#autolab_core.Box.min_pt" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The minimum x, y, and (optionally) z points.</p>
+<code class="sig-name descname"><span class="pre">min_pt</span></code><a class="headerlink" href="#autolab_core.Box.min_pt" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum x, y, and (optionally) z points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.max_pt">
-<code class="descname">max_pt</code><a class="headerlink" href="#autolab_core.Box.max_pt" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The maximum x, y, and (optionally) z points.</p>
+<code class="sig-name descname"><span class="pre">max_pt</span></code><a class="headerlink" href="#autolab_core.Box.max_pt" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum x, y, and (optionally) z points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.center">
-<code class="descname">center</code><a class="headerlink" href="#autolab_core.Box.center" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The center of the box in 2 or 3D coords.</p>
+<code class="sig-name descname"><span class="pre">center</span></code><a class="headerlink" href="#autolab_core.Box.center" title="Permalink to this definition">¶</a></dt>
+<dd><p>The center of the box in 2 or 3D coords.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="autolab_core.Box.ci">
-<code class="descname">ci</code><a class="headerlink" href="#autolab_core.Box.ci" title="Permalink to this definition">¶</a></dt>
-<dd><p>float value of center i coordinate</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.Box.cj">
-<code class="descname">cj</code><a class="headerlink" href="#autolab_core.Box.cj" title="Permalink to this definition">¶</a></dt>
-<dd><p>float value of center j coordinate</p>
-</dd></dl>
-
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="autolab_core.Box.frame">
-<code class="descname">frame</code><a class="headerlink" href="#autolab_core.Box.frame" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – The frame in which this box is placed.</p>
+<code class="sig-name descname"><span class="pre">frame</span></code><a class="headerlink" href="#autolab_core.Box.frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>The frame in which this box is placed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -320,33 +279,52 @@
 </div>
 <div class="section" id="contour">
 <h2>Contour<a class="headerlink" href="#contour" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.Contour">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">Contour</code><span class="sig-paren">(</span><em>boundary_pixels</em>, <em>area=0.0</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Contour" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A set of pixels forming the boundary of an object of interest in an image.</p>
-<dl class="attribute">
-<dt id="Contour.boundary_pixels">
-<code class="descname">boundary_pixels</code><a class="headerlink" href="#Contour.boundary_pixels" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> – Nx2 array of pixel coordinates on the boundary of a contour</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">Contour</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boundary_pixels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unspecified'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Contour" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of pixels forming the boundary of an object of interest in an image.</p>
+<dl class="py attribute">
+<dt id="autolab_core.Contour.boundary_pixels">
+<code class="sig-name descname"><span class="pre">boundary_pixels</span></code><a class="headerlink" href="#autolab_core.Contour.boundary_pixels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Nx2 array of pixel coordinates on the boundary of a contour</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="Contour.bounding_box">
-<code class="descname">bounding_box</code><a class="headerlink" href="#Contour.bounding_box" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">Box</span></code> – smallest box containing the contour</p>
+<dl class="py attribute">
+<dt id="autolab_core.Contour.bounding_box">
+<code class="sig-name descname"><span class="pre">bounding_box</span></code><a class="headerlink" href="#autolab_core.Contour.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>smallest box containing the contour</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#autolab_core.Box" title="autolab_core.Box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Box</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="Contour.area">
-<code class="descname">area</code><a class="headerlink" href="#Contour.area" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – area of the contour</p>
+<dl class="py attribute">
+<dt id="autolab_core.Contour.area">
+<code class="sig-name descname"><span class="pre">area</span></code><a class="headerlink" href="#autolab_core.Contour.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>area of the contour</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="Contour.num_pixels">
-<code class="descname">num_pixels</code><a class="headerlink" href="#Contour.num_pixels" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – number of pixels along the boundary</p>
+<dl class="py attribute">
+<dt id="autolab_core.Contour.num_pixels">
+<code class="sig-name descname"><span class="pre">num_pixels</span></code><a class="headerlink" href="#autolab_core.Contour.num_pixels" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of pixels along the boundary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -356,34 +334,32 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="random_variables.html" class="btn btn-neutral float-right" title="Random Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="points.html" class="btn btn-neutral" title="Points and Point Clouds" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="random_variables.html" class="btn btn-neutral float-right" title="Random Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="points.html" class="btn btn-neutral float-left" title="Points and Point Clouds" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Jeff Mahler.
+        &#169; Copyright 2016, Jeff Mahler.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -392,37 +368,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

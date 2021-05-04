@@ -1,57 +1,54 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>YAML Config Processor &mdash; autolab_core 0.0.1 documentation</title>
+  <title>YAML Config Processor &mdash; autolab_core 1.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
 
   
   
-  
-  
 
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="autolab_core 0.0.1 documentation" href="../index.html"/>
-        <link rel="prev" title="Utility Functions" href="utils.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Utility Functions" href="utils.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -65,7 +62,7 @@
             
             
               <div class="version">
-                0.0.1
+                1.1.0
               </div>
             
           
@@ -82,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -112,13 +110,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">autolab_core</a>
@@ -126,10 +125,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -149,14 +151,14 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>YAML Config Processor</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/api/yaml_config.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -173,89 +175,19 @@
   <div class="section" id="yaml-config-processor">
 <h1>YAML Config Processor<a class="headerlink" href="#yaml-config-processor" title="Permalink to this headline">¶</a></h1>
 <p>A class for loading and writing to YAML configuration files.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.YamlConfig">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">YamlConfig</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Class to load a configuration file and parse it into a dictionary.</p>
-<dl class="attribute">
-<dt id="YamlConfig.config">
-<code class="descname">config</code><a class="headerlink" href="#YamlConfig.config" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">dictionary</span></code> – A dictionary that contains the contents of the configuration.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a YamlConfig by loading it from the given file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The filename of the .yaml file that contains the configuration.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.keys">
-<code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.keys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the keys of the config dictionary.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of the keys in the config dictionary.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">Object</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the config with a dictionary of parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>d</strong> (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>) – dictionary of parameters</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.__contains__">
-<code class="descname">__contains__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__contains__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides ‘in’ operator.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides the key access operator [].</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides the keyed setting operator [].</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.iteritems">
-<code class="descname">iteritems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.iteritems" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns iterator over config dict.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.YamlConfig.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a YamlConfig to disk.</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">YamlConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.YamlConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to load a configuration file and parse it into a dictionary.</p>
+<dl class="py attribute">
+<dt id="autolab_core.YamlConfig.config">
+<code class="sig-name descname"><span class="pre">config</span></code><a class="headerlink" href="#autolab_core.YamlConfig.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary that contains the contents of the configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dictionary</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -264,32 +196,31 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="utils.html" class="btn btn-neutral" title="Utility Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="utils.html" class="btn btn-neutral float-left" title="Utility Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Jeff Mahler.
+        &#169; Copyright 2016, Jeff Mahler.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -298,37 +229,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

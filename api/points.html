@@ -1,58 +1,55 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Points and Point Clouds &mdash; autolab_core 0.0.1 documentation</title>
+  <title>Points and Point Clouds &mdash; autolab_core 1.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
 
   
   
-  
-  
 
   
 
   
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="autolab_core 0.0.1 documentation" href="../index.html"/>
-        <link rel="next" title="Geometric Primitives" href="primitives.html"/>
-        <link rel="prev" title="JSON Manipulation" href="json_serialization.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Geometric Primitives" href="primitives.html" />
+    <link rel="prev" title="JSON Manipulation" href="json_serialization.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1
+                1.1.0
               </div>
             
           
@@ -83,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -126,13 +124,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">autolab_core</a>
@@ -140,10 +139,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -163,14 +165,14 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Points and Point Clouds</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/api/points.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -190,1090 +192,100 @@
 planes, point clouds, and normal clouds.</p>
 <div class="section" id="bagofpoints">
 <h2>BagOfPoints<a class="headerlink" href="#bagofpoints" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.BagOfPoints">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">BagOfPoints</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The abstract base class for collections of 3D point clouds.</p>
-<dl class="method">
-<dt id="autolab_core.BagOfPoints.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a BagOfPoints.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – The data with which to initialize the collection. Usually is of
-shape (dim x #elements).</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the collection of primitives
-resides.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If data is not a ndarray or frame is not a string.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.BagOfPoints.shape">
-<code class="descname">shape</code><a class="headerlink" href="#autolab_core.BagOfPoints.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of int – The shape of the collection’s data matrix.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.BagOfPoints.frame">
-<code class="descname">frame</code><a class="headerlink" href="#autolab_core.BagOfPoints.frame" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – The name of the reference frame in which the
-collection’s objects reside.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.BagOfPoints.data">
-<code class="descname">data</code><a class="headerlink" href="#autolab_core.BagOfPoints.data" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The collection’s data matrix.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.BagOfPoints.dim">
-<code class="descname">dim</code><a class="headerlink" href="#autolab_core.BagOfPoints.dim" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – The number of entries in the data array along the first
-dimension. By convention, this is the dimension of the elements (usually
-3D).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.BagOfPoints.num_points">
-<code class="descname">num_points</code><a class="headerlink" href="#autolab_core.BagOfPoints.num_points" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – The number of entries in the data array along the second
-dimenstion. By convention, this is the number of elements in the
-collection.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.BagOfPoints.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a copy of the BagOfPoints object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An object of the same type as the original, with a copy
-of the data and the same frame.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">BagOfPoints</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.BagOfPoints.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the collection to a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to save the collection to.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the file extension is not .npy or .npz.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.BagOfPoints.load_data">
-<code class="descname">load_data</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints.load_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads data from a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load the collection from.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The data read from the file.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the file extension is not .npy or .npz.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.BagOfPoints.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a single element from the collection.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<em>indexing-type</em><em> (</em><em>int</em><em> or </em><em>slice</em><em> or </em><em>list</em><em>)</em>) – The index of the desired element.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The returned element or group.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">BagOfPoints</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>The abstract base class for collections of 3D point clouds.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="bagofvectors">
 <h2>BagOfVectors<a class="headerlink" href="#bagofvectors" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.BagOfVectors">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">BagOfVectors</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfVectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfPoints</span></code></p>
-<p>The base class for collections of 3D vectors.</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">BagOfVectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.BagOfVectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base class for collections of 3D vectors.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="point">
 <h2>Point<a class="headerlink" href="#point" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.Point">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">Point</code><span class="sig-paren">(</span><em>data</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfPoints</span></code></p>
-<p>A single 3D point.</p>
-<dl class="method">
-<dt id="autolab_core.Point.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a Point.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – An dim x 1 vector that represents the point’s location.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the Point resides.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.Point.vector">
-<code class="descname">vector</code><a class="headerlink" href="#autolab_core.Point.vector" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The point’s location relative
-to the origin.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.Point.x">
-<code class="descname">x</code><a class="headerlink" href="#autolab_core.Point.x" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – The first element in the point’s data array.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.Point.y">
-<code class="descname">y</code><a class="headerlink" href="#autolab_core.Point.y" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – The second element in the point’s data array.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.Point.z">
-<code class="descname">z</code><a class="headerlink" href="#autolab_core.Point.z" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – The third element in the point’s data array.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Point.__add__">
-<code class="descname">__add__</code><span class="sig-paren">(</span><em>other_pt</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add two Points together.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_pt</strong> (<code class="xref py py-obj docutils literal"><span class="pre">Point</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – The other point to add to this one.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result of adding the two points together.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the shape and/or frames of the two points does not match.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Point.__sub__">
-<code class="descname">__sub__</code><span class="sig-paren">(</span><em>other_pt</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.__sub__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subtract a point from this one.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_pt</strong> (<code class="xref py py-obj docutils literal"><span class="pre">Point</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – The other point to subtract from this one.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result of the subtraction.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the shape and/or frames of the two points does not match.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Point.__mul__">
-<code class="descname">__mul__</code><span class="sig-paren">(</span><em>mult</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.__mul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multiply the point by a scalar.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mult</strong> (<em>float</em>) – The number by which to multiply the Point.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A 3D point created by the multiplication.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point3D</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If mult is not a scalar value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Point.__rmul__">
-<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>mult</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.__rmul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multiply the point by a scalar.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mult</strong> (<em>float</em>) – The number by which to multiply the Point.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A 3D point created by the multiplication.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point3D</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If mult is not a scalar value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Point.__div__">
-<code class="descname">__div__</code><span class="sig-paren">(</span><em>div</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.__div__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Divide the point by a scalar.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>div</strong> (<em>float</em>) – The number by which to divide the Point.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A 3D point created by the division.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point3D</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If div is not a scalar value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="autolab_core.Point.open">
-<em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a Point from data saved in a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load data from.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame to apply to the created point.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A point created from the data in the file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">Point</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">Point</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unspecified'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Point" title="Permalink to this definition">¶</a></dt>
+<dd><p>A single 3D point.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="direction">
 <h2>Direction<a class="headerlink" href="#direction" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.Direction">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">Direction</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Direction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfVectors</span></code></p>
-<p>A single directional vector.</p>
-<dl class="method">
-<dt id="autolab_core.Direction.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Direction.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a Direction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – An dim x 1 normalized vector.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the Direction resides.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Direction.orthogonal_basis">
-<code class="descname">orthogonal_basis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Direction.orthogonal_basis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an orthogonal basis to this direction.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Only implemented in 3D.</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The pair of normalized Direction vectors that form a basis of
-this direction’s orthogonal complement.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">Direction</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> – If the vector is not 3D</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="autolab_core.Direction.open">
-<em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Direction.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a Direction from data saved in a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load data from.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame to apply to the created Direction.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A Direction created from the data in the file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">Direction</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">Direction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>A single directional vector.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="plane3d">
 <h2>Plane3D<a class="headerlink" href="#plane3d" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.Plane3D">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">Plane3D</code><span class="sig-paren">(</span><em>n</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Plane3D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A plane in three dimensions.</p>
-<dl class="method">
-<dt id="autolab_core.Plane3D.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n</em>, <em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Plane3D.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a plane with a normal vector and a point.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> (<code class="xref py py-obj docutils literal"><span class="pre">Direction</span></code>) – A 3D normal vector to the plane.</li>
-<li><strong>x0</strong> (<code class="xref py py-obj docutils literal"><span class="pre">Point</span></code>) – A 3D point in the plane.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the parameters are of the wrong type or are not of dimension 3.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.Plane3D.split_points">
-<code class="descname">split_points</code><span class="sig-paren">(</span><em>point_cloud</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Plane3D.split_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Split a point cloud into two along this plane.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point_cloud</strong> (<code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code>) – The PointCloud to divide in two.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Two new PointCloud objects. The first contains points above the
-plane, and the second contains points below the plane.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the input is not a PointCloud.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">Plane3D</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.Plane3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A plane in three dimensions.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="pointcloud">
 <h2>PointCloud<a class="headerlink" href="#pointcloud" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.PointCloud">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">PointCloud</code><span class="sig-paren">(</span><em>data</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfPoints</span></code></p>
-<p>A set of points.</p>
-<dl class="method">
-<dt id="autolab_core.PointCloud.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a PointCloud.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – An dim x #points array that contains the points in the cloud.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the points reside.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointCloud.x_coords">
-<code class="descname">x_coords</code><a class="headerlink" href="#autolab_core.PointCloud.x_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – An array containing all x coordinates
-in the cloud.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointCloud.y_coords">
-<code class="descname">y_coords</code><a class="headerlink" href="#autolab_core.PointCloud.y_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – An array containing all y coordinates
-in the cloud.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointCloud.z_coords">
-<code class="descname">z_coords</code><a class="headerlink" href="#autolab_core.PointCloud.z_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – An array containing all z coordinates
-in the cloud.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.mean">
-<code class="descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.mean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the average point in the cloud.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The mean point in the PointCloud.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">Point</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.subsample">
-<code class="descname">subsample</code><span class="sig-paren">(</span><em>rate</em>, <em>random=False</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.subsample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a subsampled version of the PointCloud.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rate</strong> (<em>int</em>) – Only every rate-th element of the PointCloud is returned.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A subsampled point cloud with N / rate total samples.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If rate is not a positive integer.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.box_mask">
-<code class="descname">box_mask</code><span class="sig-paren">(</span><em>box</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.box_mask" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a PointCloud containing only points within the given Box.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>box</strong> (<code class="xref py py-obj docutils literal"><span class="pre">Box</span></code>) – A box whose boundaries are used to filter points.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A filtered PointCloud whose points are all in the given box.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the input is not a box in the same frame as the PointCloud.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.best_fit_plane">
-<code class="descname">best_fit_plane</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.best_fit_plane" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fits a plane to the point cloud using least squares.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A normal vector to and point in the fitted plane.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.remove_zero_points">
-<code class="descname">remove_zero_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.remove_zero_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes points with a zero in the z-axis.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This returns nothing and updates the PointCloud in-place.</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.__add__">
-<code class="descname">__add__</code><span class="sig-paren">(</span><em>other_pc</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add two PointClouds together element-wise.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_pc</strong> (<code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code>) – The other PointCloud to add to this one.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result of adding the two PointClouds together.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the shape and/or frames of the two PointClouds do not match.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.__sub__">
-<code class="descname">__sub__</code><span class="sig-paren">(</span><em>other_pc</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.__sub__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subtract one PointCloud from another element-wise.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_pc</strong> (<code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code>) – The other PointCloud to subtract from this one.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result of the subtraction.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the shape and/or frames of the two PointClouds do not match.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.__mul__">
-<code class="descname">__mul__</code><span class="sig-paren">(</span><em>mult</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.__mul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multiply each point in the cloud by a scalar.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mult</strong> (<em>float</em>) – The number by which to multiply the PointCloud.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A PointCloud created by the multiplication.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If mult is not a scalar value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.__rmul__">
-<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>mult</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.__rmul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Multiply each point in the cloud by a scalar.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mult</strong> (<em>float</em>) – The number by which to multiply the PointCloud.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A PointCloud created by the multiplication.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If mult is not a scalar value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointCloud.__div__">
-<code class="descname">__div__</code><span class="sig-paren">(</span><em>div</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.__div__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Divide each point in the cloud by a scalar.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>div</strong> (<em>float</em>) – The number by which to divide the PointCloud.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A PointCloud created by the division.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If div is not a scalar value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="autolab_core.PointCloud.open">
-<em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a PointCloud from data saved in a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load data from.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame to apply to the created PointCloud.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A PointCloud created from the data in the file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">PointCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unspecified'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointCloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of points.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="normalcloud">
 <h2>NormalCloud<a class="headerlink" href="#normalcloud" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.NormalCloud">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">NormalCloud</code><span class="sig-paren">(</span><em>data</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfVectors</span></code></p>
-<p>A set of normal vectors.</p>
-<dl class="method">
-<dt id="autolab_core.NormalCloud.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a NormalCloud.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – An dim x #points array that contains the normal vectors in the cloud.
-All of these vectors should be normalized.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the vectors reside.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.NormalCloud.x_coords">
-<code class="descname">x_coords</code><a class="headerlink" href="#autolab_core.NormalCloud.x_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – An array containing all x coordinates
-in the cloud.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.NormalCloud.y_coords">
-<code class="descname">y_coords</code><a class="headerlink" href="#autolab_core.NormalCloud.y_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – An array containing all y coordinates
-in the cloud.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.NormalCloud.z_coords">
-<code class="descname">z_coords</code><a class="headerlink" href="#autolab_core.NormalCloud.z_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – An array containing all z coordinates
-in the cloud.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.NormalCloud.subsample">
-<code class="descname">subsample</code><span class="sig-paren">(</span><em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.subsample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a subsampled version of the NormalCloud.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rate</strong> (<em>int</em>) – Only every rate-th element of the NormalCloud is returned.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A subsampled point cloud with N / rate total samples.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">RateCloud</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If rate is not a positive integer.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.NormalCloud.remove_zero_normals">
-<code class="descname">remove_zero_normals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.remove_zero_normals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes normal vectors with a zero magnitude.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This returns nothing and updates the NormalCloud in-place.</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.NormalCloud.remove_nan_normals">
-<code class="descname">remove_nan_normals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.remove_nan_normals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes normal vectors with nan magnitude.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This returns nothing and updates the NormalCloud in-place.</p>
-</div>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="autolab_core.NormalCloud.open">
-<em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a NormalCloud from data saved in a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load data from.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame to apply to the created NormalCloud.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A NormalCloud created from the data in the file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">NormalCloud</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">NormalCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unspecified'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.NormalCloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of normal vectors.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="imagecoords">
 <h2>ImageCoords<a class="headerlink" href="#imagecoords" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.ImageCoords">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">ImageCoords</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ImageCoords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfPoints</span></code></p>
-<p>A set of 2D image coordinates.</p>
-<dl class="method">
-<dt id="autolab_core.ImageCoords.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ImageCoords.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a set of image coodinates.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of int) – An 2 x #coords array that contains the image coordinates.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the points reside.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.ImageCoords.i_coords">
-<code class="descname">i_coords</code><a class="headerlink" href="#autolab_core.ImageCoords.i_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The set of i-coordinates
-(those in the second row of the data matrix).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.ImageCoords.j_coords">
-<code class="descname">j_coords</code><a class="headerlink" href="#autolab_core.ImageCoords.j_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float – The set of j-coordinates
-(those in the first row of the data matrix).</p>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="autolab_core.ImageCoords.open">
-<em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ImageCoords.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create an ImageCoords from data saved in a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load data from.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame to apply to the created ImageCoords.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An ImageCoords created from the data in the file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">ImageCoords</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">ImageCoords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.ImageCoords" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of 2D image coordinates.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="rgbcloud">
 <h2>RgbCloud<a class="headerlink" href="#rgbcloud" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.RgbCloud">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">RgbCloud</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbCloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">autolab_core.points.BagOfPoints</span></code></p>
-<p>A set of colors.</p>
-<dl class="method">
-<dt id="autolab_core.RgbCloud.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbCloud.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize an RgbCloud.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of uint8) – An 3 x #elements array that contains the colors in the cloud.
-Elements each have a red, green, and blue coordinate.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the points reside.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.RgbCloud.red">
-<code class="descname">red</code><a class="headerlink" href="#autolab_core.RgbCloud.red" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of uint8 – An array containing all red values
-in the cloud.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.RgbCloud.green">
-<code class="descname">green</code><a class="headerlink" href="#autolab_core.RgbCloud.green" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of uint8 – An array containing all green values
-in the cloud.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.RgbCloud.blue">
-<code class="descname">blue</code><a class="headerlink" href="#autolab_core.RgbCloud.blue" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of uint8 – An array containing all blue values
-in the cloud.</p>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="autolab_core.RgbCloud.open">
-<em class="property">static </em><code class="descname">open</code><span class="sig-paren">(</span><em>filename</em>, <em>frame=’unspecified’</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbCloud.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a RgbCloud from data saved in a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The file to load data from.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The frame to apply to the created RgbCloud.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A RgdCloud created from the data in the file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal"><span class="pre">RgbCloud</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">RgbCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbCloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of colors.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="rgbpointcloud">
 <h2>RgbPointCloud<a class="headerlink" href="#rgbpointcloud" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.RgbPointCloud">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">RgbPointCloud</code><span class="sig-paren">(</span><em>point_data</em>, <em>rgb_data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbPointCloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A combined set of 3D points and RGB colors.</p>
-<dl class="method">
-<dt id="autolab_core.RgbPointCloud.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>point_data</em>, <em>rgb_data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbPointCloud.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a PointCloud + RgbCloud combination.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>point_data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – An dim x #elements array that contains the points in the cloud.</li>
-<li><strong>rgb_data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of uint8) – A 3 x #elements array that contains the colors of the cloud.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the points reside.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.RgbPointCloud.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbPointCloud.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the ith point and color.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The ith point and the ith color.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float and uint8</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">RgbPointCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgb_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.RgbPointCloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>A combined set of 3D points and RGB colors.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="pointnormalcloud">
 <h2>PointNormalCloud<a class="headerlink" href="#pointnormalcloud" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="autolab_core.PointNormalCloud">
-<em class="property">class </em><code class="descclassname">autolab_core.</code><code class="descname">PointNormalCloud</code><span class="sig-paren">(</span><em>point_data</em>, <em>normal_data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointNormalCloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A combined set of 3D points and normal vectors.</p>
-<dl class="method">
-<dt id="autolab_core.PointNormalCloud.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>point_data</em>, <em>normal_data</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointNormalCloud.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a PointCloud + NormalCloud combination.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>point_data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float) – An dim x #elements array that contains the points in the cloud.</li>
-<li><strong>normal_data</strong> (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of uint8) – A dim x #elements array that contains the normals of the cloud.</li>
-<li><strong>frame</strong> (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>) – The reference frame in which the points reside.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the two datasets don’t have the same number of elements.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointNormalCloud.points">
-<code class="descname">points</code><a class="headerlink" href="#autolab_core.PointNormalCloud.points" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">PointCloud</span></code> – The PointCloud in this set.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointNormalCloud.normals">
-<code class="descname">normals</code><a class="headerlink" href="#autolab_core.PointNormalCloud.normals" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">NormalCloud</span></code> – The NormalCloud in this set.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointNormalCloud.num_points">
-<code class="descname">num_points</code><a class="headerlink" href="#autolab_core.PointNormalCloud.num_points" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – The number of elements in the clouds.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="autolab_core.PointNormalCloud.frame">
-<code class="descname">frame</code><a class="headerlink" href="#autolab_core.PointNormalCloud.frame" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="xref py py-obj docutils literal"><span class="pre">str</span></code> – The frame in which these clouds exist.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointNormalCloud.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointNormalCloud.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the ith point and normals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The ith point and the ith normal.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code> of <code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code> of float</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autolab_core.PointNormalCloud.remove_zero_points">
-<code class="descname">remove_zero_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointNormalCloud.remove_zero_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all elements where the norms and points are zero.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This returns nothing and updates the NormalCloud in-place.</p>
-</div>
-</dd></dl>
-
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">autolab_core.</span></code><code class="sig-name descname"><span class="pre">PointNormalCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#autolab_core.PointNormalCloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>A combined set of 3D points and normal vectors.</p>
 </dd></dl>
 
 </div>
@@ -1281,34 +293,32 @@ in the cloud.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="primitives.html" class="btn btn-neutral float-right" title="Geometric Primitives" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="json_serialization.html" class="btn btn-neutral" title="JSON Manipulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="primitives.html" class="btn btn-neutral float-right" title="Geometric Primitives" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="json_serialization.html" class="btn btn-neutral float-left" title="JSON Manipulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Jeff Mahler.
+        &#169; Copyright 2016, Jeff Mahler.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1317,37 +327,15 @@ in the cloud.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
