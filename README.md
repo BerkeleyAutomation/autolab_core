@@ -1,6 +1,5 @@
 ## Berkeley Autolab Core Modules
-
-[![Github Actions](https://github.com/BerkeleyAutomation/autolab_core/actions/workflows/release.yml/badge.svg)](https://github.com/BerkeleyAutomation/autolab_core/actions) [![PyPI version](https://badge.fury.io/py/autolab-core.svg)](https://badge.fury.io/py/autolab-core)
+[![pypi](https://img.shields.io/pypi/v/autolab-core.svg)](https://pypi.org/project/autolab-core/) [![python-versions](https://img.shields.io/pypi/pyversions/autolab-core.svg)](https://pypi.org/project/autolab-core/) [![status](https://github.com/BerkeleyAutomation/autolab_core/workflows/Release%20Autolab%20Core/badge.svg)](https://github.com/BerkeleyAutomation/autolab_core/actions) [![style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This module contains a set of useful utilities for robotic tasks.
 View the install guide and API documentation [here](https://BerkeleyAutomation.github.io/autolab_core).
