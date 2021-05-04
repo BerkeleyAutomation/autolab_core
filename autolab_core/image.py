@@ -2406,9 +2406,15 @@ class BinaryImage(Image):
             The new pruned binary image.
         """
         # get all contours (connected components) from the binary image
-        contours, hierarchy = cv2.findContours(
+        ret = cv2.findContours(
             self.data.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE
         )
+        # Finagling needed for different opencv versions due to API change
+        # see https://github.com/jasonlfunk/ocr-text-extraction/issues/5
+        try:
+            _, contours, _ = ret
+        except ValueError:
+            contours, _ = ret
         num_contours = len(contours)
         middle_pixel = np.array(self.shape)[:2] / 2
         middle_pixel = middle_pixel.reshape(1, 2)
@@ -2490,9 +2496,15 @@ class BinaryImage(Image):
             A list of resuting contours
         """
         # get all contours (connected components) from the binary image
-        _, contours, hierarchy = cv2.findContours(
+        ret = cv2.findContours(
             self.data.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE
         )
+        # Finagling needed for different opencv versions due to API change
+        # see https://github.com/jasonlfunk/ocr-text-extraction/issues/5
+        try:
+            _, contours, _ = ret
+        except ValueError:
+            contours, _ = ret
         num_contours = len(contours)
         kept_contours = []
 
@@ -3012,14 +3024,9 @@ class RgbdImage(Image):
         """Returns the depth image."""
         return DepthImage(self.raw_data[:, :, 3], frame=self.frame)
 
-    def _image_data(self, normalize=False):
+    def _image_data(self):
         """Returns the data in image format, with scaling and conversion
            to uint8 types. NOTE: Only returns the color image!!!!
-
-        Parameters
-        ----------
-        normalize : bool
-            whether or not to normalize by the min and max depth of the image
 
         Returns
         -------
@@ -3029,7 +3036,7 @@ class RgbdImage(Image):
             each of which is simply the depth entry scaled to between 0
             and BINARY_IM_MAX_VAL.
         """
-        return self.color_im._image_data(normalize=normalize)
+        return self.color._image_data()
 
     def mask_binary(self, binary_im):
         """Create a new image by zeroing out data at locations
