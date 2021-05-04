@@ -14,6 +14,7 @@ requirements = [
     "matplotlib",
     "multiprocess",
     "setproctitle",
+    "opencv-python",
     "Pillow",
     "joblib",
     "colorlog",
