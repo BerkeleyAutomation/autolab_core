@@ -828,14 +828,16 @@ class TensorDataset(object):
             raise ValueError("Cannot open a dataset with write-only access")
 
         # read config
-        try:
-            # json load
-            config_filename = os.path.join(dataset_dir, "config.json")
-            config = json.load(open(config_filename, "r"))
-        except ValueError:
-            # YAML load
-            config_filename = os.path.join(dataset_dir, "config.yaml")
-            config = YamlConfig(config_filename)
+        config_fn_root = os.path.join(dataset_dir, "config")
+        if os.path.exists(config_fn_root + ".json"):
+            config = json.load(open(config_fn_root + ".json", "r"))
+        elif os.path.exists(config_fn_root + ".yaml"):
+            config = YamlConfig(config_fn_root + ".yaml")
+        else:
+            raise FileNotFoundError(
+                "Could not find dataset config.yaml or config.json "
+                f"file in dataset at {dataset_dir}!"
+            )
 
         # open dataset
         dataset = TensorDataset(dataset_dir, config, access_mode=access_mode)

@@ -64,6 +64,15 @@ class TensorDatasetTest(unittest.TestCase):
         if os.path.exists(TEST_TENSOR_DATASET_NAME):
             shutil.rmtree(TEST_TENSOR_DATASET_NAME)
 
+    def test_open(self):
+        # Try opening nonexistent dataset (should raise error)
+        open_successful = True
+        try:
+            TensorDataset.open(TEST_TENSOR_DATASET_NAME)
+        except FileNotFoundError:
+            open_successful = False
+        self.assertFalse(open_successful)
+
     def test_single_read_write(self):
         # seed
         np.random.seed(SEED)
