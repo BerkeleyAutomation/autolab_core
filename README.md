@@ -1,6 +1,4 @@
-## NOTE: This is a maintenance branch for the legacy v1 API meant only for
-critical bug-fixes and patches. The latest v2 API can be found on the `master`
-branch.
+## NOTE: This is a maintenance branch for the legacy v1 API meant only for critical bug-fixes and patches. The latest v2 API can be found on the `master` branch.
 
 ## Berkeley Autolab Core Modules
 
