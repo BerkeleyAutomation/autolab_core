@@ -272,6 +272,18 @@ class RigidTransformTest(unittest.TestCase):
         v_b2 = R_a_b.dot(v_a.data)
         self.assertTrue(np.allclose(v_b.data, v_b2))
 
+    def test_linear_trajectory(self):
+        R_a = RigidTransform.random_rotation()
+        t_a = RigidTransform.random_translation()
+        R_b = RigidTransform.random_rotation()
+        t_b = RigidTransform.random_translation()
+        T_a = RigidTransform(R_a, t_a, "w", "a")
+        T_b = RigidTransform(R_b, t_b, "w", "b")
+
+        for i in range(10):
+            traj = T_a.linear_trajectory_to(T_b, i)
+            self.assertEqual(len(traj), i, "Trajectory has incorrect length")
+
 
 if __name__ == "__main__":
     unittest.main()
