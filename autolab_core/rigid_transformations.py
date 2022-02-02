@@ -253,9 +253,9 @@ class RigidTransform(object):
         theta = 2 * np.arccos(qw)
         omega = np.array([1, 0, 0])
         if theta > 0:
-            rx = qx / np.sqrt(1.0 - qw ** 2)
-            ry = qy / np.sqrt(1.0 - qw ** 2)
-            rz = qz / np.sqrt(1.0 - qw ** 2)
+            rx = qx / np.sqrt(1.0 - qw**2)
+            ry = qy / np.sqrt(1.0 - qw**2)
+            rz = qz / np.sqrt(1.0 - qw**2)
             omega = np.array([rx, ry, rz])
         return theta * omega
 
@@ -377,13 +377,10 @@ class RigidTransform(object):
         """
         if traj_len < 0:
             raise ValueError("Traj len must at least 0")
-        delta_t = 1.0 / (traj_len + 1)
-        t = 0.0
+        ts = np.linspace(0.0, 1.0, traj_len)
         traj = []
-        while t < 1.0:
+        for t in ts:
             traj.append(self.interpolate_with(target_tf, t))
-            t += delta_t
-        traj.append(target_tf)
         return traj
 
     def apply(self, points):

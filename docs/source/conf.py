@@ -52,9 +52,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"autolab_core"
-copyright = u"2016, Jeff Mahler"
-author = u"Jeff Mahler"
+project = "autolab_core"
+copyright = "2016, Jeff Mahler"
+author = "Jeff Mahler"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -229,8 +229,8 @@ latex_documents = [
     (
         master_doc,
         "autolab_core.tex",
-        u"autolab_core Documentation",
-        u"Jeff Mahler",
+        "autolab_core Documentation",
+        "Jeff Mahler",
         "manual",
     ),
 ]
@@ -261,7 +261,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, "autolab_core", u"autolab_core Documentation", [author], 1)
+    (master_doc, "autolab_core", "autolab_core Documentation", [author], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -277,7 +277,7 @@ texinfo_documents = [
     (
         master_doc,
         "autolab_core",
-        u"autolab_core Documentation",
+        "autolab_core Documentation",
         author,
         "autolab_core",
         "One line description of project.",
