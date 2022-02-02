@@ -273,7 +273,7 @@ def cart2sph(x, y, z):
     float
         elevation
     """
-    r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
+    r = np.sqrt(x**2 + y**2 + z**2)
     if x > 0 and y > 0:
         az = np.arctan(y / x)
     elif x > 0 and y < 0:

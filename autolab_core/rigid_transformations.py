@@ -253,9 +253,9 @@ class RigidTransform(object):
         theta = 2 * np.arccos(qw)
         omega = np.array([1, 0, 0])
         if theta > 0:
-            rx = qx / np.sqrt(1.0 - qw ** 2)
-            ry = qy / np.sqrt(1.0 - qw ** 2)
-            rz = qz / np.sqrt(1.0 - qw ** 2)
+            rx = qx / np.sqrt(1.0 - qw**2)
+            ry = qy / np.sqrt(1.0 - qw**2)
+            rz = qz / np.sqrt(1.0 - qw**2)
             omega = np.array([rx, ry, rz])
         return theta * omega
 
